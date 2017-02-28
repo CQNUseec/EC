@@ -3,7 +3,11 @@ TEMPLATE = app
 QT += qml quick
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += \
+    src/chat.cpp \
+    src/ecinteraction.cpp \
+    src/friendlist.cpp \
+    src/main.cpp
 
 RESOURCES += qml.qrc
 
@@ -12,3 +16,14 @@ QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
+
+HEADERS += \
+    model/chatfrienditem.h \
+    model/frienditem.h \
+    model/QQmlAutoPropertyHelpers.h \
+    model/QQmlHelpersCommon.h \
+    model/QQmlObjectListModel.h \
+    model/QQmlPtrPropertyHelpers.h \
+    src/chat.h \
+    src/ecinteraction.h \
+    src/friendlist.h

@@ -1,6 +1,16 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>MainForm.ui.qml</file>
+        <file>qml/ChatListDelegate.qml</file>
+        <file>qml/chatWindow.qml</file>
+        <file>qml/FriendListDelegate.qml</file>
+        <file>qml/logIn.qml</file>
+        <file>qml/main.qml</file>
+        <file>images/close.png</file>
+        <file>images/close0.png</file>
+        <file>images/close1.png</file>
+        <file>images/loginBackground.gif</file>
+        <file>images/loginBackground.png</file>
+        <file>images/mostLittle0.png</file>
+        <file>images/mostLittle1.png</file>
     </qresource>
 </RCC>
