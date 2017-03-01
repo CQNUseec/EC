@@ -1,3 +1,8 @@
+/*********************************
+ ***   author: RanJT
+ ***   date:   2017.3.1
+ ***   好友列表的显示样式(Delegate)   Component类型
+ ********************************/
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
@@ -6,27 +11,33 @@ import QtQuick.Controls 1.4
 Column {
     id: objRecursiveColumn
     clip: true
-    Row {
-        id: objRow
+    Item {
+        id: groupName
         height: 20
-        width: 100
-        //for indentation
-        Item {
-            id: groupName
-            height: 20
-            width: 100
-            Text {
-                anchors.fill: parent
-                text:qsTr(model.groupName)
-            }
-            MouseArea {
-                anchors.fill: groupName
-                onClicked: {
-                    groupMemberList.visible = !groupMemberList.visible
-                    if(groupMemberList.visible)
-                        console.log("展开")
-                    else
-                        console.log("收起")
+        width: 200
+        Image {
+            id:leftButtonImage
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            source: groupMemberList.visible ? "/images/unfolded.png": "/images/folod.png"
+        }
+        Text {
+            anchors.left: leftButtonImage.right
+            anchors.leftMargin: 5
+            anchors.verticalCenter: parent.verticalCenter
+            text: model.groupName
+        }
+        MouseArea {
+            anchors.fill: groupName
+            onClicked: {
+                groupMemberList.visible = !groupMemberList.visible
+                if(groupMemberList.visible)
+                {
+                    console.log("展开");
+                }
+                else
+                {
+                    console.log("收起");
                 }
             }
         }
@@ -43,9 +54,10 @@ Column {
             id: groupListDelegate
             Rectangle {
                 id: memberRec
-                height: 20
+                height: 50
                 width: 100
-                color: model.bSelected ? "#AEEEEE" : "#DBDBDB"
+                property bool bEntered: false
+                color: model.bSelected ? "#FCEAA3" : (bEntered ? "#FCF0C1" : "#F0F8FD")
                 radius: 3
                 Text {
                     anchors.centerIn: parent
@@ -54,14 +66,16 @@ Column {
                 }
                 MouseArea {
                     anchors.fill: memberRec
-                    hoverEnabled: true;
+                    hoverEnabled: true
                     onEntered: {
-                        memberRec.height = 25;
+                        memberRec.bEntered = true;
+                        //memberRec.height = 25;
                         //memberRec.width = 105;
                     }
                     onExited: {
-                        memberRec.height = 20;
-                        memberRec.width = 100;
+                        memberRec.bEntered = false;
+                        //                        memberRec.height = 20;
+                        //                        memberRec.width = 100;
                     }
                     onClicked: {
                         myFriend.setbSelected(model.groupName, model.account);

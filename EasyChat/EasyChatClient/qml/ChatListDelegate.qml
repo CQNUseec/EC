@@ -1,3 +1,8 @@
+/*********************************
+ ***   author: RanJT
+ ***   date:   2017.3.1
+ ***   聊天列表样式(Delegate)   Component类型
+ ********************************/
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
@@ -7,24 +12,24 @@ Column {
     clip: true
     Rectangle {
         id:rec
-        width: 115;
-        height: 26;
-        z: 1;
+        width: 115
+        height: 26
+        z: 1
         color: "#B2DFEE"
-        border.color: model.bSelected ? "green" : "white";
-        property bool bordeColor: model.bSelected;
+        border.color: model.bSelected ? "green" : "white"
+        property bool bordeColor: model.bSelected
         onBordeColorChanged: {
             if(bordeColor)
                 chatWindows.friendName = model.friendName;
         }
         Text {
-            anchors.centerIn: parent;
-            id: name;
-            text: qsTr(model.friendName);
+            anchors.centerIn: parent
+            id: name
+            text: qsTr(model.friendName)
         }
         MouseArea {
-            anchors.fill: parent;
-            hoverEnabled: true;
+            anchors.fill: parent
+            hoverEnabled: true
             onEntered: {
                 rec.z = 4;
                 rec.width = 120;
@@ -36,7 +41,7 @@ Column {
                 rec.height = 26;
             }
             onClicked: {
-                chatWindow.friendName = model.friendName;
+                chatWindows.friendName = model.friendName;
                 chat.setbSelected(model.friendAccount);
             }
         }

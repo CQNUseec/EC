@@ -203,6 +203,8 @@ debug\qrc_qml.cpp: ..\qml.qrc \
 		..\images\loginBackground.png \
 		..\images\loginBackground.gif \
 		..\images\close0.png \
+		..\images\folod.png \
+		..\images\unfolded.png \
 		..\images\mostLittle1.png
 	D:\Qt\Qt5.7.0\5.7\msvc2015\bin\rcc.exe -name qml ..\qml.qrc -o debug\qrc_qml.cpp
 

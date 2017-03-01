@@ -12,5 +12,7 @@
         <file>images/loginBackground.png</file>
         <file>images/mostLittle0.png</file>
         <file>images/mostLittle1.png</file>
+        <file>images/folod.png</file>
+        <file>images/unfolded.png</file>
     </qresource>
 </RCC>
