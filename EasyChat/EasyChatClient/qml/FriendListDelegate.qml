@@ -11,13 +11,15 @@ import QtQuick.Controls 1.4
 Column {
     id: objRecursiveColumn
     clip: true
+    property int itemWidth: 200
     Item {
         id: groupName
         height: 20
-        width: 200
+        width: objRecursiveColumn.itemWidth
         Image {
             id:leftButtonImage
             anchors.left: parent.left
+            anchors.leftMargin: 5
             anchors.verticalCenter: parent.verticalCenter
             source: groupMemberList.visible ? "/images/unfolded.png": "/images/folod.png"
         }
@@ -26,6 +28,8 @@ Column {
             anchors.leftMargin: 5
             anchors.verticalCenter: parent.verticalCenter
             text: model.groupName
+            font.family: "微软雅黑"
+            font.pointSize: 10
         }
         MouseArea {
             anchors.fill: groupName
@@ -55,7 +59,7 @@ Column {
             Rectangle {
                 id: memberRec
                 height: 50
-                width: 100
+                width: objRecursiveColumn.itemWidth
                 property bool bEntered: false
                 color: model.bSelected ? "#FCEAA3" : (bEntered ? "#FCF0C1" : "#F0F8FD")
                 radius: 3
@@ -63,19 +67,17 @@ Column {
                     anchors.centerIn: parent
                     text:model.nickName
                     color: "black"
+                    font.family: "微软雅黑"
+                    font.pointSize: 10
                 }
                 MouseArea {
                     anchors.fill: memberRec
                     hoverEnabled: true
                     onEntered: {
                         memberRec.bEntered = true;
-                        //memberRec.height = 25;
-                        //memberRec.width = 105;
                     }
                     onExited: {
-                        memberRec.bEntered = false;
-                        //                        memberRec.height = 20;
-                        //                        memberRec.width = 100;
+                        memberRec.bEntered = false;                   
                     }
                     onClicked: {
                         myFriend.setbSelected(model.groupName, model.account);

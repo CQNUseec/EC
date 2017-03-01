@@ -21,19 +21,27 @@ ApplicationWindow {
     onClosing: {
         chatLoader.source = "";
     }
-    ScrollView {
-        id:scrollView
-        anchors.fill: parent
-        anchors.leftMargin: 30
+    ListView {
+        id: friendListView
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: slideBar.visible ? slideBar.left : parent.right
+        anchors.leftMargin: 5
         clip: true
-        ListView {
-            id: friendListView
-            anchors.fill: parent
-            model:friendList
-            delegate: FriendListDelegate{}
-            cacheBuffer: 10
-        }
+        model:friendList
+        delegate: FriendListDelegate{itemWidth: slideBar.visible ? mainWindow.width-slideBar.width :mainWindow.width}
+        highlightFollowsCurrentItem: true;
+        highlightMoveVelocity: 14000;
+        cacheBuffer: 10
     }
+  ListViewSlideBar {  //使用自定义的滑动条    因为在ScrollView中嵌套ListView有点问题
+      id: slideBar
+      anchors.top: friendListView.top
+      anchors.right: parent.right
+      anchors.bottom: friendListView.bottom
+      view: friendListView
+  }
     Loader {
         id: chatLoader
         smooth:true

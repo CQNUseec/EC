@@ -192,6 +192,7 @@ compiler_rcc_clean:
 	-$(DEL_FILE) debug\qrc_qml.cpp
 debug\qrc_qml.cpp: ..\qml.qrc \
 		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\bin\rcc.exe \
+		..\qml\ListViewSlideBar.qml \
 		..\qml\FriendListDelegate.qml \
 		..\qml\logIn.qml \
 		..\qml\ChatListDelegate.qml \
@@ -199,13 +200,17 @@ debug\qrc_qml.cpp: ..\qml.qrc \
 		..\qml\main.qml \
 		..\images\close.png \
 		..\images\mostLittle0.png \
+		..\images\scrollviewToEndH.png \
 		..\images\close1.png \
 		..\images\loginBackground.png \
+		..\images\scrollviewToEnd.png \
 		..\images\loginBackground.gif \
+		..\images\scrollviewToBegin.png \
 		..\images\close0.png \
 		..\images\folod.png \
 		..\images\unfolded.png \
-		..\images\mostLittle1.png
+		..\images\mostLittle1.png \
+		..\images\scrollviewToBeginH.png
 	D:\Qt\Qt5.7.0\5.7\msvc2015\bin\rcc.exe -name qml ..\qml.qrc -o debug\qrc_qml.cpp
 
 compiler_moc_header_make_all: debug\moc_chatfrienditem.cpp debug\moc_frienditem.cpp debug\moc_QQmlAutoPropertyHelpers.cpp debug\moc_QQmlObjectListModel.cpp debug\moc_QQmlPtrPropertyHelpers.cpp debug\moc_chat.cpp debug\moc_ecinteraction.cpp debug\moc_friendlist.cpp

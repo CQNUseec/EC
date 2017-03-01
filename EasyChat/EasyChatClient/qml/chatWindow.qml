@@ -36,7 +36,9 @@ ApplicationWindow {
             id: friendListTitle
             height: 20
             anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("聊天列表")
+            font.family: "微软雅黑"
         }
         ScrollView {
             id:scrollViewFriendList
