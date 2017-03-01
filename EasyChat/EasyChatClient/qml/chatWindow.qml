@@ -59,10 +59,10 @@ ApplicationWindow {
         anchors.top: parent.top
         anchors.left: leftTabRec.right
         anchors.right: parent.right
-        height: 350
+        height: parent.height * 0.7
         border.color: "blue"
-        border.width: 5
-        radius: 5
+        border.width: 2
+        radius: 3
         Text {
             anchors.centerIn: parent
             text: qsTr("聊天内容显示框")
@@ -75,8 +75,8 @@ ApplicationWindow {
         anchors.left: leftTabRec.right
         anchors.right: parent.right
         border.color: "yellow"
-        border.width: 5
-        radius: 5
+        border.width: 2
+        radius: 3
         Text {
             anchors.centerIn: parent
             text: qsTr("聊天内容输入框")

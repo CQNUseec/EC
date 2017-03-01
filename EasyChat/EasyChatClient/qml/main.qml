@@ -7,23 +7,32 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.4
+import QtQuick.Window 2.2
 
-ApplicationWindow {
+Window {
     id: mainWindow
     visible: false
     width: 240
     height: 550
     title: qsTr("Easychat聊天系统")
     color: "#F0F8FE"
+    flags: Qt.Window | Qt.FramelessWindowHint
     Component.onCompleted: {
         chatLoader.setSource("logIn.qml");
     }
     onClosing: {
         chatLoader.source = "";
     }
+    TitleRec {
+        id: topRec
+        width: parent.width
+        height: 27
+        window: mainWindow
+        color: "#005791"
+    }
     ListView {
         id: friendListView
-        anchors.top: parent.top
+        anchors.top: topRec.bottom
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: slideBar.visible ? slideBar.left : parent.right

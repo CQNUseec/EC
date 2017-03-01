@@ -19,5 +19,6 @@
         <file>images/scrollviewToEnd.png</file>
         <file>images/scrollviewToEndH.png</file>
         <file>qml/ListViewSlideBar.qml</file>
+        <file>qml/TitleRec.qml</file>
     </qresource>
 </RCC>
