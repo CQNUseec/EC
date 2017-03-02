@@ -1,7 +1,7 @@
 /*********************************
  ***   author: RanJT
  ***   date:   2017.3.1
- ***   含有最小化和关闭按钮的自定标题栏  组件
+ ***   自定标题栏  组件
  ********************************/
 import QtQuick 2.7
 import QtQuick.Controls 2.0
@@ -16,6 +16,9 @@ Rectangle {
     property var window
     property string titleText: qsTr("Easy Chat")
     property bool isDisplayTitleText: true
+    property bool minimizeButtonVisible: true
+    property bool biggestButtonVisible: true
+    property bool closeButtonVisible: true
     MouseArea { //为窗口添加鼠标事件
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton //只处理鼠标左键
@@ -31,6 +34,10 @@ Rectangle {
             window.setX(window.x+delta.x);
             window.setY(window.y+delta.y);
         }
+        onDoubleClicked: {
+            if(biggestButtonVisible)
+                window.visibility=== Window.Maximized ? window.visibility=Window.AutomaticVisibility : window.visibility=Window.Maximized;
+        }
     }
     Text {
         anchors.verticalCenter: parent.verticalCenter
@@ -42,47 +49,76 @@ Rectangle {
         font.pointSize: 9
         color:"#ffffff"
     }
-    Image {      //最小化按钮
-        id: minimizeButton
-        source: "/images/mostLittle0.png"
+    Row{
+        id:buttons
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.right: closeButton.left
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onClicked: {
-                minimizeButton.source = "/images/mostLittle1.png";
-                window.showMinimized();
-            }
-            onEntered: {
-                minimizeButton.source = "/images/mostLittle1.png";
-            }
-            onExited: {
-                minimizeButton.source = "/images/mostLittle0.png";
+        anchors.right: parent.right
+        Image {      //最小化按钮
+            id: minimizeButton
+            source: "/images/mostLittle0.png"
+            //        anchors.verticalCenter: parent.verticalCenter;
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            visible: topRct.minimizeButtonVisible
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                onClicked: {
+                    minimizeButton.source = "/images/mostLittle1.png";
+                    window.showMinimized();
+                }
+                onEntered: {
+                    minimizeButton.source = "/images/mostLittle1.png";
+                }
+                onExited: {
+                    minimizeButton.source = "/images/mostLittle0.png";
+                }
             }
         }
-    }
-    Image {          // 关闭按钮
-        id:closeButton
-        source: "/images/close0.png"
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onEntered: {
-                closeButton.source = "/images/close1.png";
+        Image {       // 最大化/缩小按钮
+            id:biggestButton;
+            source: "/images/bigest01.png";
+            //        anchors.verticalCenter: parent.verticalCenter;
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            visible: topRct.biggestButtonVisible
+            MouseArea {
+                anchors.fill: parent;
+                hoverEnabled: true;
+                onEntered: {
+                    biggestButton.source = (window.visibility=== Window.Maximized ? "/images/reduction02.png" : "/images/bigest02.png")
+                }
+                onExited: {
+                    biggestButton.source = (window.visibility=== Window.Maximized ? "/images/reduction01.png" : "/images/bigest01.png")
+                }
+                onClicked: {
+                    window.visibility=== Window.Maximized ? window.visibility=Window.AutomaticVisibility : window.visibility=Window.Maximized;
+                    biggestButton.source = "/images/reduction01.png"
+                }
             }
-            onExited: {
-                closeButton.source = "/images/close0.png";
-            }
-            onClicked: {
-                closeButton.source = "/images/close1.png";
-                window.close();
+        }
+        Image {          // 关闭按钮
+            id:closeButton
+            source: "/images/close0.png"
+            //        anchors.verticalCenter: parent.verticalCenter;
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            visible: topRct.closeButtonVisible
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                onEntered: {
+                    closeButton.source = "/images/close1.png";
+                }
+                onExited: {
+                    closeButton.source = "/images/close0.png";
+                }
+                onClicked: {
+                    closeButton.source = "/images/close1.png";
+                    window.close();
+                }
             }
         }
     }
 }
-

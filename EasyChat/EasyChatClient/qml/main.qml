@@ -14,7 +14,6 @@ Window {
     visible: false
     width: 240
     height: 550
-    title: qsTr("Easychat聊天系统")
     color: "#F0F8FE"
     flags: Qt.Window | Qt.FramelessWindowHint
     Component.onCompleted: {
@@ -28,6 +27,7 @@ Window {
         width: parent.width
         height: 27
         window: mainWindow
+        biggestButtonVisible: false
         color: "#005791"
     }
     ListView {

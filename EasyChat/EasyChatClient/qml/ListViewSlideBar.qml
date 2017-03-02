@@ -35,11 +35,11 @@ Rectangle {               //自定义滑动条
             anchors.fill: parent
             hoverEnabled: true;
             onEntered: {
-                upButtonImage.source = "/images/scrollviewToBeginH.png"
+                upButtonImage.source = "/images/scrollviewToBeginH.png";
                 slideAreaRec.isEntered = true;
             }
             onExited: {
-                upButtonImage.source = "/images/scrollviewToBegin.png"
+                upButtonImage.source = "/images/scrollviewToBegin.png";
                 slideAreaRec.isEntered = false;
             }
 
@@ -89,7 +89,7 @@ Rectangle {               //自定义滑动条
                 onMouseYChanged: {
                     if(!view.atYEnd)
                         view.contentY -= slideAreaRec.yPosSize;
-                    view.contentY = button.y / slideBar.height * view.contentHeight
+                    view.contentY = button.y / slideBar.height * view.contentHeight;
                 }
                 onEntered: {
                     slideAreaRec.isEntered = true;
@@ -162,11 +162,11 @@ Rectangle {               //自定义滑动条
             anchors.fill: parent
             hoverEnabled: true;
             onEntered: {
-                downButtonImage.source = "/images/scrollviewToEndH.png"
+                downButtonImage.source = "/images/scrollviewToEndH.png";
                 slideAreaRec.isEntered = true;
             }
             onExited: {
-                downButtonImage.source = "/images/scrollviewToEnd.png"
+                downButtonImage.source = "/images/scrollviewToEnd.png";
                 slideAreaRec.isEntered = false;
             }
 

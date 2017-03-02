@@ -21,52 +21,120 @@ Window {
         height: 27
         color:"#005791"
         window: loginWindow
+        biggestButtonVisible: false
     }
-    Rectangle{
-        id: loginInfo
+    Image {
+        id:background
+        height: 155
         anchors.top: topRct.bottom
+        anchors.left: loginWindow.left
+        anchors.right: loginWindow.right
+        source: "/images/loginBackground.png"
+    }
+    Rectangle {
+        id: accountRow
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        color: "#EBF2F9"
-        AnimatedImage {
-            id:background
-            anchors.top: loginInfo.top
-            anchors.left: loginInfo.left
-            anchors.right: loginInfo.right
-            anchors.bottom: loginButtom.top
-            source: "/images/loginBackground.gif"
-            playing: true
-            visible: true
-            z: 2
+        anchors.top: background.bottom
+        anchors.topMargin: 15
+        height: 33
+        Text {
+            anchors.verticalCenter: accountInput.verticalCenter
+            anchors.right: accountInput.left
+            anchors.rightMargin: 10
+            font.pointSize: 11
+            font.family: "微软雅黑"
+            text: qsTr("账号:")
         }
-        Rectangle {
-            id: loginButtom
-            width: 193
-            height: 33
+        TextField {
+            id: accountInput
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
-            color: "#09A3DC"
-            radius: 3
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-                onEntered: {
-                    loginButtom.color = "#3CC3F5";
-                }
-                onExited: {
-                    loginButtom.color = "#09A3DC";
-                }
-                onClicked: {
-                    EcInteraction.logIn("account", "password");
-                }
+            anchors.top: parent.top
+            width: 200
+            height: 33
+            font.pixelSize: 15
+            focus: true
+            maximumLength: 11
+            placeholderText: qsTr("请输入账号")
+            selectByMouse: true
+            style: TextFieldStyleSelf{}
+            validator: RegExpValidator{
+                regExp: (/^[0-9]*$/)     //限制为数字
             }
-            Text {
-                anchors.centerIn: parent
-                text: qsTr("登  录")
-                color: "white"
+        }
+        Button {
+            id: registerButton
+            anchors.verticalCenter: accountInput.verticalCenter
+            anchors.left: accountInput.right
+            anchors.leftMargin: 10
+            text: qsTr("注册账号")
+        }
+    }
+    Rectangle {
+        id: passwordRow
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: accountRow.bottom
+        height: 33
+        Text {
+            anchors.verticalCenter: passwordInput.verticalCenter
+            anchors.right: passwordInput.left
+            anchors.rightMargin: 10
+            font.pointSize: 11
+            font.family: "微软雅黑"
+            text: qsTr("密码:")
+        }
+        TextField {
+            id: passwordInput
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            width: 200
+            height: 33
+            font.pixelSize: 15
+            focus: false
+            maximumLength: 16
+            selectByMouse: true
+            placeholderText: qsTr("请输入密码")
+            echoMode: TextInput.Password
+            style: TextFieldStyleSelf{}
+        }
+        Button {
+            id: forgetPassword
+            anchors.verticalCenter: passwordInput.verticalCenter
+            anchors.left: passwordInput.right
+            anchors.leftMargin: 10
+            text: qsTr("忘记密码")
+        }
+    }
+    Rectangle {
+        id: loginButtom
+        width: 193
+        height: 33
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 17
+        color: "#09A3DC"
+        radius: 3
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onEntered: {
+                loginButtom.color = "#3CC3F5";
             }
+            onExited: {
+                loginButtom.color = "#09A3DC";
+            }
+            onClicked: {
+                console.log(accountInput.text, passwordInput.text)
+                if(accountInput.length > 0 && passwordInput.length > 0)
+                    EcInteraction.logIn(accountInput.text, passwordInput.text);
+            }
+        }
+        Text {
+            id:loginButtomText
+            anchors.centerIn: parent
+            text: qsTr("登  录")
+            color: "white"
         }
     }
 }

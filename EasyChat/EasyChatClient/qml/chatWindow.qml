@@ -10,20 +10,28 @@ import QtQuick.Layouts 1.3
 import QtQml.Models 2.2
 
 
-ApplicationWindow {
+Window {
     id: chatWindows;
-    property string friendName: ""
     width: 800
     height: 500
     visible: true
-    title: qsTr("chat with " + friendName)
+    flags: Qt.Window | Qt.FramelessWindowHint
+    property string friendName: ""
     onClosing: {
         chat.clearModel();
         console.log("关闭聊天窗口， 清空聊天列表");
     }
+    TitleRec {
+        id: topRct
+        width: parent.width
+        height: 27
+        color:"#005791"
+        window: chatWindows
+        titleText: friendName
+    }
     Rectangle {    // 左边边框
         id: leftTabRec
-        anchors.top: parent.top
+        anchors.top: topRct.bottom
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         width: 120
@@ -36,31 +44,34 @@ ApplicationWindow {
             id: friendListTitle
             height: 20
             anchors.top: parent.top
+            anchors.topMargin: 5
             anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("聊天列表")
             font.family: "微软雅黑"
         }
-        ScrollView {
-            id:scrollViewFriendList
-            anchors.top: friendListTitle.bottom
-            anchors.bottom: parent.bottom
-            width: parent.width
-            height: parent.height - friendListTitle.height
             ListView {
-                id: friendList
-                anchors.fill: parent
+                id: chatingFriendList
+                anchors.top: friendListTitle.bottom
+                anchors.bottom: parent.bottom
+                width: parent.width
+                height: parent.height - friendListTitle.height
                 model: chatFriendList
                 delegate: ChatListDelegate{}
             }
-        }
+            ListViewSlideBar {
+                anchors.top: chatingFriendList.top
+                anchors.right: parent.right
+                anchors.bottom: chatingFriendList.bottom
+                view: chatingFriendList
+            }
     }
     Rectangle {   //聊天内容显示框
         id: chatContentRec
-        anchors.top: parent.top
+        anchors.top: topRct.bottom
         anchors.left: leftTabRec.right
         anchors.right: parent.right
         height: parent.height * 0.7
-        border.color: "blue"
+        border.color: "red"
         border.width: 2
         radius: 3
         Text {
