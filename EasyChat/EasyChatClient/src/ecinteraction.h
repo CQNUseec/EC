@@ -15,7 +15,7 @@ public:
     Chat* getChat() const;
     Q_INVOKABLE QString getSystemFont() const;
 signals:
-    void sig_loginResult(bool res);
+    void sig_loginResult(int res);
 private:
     QSharedPointer<FriendList>    m_qpFriendList;
     QSharedPointer<Chat>          m_qpChat;

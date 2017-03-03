@@ -2,7 +2,12 @@
 
 void EcInteraction::logIn(QString account, QString password)
 {
-    emit sig_loginResult(true);   //测试用
+    if(account == "111111")
+        emit sig_loginResult(EC_LOGIN_RESULT_INVALID_ACCOUNT);
+    else if(password == "easychat")
+        emit sig_loginResult(EC_LOGIN_RESULT_SUCCESSFUL);
+    else
+        emit sig_loginResult(EC_LOGIN_RESULT_WRONG_PASSWORD);
 }
 
 EcInteraction::EcInteraction(QObject *parent): QObject(parent)
@@ -23,7 +28,7 @@ Chat *EcInteraction::getChat() const
 
 QString EcInteraction::getSystemFont() const
 {
-    return SYSTEM_FONT;
+    return EC_SYSTEM_FONT;
 }
 
 

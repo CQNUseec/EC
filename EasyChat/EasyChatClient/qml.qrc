@@ -24,5 +24,7 @@
         <file>images/reduction01.png</file>
         <file>images/reduction02.png</file>
         <file>qml/ECTextFieldStyle.qml</file>
+        <file>qml/ECButtonStyle.qml</file>
+        <file>qml/registration.qml</file>
     </qresource>
 </RCC>

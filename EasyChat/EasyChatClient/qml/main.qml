@@ -57,7 +57,7 @@ Window {
     Connections {
         target: EcInteraction
         onSig_loginResult: {
-            if(res)
+            if(res === 10)
             {
                 mainWindow.visible = true;
                 chatLoader.source = "";

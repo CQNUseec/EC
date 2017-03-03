@@ -12,7 +12,7 @@ Rectangle {
     id:topRct
     anchors.top: parent.top
     anchors.left: parent.left
-    property var window
+    property variant window
     property string titleText: qsTr("Easy Chat")
     property bool isDisplayTitleText: true
     property bool minimizeButtonVisible: true

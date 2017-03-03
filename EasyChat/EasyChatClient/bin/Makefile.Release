@@ -196,7 +196,9 @@ release\qrc_qml.cpp: ..\qml.qrc \
 		..\qml\TitleRec.qml \
 		..\qml\ListViewSlideBar.qml \
 		..\qml\ECTextFieldStyle.qml \
+		..\qml\registration.qml \
 		..\qml\FriendListDelegate.qml \
+		..\qml\ECButtonStyle.qml \
 		..\qml\logIn.qml \
 		..\qml\ChatListDelegate.qml \
 		..\qml\chatWindow.qml \

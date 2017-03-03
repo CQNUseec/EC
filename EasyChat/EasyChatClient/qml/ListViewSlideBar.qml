@@ -13,7 +13,7 @@ Rectangle {               //自定义滑动条
     property bool upButtonClicked: false
     property bool downButtonClicked: false
     property bool bDrap: false
-    property var view
+    property variant view
     property bool isEntered: false
     property int yPosSize: 30
     clip: true
