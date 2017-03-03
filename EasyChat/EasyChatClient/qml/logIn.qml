@@ -4,11 +4,9 @@
  ***   登陆界面
  ********************************/
 import QtQuick 2.7
-import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.4
 import QtQuick.Window 2.2
-
 Window {
     id:loginWindow
     width: 432
@@ -43,7 +41,7 @@ Window {
             anchors.right: accountInput.left
             anchors.rightMargin: 10
             font.pointSize: 11
-            font.family: "微软雅黑"
+            font.family: EcInteraction.getSystemFont()
             text: qsTr("账号:")
         }
         TextField {
@@ -57,7 +55,7 @@ Window {
             maximumLength: 11
             placeholderText: qsTr("请输入账号")
             selectByMouse: true
-            style: TextFieldStyleSelf{}
+            style: ECTextFieldStyle{}
             validator: RegExpValidator{
                 regExp: (/^[0-9]*$/)     //限制为数字
             }
@@ -81,7 +79,7 @@ Window {
             anchors.right: passwordInput.left
             anchors.rightMargin: 10
             font.pointSize: 11
-            font.family: "微软雅黑"
+            font.family: EcInteraction.getSystemFont()
             text: qsTr("密码:")
         }
         TextField {
@@ -96,7 +94,7 @@ Window {
             selectByMouse: true
             placeholderText: qsTr("请输入密码")
             echoMode: TextInput.Password
-            style: TextFieldStyleSelf{}
+            style: ECTextFieldStyle{}
         }
         Button {
             id: forgetPassword

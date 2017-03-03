@@ -4,7 +4,6 @@
  ***   主界面  显示好友列表 以及其他功能的入口
  ********************************/
 import QtQuick 2.7
-import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.4
 import QtQuick.Window 2.2

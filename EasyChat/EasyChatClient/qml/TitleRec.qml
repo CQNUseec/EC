@@ -4,7 +4,6 @@
  ***   自定标题栏  组件
  ********************************/
 import QtQuick 2.7
-import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.4
 import QtQuick.Window 2.2
@@ -36,7 +35,10 @@ Rectangle {
         }
         onDoubleClicked: {
             if(biggestButtonVisible)
+            {
                 window.visibility=== Window.Maximized ? window.visibility=Window.AutomaticVisibility : window.visibility=Window.Maximized;
+                biggestButton.source = (window.visibility=== Window.Maximized ? "/images/reduction01.png" : "/images/bigest01.png")
+            }
         }
     }
     Text {
@@ -45,7 +47,7 @@ Rectangle {
         anchors.leftMargin: 15
         visible: topRct.isDisplayTitleText
         text:topRct.titleText
-        font.family: "微软雅黑"
+        font.family: EcInteraction.getSystemFont()
         font.pointSize: 9
         color:"#ffffff"
     }
@@ -94,7 +96,7 @@ Rectangle {
                 }
                 onClicked: {
                     window.visibility=== Window.Maximized ? window.visibility=Window.AutomaticVisibility : window.visibility=Window.Maximized;
-                    biggestButton.source = "/images/reduction01.png"
+                    biggestButton.source = (window.visibility=== Window.Maximized ? "/images/reduction01.png" : "/images/bigest01.png")
                 }
             }
         }

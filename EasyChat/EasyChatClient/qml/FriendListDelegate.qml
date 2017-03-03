@@ -4,7 +4,6 @@
  ***   好友列表的显示样式(Delegate)   Component类型
  ********************************/
 import QtQuick 2.7
-import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.4
 
@@ -28,7 +27,7 @@ Column {
             anchors.leftMargin: 5
             anchors.verticalCenter: parent.verticalCenter
             text: model.groupName
-            font.family: "微软雅黑"
+            font.family: EcInteraction.getSystemFont()
             font.pointSize: 10
         }
         MouseArea {
@@ -67,7 +66,7 @@ Column {
                     anchors.centerIn: parent
                     text:model.nickName
                     color: "black"
-                    font.family: "微软雅黑"
+                    font.family: EcInteraction.getSystemFont()
                     font.pointSize: 10
                 }
                 MouseArea {

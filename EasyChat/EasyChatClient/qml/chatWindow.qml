@@ -47,7 +47,7 @@ Window {
             anchors.topMargin: 5
             anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("聊天列表")
-            font.family: "微软雅黑"
+            font.family: EcInteraction.getSystemFont()
         }
             ListView {
                 id: chatingFriendList

@@ -77,7 +77,8 @@ DIST          =  ..\model\chatfrienditem.h \
 		..\model\QQmlPtrPropertyHelpers.h \
 		..\src\chat.h \
 		..\src\ecinteraction.h \
-		..\src\friendlist.h ..\src\chat.cpp \
+		..\src\friendlist.h \
+		..\src\ecglobal.h ..\src\chat.cpp \
 		..\src\ecinteraction.cpp \
 		..\src\friendlist.cpp \
 		..\src\main.cpp
@@ -193,8 +194,8 @@ compiler_rcc_clean:
 release\qrc_qml.cpp: ..\qml.qrc \
 		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\bin\rcc.exe \
 		..\qml\TitleRec.qml \
-		..\qml\TextFieldStyleSelf.qml \
 		..\qml\ListViewSlideBar.qml \
+		..\qml\ECTextFieldStyle.qml \
 		..\qml\FriendListDelegate.qml \
 		..\qml\logIn.qml \
 		..\qml\ChatListDelegate.qml \
@@ -757,6 +758,7 @@ release\moc_ecinteraction.cpp: ..\src\chat.h \
 		..\model\QQmlPtrPropertyHelpers.h \
 		..\src\friendlist.h \
 		..\model\frienditem.h \
+		..\src\ecglobal.h \
 		..\src\ecinteraction.h \
 		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\bin\moc.exe
 	D:\Qt\Qt5.7.0\5.7\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -ID:/Qt/Qt5.7.0/5.7/msvc2015/mkspecs/win32-msvc2015 -ID:/gitWorkDir/EasyChat/EasyChatClient -ID:/Qt/Qt5.7.0/5.7/msvc2015/include -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtQuick -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtGui -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtANGLE -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtQml -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtNetwork -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtCore -I. ..\src\ecinteraction.h -o release\moc_ecinteraction.cpp
@@ -1036,7 +1038,8 @@ release\ecinteraction.obj: ..\src\ecinteraction.cpp ../src/ecinteraction.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QtGlobal \
 		../model/QQmlPtrPropertyHelpers.h \
 		../src/friendlist.h \
-		../model/frienditem.h
+		../model/frienditem.h \
+		../src/ecglobal.h
 
 release\friendlist.obj: ..\src\friendlist.cpp ../src/friendlist.h \
 		../model/frienditem.h \
@@ -1236,7 +1239,8 @@ release\main.obj: ..\src\main.cpp ..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QtGlobal \
 		../model/QQmlPtrPropertyHelpers.h \
 		../src/friendlist.h \
-		../model/frienditem.h
+		../model/frienditem.h \
+		../src/ecglobal.h
 
 release\qrc_qml.obj: release\qrc_qml.cpp 
 

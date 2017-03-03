@@ -2,6 +2,7 @@
 #define ECINTERACTION_H
 #include "chat.h"
 #include "friendlist.h"
+#include "ecglobal.h"
 #include <QSharedPointer>
 
 class EcInteraction: public QObject      //UI接口类（提供所有的 UI和后台逻辑交互的 接口）
@@ -12,6 +13,7 @@ public:
     EcInteraction(QObject *parent);
     FriendList* getFriendList() const;
     Chat* getChat() const;
+    Q_INVOKABLE QString getSystemFont() const;
 signals:
     void sig_loginResult(bool res);
 private:

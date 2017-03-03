@@ -23,6 +23,6 @@
         <file>images/bigest02.png</file>
         <file>images/reduction01.png</file>
         <file>images/reduction02.png</file>
-        <file>qml/TextFieldStyleSelf.qml</file>
+        <file>qml/ECTextFieldStyle.qml</file>
     </qresource>
 </RCC>

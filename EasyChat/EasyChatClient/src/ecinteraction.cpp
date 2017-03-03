@@ -21,4 +21,9 @@ Chat *EcInteraction::getChat() const
     return m_qpChat.data();
 }
 
+QString EcInteraction::getSystemFont() const
+{
+    return SYSTEM_FONT;
+}
+
 

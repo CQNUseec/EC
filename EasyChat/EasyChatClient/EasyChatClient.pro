@@ -26,4 +26,5 @@ HEADERS += \
     model/QQmlPtrPropertyHelpers.h \
     src/chat.h \
     src/ecinteraction.h \
-    src/friendlist.h
+    src/friendlist.h \
+    src/ecglobal.h
