@@ -1,5 +1,5 @@
 #include "ecinteraction.h"
-
+#include <QThread>
 void EcInteraction::logIn(QString account, QString password)
 {
     if(account == "111111")

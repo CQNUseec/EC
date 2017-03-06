@@ -7,7 +7,8 @@ SOURCES += \
     src/chat.cpp \
     src/ecinteraction.cpp \
     src/friendlist.cpp \
-    src/main.cpp
+    src/main.cpp \
+    src/ecclient.cpp
 
 RESOURCES += qml.qrc
 
@@ -27,4 +28,5 @@ HEADERS += \
     src/chat.h \
     src/ecinteraction.h \
     src/friendlist.h \
-    src/ecglobal.h
+    src/ecglobal.h \
+    src/ecclient.h

@@ -9,11 +9,12 @@ class EcInteraction: public QObject      //UI接口类（提供所有的 UI和�
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE void logIn(QString account, QString password);
     EcInteraction(QObject *parent);
-    FriendList* getFriendList() const;
-    Chat* getChat() const;
-    Q_INVOKABLE QString getSystemFont() const;
+    Q_INVOKABLE void      logIn(QString account, QString password);
+//    Q_INVOKABLE void cancelLogin();
+    Q_INVOKABLE QString   getSystemFont() const;
+    FriendList*           getFriendList() const;
+    Chat*                 getChat() const;
 signals:
     void sig_loginResult(int res);
 private:

@@ -12,12 +12,12 @@ ChatFriendItemModel* Chat::getChatFriendItemModel() const
 
 bool Chat::isChatWindowOpen()
 {
-    return m_qpChatFriendItemModel->count() > 0;
+    return !m_qpChatFriendItemModel->isEmpty();
 }
 
 void Chat::clearModel()
 {
-    if(m_qpChatFriendItemModel->count() > 0)
+    if(!m_qpChatFriendItemModel->isEmpty())
     {
         QList<ChatFriendItem *> list = m_qpChatFriendItemModel->toList();
         m_qpChatFriendItemModel->clear();

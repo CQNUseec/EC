@@ -14,6 +14,7 @@ Window {
     height: 330
     visible: true
     flags: Qt.Window | Qt.FramelessWindowHint
+    property bool isCancelLogin: false
     TitleRec {
         id: topRct
         width: parent.width
@@ -21,6 +22,14 @@ Window {
         color:"#005791"
         window: loginWindow
         biggestButtonVisible: false
+    }
+    AnimatedImage {
+        id: loginBackground
+        z: 3
+        anchors.centerIn: parent
+        source: "/images/loginBackground.gif"
+        playing: true
+        visible: false
     }
     Image {
         id:background
@@ -54,7 +63,7 @@ Window {
             visible: false
             font.pointSize: 11
             font.family: EcInteraction.getSystemFont()
-            text: qsTr("无效账号")
+            text: accountInput.length > 0 ? qsTr("无效账号") : qsTr("请先输入账号")
         }
         TextField {
             id: accountInput
@@ -80,9 +89,8 @@ Window {
             anchors.verticalCenter: accountInput.verticalCenter
             anchors.left: accountInput.right
             anchors.leftMargin: 10
-            style: ECButtonStyle { button: registerButton; buttonText: "注册账号" }
+            style: ECButtonStyle { button: registerButton; buttonText: "注册账号"; }
             onClicked: {
-                console.log("zhuce");
                 ecLoader.setSource("registration.qml");
             }
         }
@@ -110,7 +118,7 @@ Window {
             visible: false
             font.pointSize: 11
             font.family: EcInteraction.getSystemFont()
-            text: qsTr("无效密码")
+            text: passwordInput.length > 0 ? (passwordInput.length > 5 ? qsTr("密码错误") : qsTr("无效密码")) : qsTr("请先输入密码")
         }
         TextField {
             id: passwordInput
@@ -133,7 +141,6 @@ Window {
             anchors.verticalCenter: passwordInput.verticalCenter
             anchors.left: passwordInput.right
             anchors.leftMargin: 10
-            //text: qsTr("忘记密码")
             style: ECButtonStyle{ button:forgetPassword; buttonText: "忘记密码" }
         }
     }
@@ -142,16 +149,13 @@ Window {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 17
-        style: ECButtonStyle{ button: loginButtom; buttonImplicitWidth: 193; buttonImplicitHeight: 33; buttonText: "登  录" }
+        property string buttomText: "登  录"
+        style: ECButtonStyle{ button: loginButtom; buttonImplicitWidth: 193; buttonImplicitHeight: 33; buttonText: loginButtom.buttomText }
         onClicked: {
-            accountInput.focus = false;
-            passwordInput.focus = false;
-            if(accountInput.length < 6)
-                accountInputTips.visible = true;
-            if(passwordInput.length < 6)
-                passwordInputTips.visible = true;
-            else if(accountInput.length > 5 && passwordInput.length > 5)
-                EcInteraction.logIn(accountInput.text, passwordInput.text);
+            if(loginButtom.buttomText === "登  录")
+                login();
+            else
+                cancelLogin();
         }
     }
     Loader {
@@ -168,10 +172,47 @@ Window {
     Connections {
         target: EcInteraction
         onSig_loginResult: {
+            if(isCancelLogin)
+                return;
+            background.opacity = 1;
+            accountRow.opacity = 1;
+            passwordRow.opacity = 1;
+            loginBackground.visible = false;
             if(res === -10)
+                {
                 passwordInputTips.visible = true;
+                //passwordInput.text = "      ";
+                }
             else if(res === -11)
                 accountInputTips.visible = true;
         }
+    }
+    function login()
+    {
+        accountInput.focus = false;
+        passwordInput.focus = false;
+        loginWindow.isCancelLogin = true;
+        if(accountInput.length < 6)
+            accountInputTips.visible = true;
+        else if(passwordInput.length < 6)
+            passwordInputTips.visible = true;
+        else if(accountInput.length > 5 && passwordInput.length > 5)
+        {
+            background.opacity = 0.5;
+            accountRow.opacity = 0.5;
+            passwordRow.opacity = 0.5;
+            loginBackground.visible = true;
+            loginButtom.buttomText = "取  消";
+            EcInteraction.logIn(accountInput.text, passwordInput.text);
+        }
+    }
+    function cancelLogin()
+    {
+        background.opacity = 1;
+        accountRow.opacity = 1;
+        passwordRow.opacity = 1;
+        loginBackground.visible = false;
+        loginButtom.buttomText = "登  录";
+        loginWindow.isCancelLogin = true;
     }
 }
