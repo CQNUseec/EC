@@ -9,10 +9,11 @@ class FriendList: public QObject             //好友列表
     Q_OBJECT
 public:
     FriendList(QObject *parent);
+    Q_PROPERTY(FriendItemModel* getFriendItemModel READ getFriendItemModel CONSTANT)
+    Q_INVOKABLE void setbSelected(QString groupName, QString friendAccount);
     FriendItemModel* getFriendItemModel() const;
     void clearModel();
     void loadDataToModel();
-    Q_INVOKABLE void setbSelected(QString groupName, QString friendAccount);
 private:
     QSharedPointer<FriendItemModel>     m_qpFriendItemModel;
     QString     m_qsSelectedGroup{""};

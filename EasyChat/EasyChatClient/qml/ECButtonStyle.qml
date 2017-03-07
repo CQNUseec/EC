@@ -22,8 +22,8 @@ ButtonStyle{
         implicitWidth: buttonImplicitWidth
         implicitHeight: buttonImplicitHeight
         radius: buttonRadius
-        color: button.hovered ? enteredColor : exitedColor
-        border.width: button.hovered ? 1 : 0
+        color: button.hovered || button.focus ? enteredColor : exitedColor
+        border.width: button.hovered || button.focus ? 1 : 0
         border.color: borderColor
         MouseArea {
             onPressed: {

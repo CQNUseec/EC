@@ -15,6 +15,7 @@ Window {
     visible: true
     flags: Qt.Window | Qt.FramelessWindowHint
     property bool isCancelLogin: false
+//    property variant loginData: new Object()
     TitleRec {
         id: topRct
         width: parent.width
@@ -92,6 +93,12 @@ Window {
             style: ECButtonStyle { button: registerButton; buttonText: "注册账号"; }
             onClicked: {
                 ecLoader.setSource("registration.qml");
+                loginWindow.visible = false;
+            }
+            Keys.enabled: true
+            Keys.onReturnPressed: {
+                ecLoader.setSource("registration.qml");
+                loginWindow.visible = false;
             }
         }
     }
@@ -157,6 +164,13 @@ Window {
             else
                 cancelLogin();
         }
+        Keys.enabled: true
+        Keys.onReturnPressed: {
+            if(loginButtom.buttomText === "登  录")
+                login();
+            else
+                cancelLogin();
+        }
     }
     Loader {
         id: ecLoader
@@ -172,26 +186,29 @@ Window {
     Connections {
         target: EcInteraction
         onSig_loginResult: {
-            if(isCancelLogin)
+            if(loginWindow.isCancelLogin)
                 return;
             background.opacity = 1;
             accountRow.opacity = 1;
             passwordRow.opacity = 1;
             loginBackground.visible = false;
+            loginButtom.buttomText = "登  录";
             if(res === -10)
                 {
                 passwordInputTips.visible = true;
-                //passwordInput.text = "      ";
+                passwordInput.text = "      ";
                 }
             else if(res === -11)
                 accountInputTips.visible = true;
+        }
+        onSig_registerAccountResult: {
+            accountInput.text = account;
         }
     }
     function login()
     {
         accountInput.focus = false;
         passwordInput.focus = false;
-        loginWindow.isCancelLogin = true;
         if(accountInput.length < 6)
             accountInputTips.visible = true;
         else if(passwordInput.length < 6)
@@ -203,11 +220,18 @@ Window {
             passwordRow.opacity = 0.5;
             loginBackground.visible = true;
             loginButtom.buttomText = "取  消";
+            var loginData = new Object();
+            loginData.purpose = "login";
+            loginData.account = accountInput.text;
+            loginData.password = passwordInput.text;
+            console.log(JSON.stringify(loginData));
+            EcInteraction.sendMessage(JSON.stringify(loginData));
             EcInteraction.logIn(accountInput.text, passwordInput.text);
         }
     }
     function cancelLogin()
     {
+        loginWindow.isCancelLogin = true;
         background.opacity = 1;
         accountRow.opacity = 1;
         passwordRow.opacity = 1;

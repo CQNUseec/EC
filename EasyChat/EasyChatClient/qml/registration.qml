@@ -17,6 +17,9 @@ Window {
     flags: Qt.Window | Qt.FramelessWindowHint
     property string fontFamily: EcInteraction.getSystemFont()
     property bool bReadOnly: false
+    onClosing: {
+         loginWindow.visible = true;
+    }
     TitleRec {
         id: topRec
         width: parent.width
@@ -40,6 +43,11 @@ Window {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+        focus: true
+        Keys.enabled: true
+        Keys.onEscapePressed: {
+            registerWindow.close();
+        }
         //昵称设置
         Text {
             id: nameInputLeft
@@ -230,7 +238,7 @@ Window {
             anchors.topMargin: 15
             anchors.right: result.left
             anchors.rightMargin: 5
-            text: qsTr("注册结果: ")
+            text: qsTr("您的账号: ")
             font.pixelSize: 15
             font.family: fontFamily
         }
@@ -247,8 +255,7 @@ Window {
             font.family: fontFamily
             maximumLength: 16
             selectByMouse: true
-            text: "123456"
-            style: ECTextFieldStyle{}
+            style: ECTextFieldStyle{textColor: "red"}
         }
         //注册按钮
         Button {
@@ -256,34 +263,57 @@ Window {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 17
-            style: ECButtonStyle{ button: registerButtom; buttonImplicitWidth: 193; buttonImplicitHeight: 33; buttonText: "注  册" }
+            property string buttomText: "注  册"
+            style: ECButtonStyle{ button: registerButtom; buttonImplicitWidth: 193; buttonImplicitHeight: 33; buttonText: registerButtom.buttomText }
             onClicked: {
-                if(bReadyToRegister())
-                {
-                    registerBackground.visible = true;
-                    mainRec.opacity = 0.5;
-                    bReadOnly = true;
-                    sexSelect.enabled = false;
-                    registerButtom.enabled = false;
-                }
+                if(registerButtom.buttomText === "注  册")
+                    bReadyToRegister();
+                else
+                    registerWindow.close();
             }
         }
     }
-    function bReadyToRegister()   //检测是否满足注册的输入要求
+    Connections {
+        target: EcInteraction
+        onSig_registerAccountResult: {
+            result.text = account;
+            result.visible = true;
+            resultLeft.visible = true;
+            mainRec.opacity = 1;
+            registerBackground.visible = false;
+            registerButtom.buttomText = "返回登录界面";
+            registerButtom.enabled = true;
+        }
+    }
+    function bReadyToRegister()   //检测是否满足注册的输入要求后请求注册
     {
         if(nameInput.length <= 0)
-            return false;
+            return;
         else if(passwordInput.left <= 0)
-            return false;
+            return;
         else if(passwordInputAgain.length <= 0)
-            return false;
+            return;
         else if(passwordInputTips.visible || passwordInputAgainTips.visible)
-            return false;
+            return;
         else if(ageInput.length <= 0)
-            return false;
+            return;
         else if( !(man.checked || woman.checked) )
-            return false;
+            return;
         else
-            return true;
+        {
+            registerBackground.visible = true;
+            mainRec.opacity = 0.5;
+            bReadOnly = true;
+            sexSelect.enabled = false;
+            registerButtom.enabled = false;
+            var person = new Object();
+            person.purpose = "register";
+            person.nickName = nameInput.text;
+            person.password = passwordInput.text;
+            person.age = ageInput.text;
+            person.sex = man.checked ? man.text : woman.text;
+            EcInteraction.registerAccount(JSON.stringify(person));
+            return;
+        }
     }
 }
