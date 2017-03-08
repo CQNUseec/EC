@@ -49,21 +49,21 @@ Window {
             text: qsTr("聊天列表")
             font.family: EcInteraction.getSystemFont()
         }
-            ListView {
-                id: chatingFriendList
-                anchors.top: friendListTitle.bottom
-                anchors.bottom: parent.bottom
-                width: parent.width
-                height: parent.height - friendListTitle.height
-                model: chatFriendList
-                delegate: ChatListDelegate{}
-            }
-            ListViewSlideBar {
-                anchors.top: chatingFriendList.top
-                anchors.right: parent.right
-                anchors.bottom: chatingFriendList.bottom
-                view: chatingFriendList
-            }
+        ListView {
+            id: chatingFriendList
+            anchors.top: friendListTitle.bottom
+            anchors.bottom: parent.bottom
+            width: parent.width
+            height: parent.height - friendListTitle.height
+            model: chatFriendList
+            delegate: ChatListDelegate{}
+        }
+        ListViewSlideBar {
+            anchors.top: chatingFriendList.top
+            anchors.right: parent.right
+            anchors.bottom: chatingFriendList.bottom
+            view: chatingFriendList
+        }
     }
     Rectangle {   //聊天内容显示框
         id: chatContentRec
@@ -91,6 +91,12 @@ Window {
         Text {
             anchors.centerIn: parent
             text: qsTr("聊天内容输入框")
+        }
+    }
+    Connections {
+        target: mainWindow
+        onSig_chatWindowActive: {
+            chatWindows.requestActivate();
         }
     }
 }

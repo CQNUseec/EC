@@ -86,7 +86,7 @@ Column {
                         {
                             chat.loadDataToModel(model.nickName, model.account);
                             console.log("聊天窗口已打开，双击添加聊天人");
-                            chatLoader.forceActiveFocus();
+                            sig_chatWindowActive();
                             return;
                         }
                         chatLoader.setSource("chatWindow.qml", {"friendName": model.nickName});

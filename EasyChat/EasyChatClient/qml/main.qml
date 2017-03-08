@@ -15,6 +15,7 @@ Window {
     height: 550
     color: "#F0F8FE"
     flags: Qt.Window | Qt.FramelessWindowHint
+    signal sig_chatWindowActive()
     Component.onCompleted: {
         chatLoader.setSource("logIn.qml");
     }
