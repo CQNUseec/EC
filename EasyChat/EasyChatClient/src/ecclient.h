@@ -1,9 +1,10 @@
 #ifndef ECCLIENT_H
 #define ECCLIENT_H
-#include <QThread>
+#include <QString>
+#include <QVariant>
 
 class EcInteraction;
-class EcClient: public QThread
+class EcClient: public QObject             //客户端对象， 与服务器进行通信
 {
     Q_OBJECT
 //signals:
@@ -11,10 +12,11 @@ class EcClient: public QThread
 public slots:
     void slot_sendMessage(QString jsonData);
 public:
-    explicit EcClient();
-    void run();
+    explicit EcClient(EcInteraction* ecInteraction);
+    void AnalyzeMessageFromServer(std::string data);
+    QVariantMap parsingJsonData(QString jsonData);   //解析json格式字符
 private:
-    //EcInteraction*       m_ecInteraction;          //待定的成员变量
+    EcInteraction*       m_ecInteraction;
     QString              m_serverIp;
     QString              m_serverPort;
 };

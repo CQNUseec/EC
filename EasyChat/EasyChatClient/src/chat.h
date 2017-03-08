@@ -8,7 +8,6 @@ class Chat: public QObject
     Q_OBJECT
 public:
     Chat(QObject *parent);
-    Q_PROPERTY(ChatFriendItemModel* getChatFriendItemModel READ getChatFriendItemModel CONSTANT)
     Q_INVOKABLE bool isChatWindowOpen();
     Q_INVOKABLE void clearModel();
     Q_INVOKABLE void setbSelected(QString friendAccount);

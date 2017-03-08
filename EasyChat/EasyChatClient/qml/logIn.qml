@@ -226,7 +226,6 @@ Window {
             loginData.password = passwordInput.text;
             console.log(JSON.stringify(loginData));
             EcInteraction.sendMessage(JSON.stringify(loginData));
-            EcInteraction.logIn(accountInput.text, passwordInput.text);
         }
     }
     function cancelLogin()

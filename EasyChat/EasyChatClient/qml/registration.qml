@@ -306,13 +306,14 @@ Window {
             bReadOnly = true;
             sexSelect.enabled = false;
             registerButtom.enabled = false;
-            var person = new Object();
-            person.purpose = "register";
-            person.nickName = nameInput.text;
-            person.password = passwordInput.text;
-            person.age = ageInput.text;
-            person.sex = man.checked ? man.text : woman.text;
-            EcInteraction.registerAccount(JSON.stringify(person));
+            var registerData = new Object();
+            registerData.purpose = "register";
+            registerData.nickName = nameInput.text;
+            registerData.password = passwordInput.text;
+            registerData.age = ageInput.text;
+            registerData.sex = man.checked ? man.text : woman.text;
+            console.log(JSON.stringify(registerData));
+            EcInteraction.sendMessage(JSON.stringify(registerData));
             return;
         }
     }
