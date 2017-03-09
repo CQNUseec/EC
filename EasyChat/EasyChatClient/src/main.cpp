@@ -20,9 +20,6 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("chat", easyCaht.getChat());
     engine.rootContext()->setContextProperty("chatFriendList", easyCaht.getChat()->getChatFriendItemModel());
     engine.load(QUrl(QLatin1String("qrc:/qml/main.qml")));
-//    EcClient client(&easyCaht);   //界面启动加载后，再启动客户端线程，以提高启动速度
-//    QObject::connect(&easyCaht, &EcInteraction::sig_sendMessage, &client, &EcClient::slot_sendMessage);
-//    client.start();
     EcClientThread client(&easyCaht);
     client.start();
     return app.exec();

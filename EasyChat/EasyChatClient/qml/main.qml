@@ -6,6 +6,7 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.4
+import QtQuick.Controls 2.0
 import QtQuick.Window 2.2
 
 Window {
@@ -30,27 +31,75 @@ Window {
         biggestButtonVisible: false
         color: "#005791"
     }
-    ListView {
-        id: friendListView
-        anchors.top: topRec.bottom
-        anchors.bottom: parent.bottom
+    Rectangle {
+        id: header
+        anchors.top:  topRec.bottom
         anchors.left: parent.left
-        anchors.right: slideBar.visible ? slideBar.left : parent.right
-        anchors.leftMargin: 5
-        clip: true
-        model:friendList
-        delegate: FriendListDelegate{itemWidth: slideBar.visible ? mainWindow.width-slideBar.width :mainWindow.width}
-        highlightFollowsCurrentItem: true;
-        highlightMoveVelocity: 14000;
-        cacheBuffer: 10
+        anchors.right: parent.right
+        height: 35
+        TabBar {
+            id:tabBar
+            anchors.fill: parent
+            currentIndex: swipeView.currentIndex
+            background: Rectangle {
+                opacity: enabled ? 1 : 0.3
+                color: "#3CC3F5"
+            }
+//            TabButton {
+//                text: qsTr("消息")
+//            }
+            TabButton {
+                text: qsTr("好友列表")
+            }
+            TabButton {
+                text: qsTr("群聊")
+            }
+        }
     }
-  ListViewSlideBar {  //使用自定义的滑动条    因为在ScrollView中嵌套ListView有点问题
-      id: slideBar
-      anchors.top: friendListView.top
-      anchors.right: parent.right
-      anchors.bottom: friendListView.bottom
-      view: friendListView
-  }
+    SwipeView {
+        id: swipeView
+        anchors.top: header.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        currentIndex: tabBar.currentIndex
+//        Page {
+//            Label {
+//                text: qsTr("消息")
+//                anchors.centerIn: parent
+//            }
+//        }
+        Page {
+            ListView {
+                id: friendListView
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                anchors.right: slideBar.visible ? slideBar.left : parent.right
+                anchors.leftMargin: 5
+                clip: true
+                model:friendList
+                delegate: FriendListDelegate{itemWidth: slideBar.visible ? mainWindow.width-slideBar.width :mainWindow.width}
+                highlightFollowsCurrentItem: true;
+                highlightMoveVelocity: 14000;
+                cacheBuffer: 10
+            }
+
+            ListViewSlideBar {  //使用自定义的滑动条    因为在ScrollView中嵌套ListView有点问题
+                id: slideBar
+                anchors.top: friendListView.top
+                anchors.right: parent.right
+                anchors.bottom: friendListView.bottom
+                view: friendListView
+            }
+        }
+        Page {
+            Label {
+                text: qsTr("群聊")
+                anchors.centerIn: parent
+            }
+        }
+    }
     Loader {
         id: chatLoader
         smooth:true
