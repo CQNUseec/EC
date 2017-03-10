@@ -6,7 +6,7 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.4
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.0 as Controls2
 import QtQuick.Window 2.2
 
 Window {
@@ -16,6 +16,7 @@ Window {
     height: 550
     color: "#F0F8FE"
     flags: Qt.Window | Qt.FramelessWindowHint
+    property string fontFamily: EcInteraction.getSystemFont()
     signal sig_chatWindowActive()
     Component.onCompleted: {
         chatLoader.setSource("logIn.qml");
@@ -37,39 +38,49 @@ Window {
         anchors.left: parent.left
         anchors.right: parent.right
         height: 35
-        TabBar {
-            id:tabBar
-            anchors.fill: parent
-            currentIndex: swipeView.currentIndex
-            background: Rectangle {
-                opacity: enabled ? 1 : 0.3
-                color: "#3CC3F5"
+        color: "#09A3DC"
+        Button {
+            id: messagePageButon
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            style: ECButtonStyle{ button: messagePageButon; buttonText: qsTr("消息") }
+            onClicked: {
+                swipeView.currentIndex = 0;
             }
-//            TabButton {
-//                text: qsTr("消息")
-//            }
-            TabButton {
-                text: qsTr("好友列表")
+        }
+        Button {
+            id: friendListPageButton
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            style: ECButtonStyle{ button: friendListPageButton; buttonText: qsTr("好友") }
+            onClicked: {
+                swipeView.currentIndex = 1;
             }
-            TabButton {
-                text: qsTr("群聊")
+        }
+        Button {
+            id: groupListPageButton
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            style: ECButtonStyle{ button: groupListPageButton; buttonText: qsTr("群组") }
+            onClicked: {
+                swipeView.currentIndex = 2;
             }
         }
     }
-    SwipeView {
+    Controls2.SwipeView {
         id: swipeView
         anchors.top: header.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        currentIndex: tabBar.currentIndex
-//        Page {
-//            Label {
-//                text: qsTr("消息")
-//                anchors.centerIn: parent
-//            }
-//        }
-        Page {
+        anchors.bottom: footer.top
+        currentIndex: 1
+        Controls2.Page {
+            Label {
+                text: qsTr("消息")
+                anchors.centerIn: parent
+            }
+        }
+        Controls2.Page {
             ListView {
                 id: friendListView
                 anchors.top: parent.top
@@ -93,15 +104,49 @@ Window {
                 view: friendListView
             }
         }
-        Page {
+        Controls2.Page {
             Label {
                 text: qsTr("群聊")
                 anchors.centerIn: parent
             }
         }
     }
+    Rectangle {
+        id: footer
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        height: 35
+        color: "#09A3DC"
+        Button {
+            id: zone
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+            anchors.verticalCenter: parent.verticalCenter
+            style: ECButtonStyle { button: zone; buttonText: "ECZone"; }
+        }
+        Button {
+            id: findFriend
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+            anchors.verticalCenter: parent.verticalCenter
+            style: ECButtonStyle { button: findFriend; buttonText: "查找好友"; }
+            onClicked: {
+                findFriendLoader.setSource("findFriendWindow.qml");
+            }
+        }
+    }
+
     Loader {
         id: chatLoader
+        smooth:true
+    }
+    Loader {
+        id: findFriendLoader
+        smooth:true
+    }
+    Loader {
+        id: zoneLoader
         smooth:true
     }
     Connections {

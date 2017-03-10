@@ -29,7 +29,6 @@ Window {
         z: 3
         anchors.centerIn: parent
         source: "/images/loginBackground.gif"
-        playing: true
         visible: false
     }
     Image {

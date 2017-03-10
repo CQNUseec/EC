@@ -27,5 +27,6 @@
         <file>qml/ECButtonStyle.qml</file>
         <file>qml/registration.qml</file>
         <file>images/loginBackground.gif</file>
+        <file>qml/findFriendWindow.qml</file>
     </qresource>
 </RCC>
