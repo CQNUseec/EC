@@ -9,7 +9,9 @@ SOURCES += \
     src/friendlist.cpp \
     src/main.cpp \
     src/ecclient.cpp \
-    src/ecclientthread.cpp
+    src/ecclientthread.cpp \
+    model/chatlistmodel.cpp \
+    model/messagelistmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -20,7 +22,6 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    model/chatfrienditem.h \
     model/frienditem.h \
     model/QQmlAutoPropertyHelpers.h \
     model/QQmlHelpersCommon.h \
@@ -31,4 +32,6 @@ HEADERS += \
     src/friendlist.h \
     src/ecglobal.h \
     src/ecclient.h \
-    src/ecclientthread.h
+    src/ecclientthread.h \
+    model/chatlistmodel.h \
+    model/messagelistmodel.h

@@ -28,5 +28,6 @@
         <file>qml/registration.qml</file>
         <file>images/loginBackground.gif</file>
         <file>qml/findFriendWindow.qml</file>
+        <file>qml/MessageListDelegate.qml</file>
     </qresource>
 </RCC>

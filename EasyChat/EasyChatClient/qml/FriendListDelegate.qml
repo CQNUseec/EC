@@ -36,11 +36,11 @@ Column {
                 groupMemberList.visible = !groupMemberList.visible
                 if(groupMemberList.visible)
                 {
-                    console.log("展开");
+                    console.log("展开分组");
                 }
                 else
                 {
-                    console.log("收起");
+                    console.log("收起分组");
                 }
             }
         }
@@ -79,46 +79,22 @@ Column {
                         memberRec.bEntered = false;                   
                     }
                     onClicked: {
-                        myFriend.setbSelected(model.groupName, model.account);
+                        EcInteraction.friendList.setbSelected(model.groupName, model.account);
                     }
                     onDoubleClicked: {
-                        if(chat.isChatWindowOpen())
+                        if(EcInteraction.chat.isChatWindowOpen())
                         {
-                            chat.loadDataToModel(model.nickName, model.account);
+                            EcInteraction.chat.loadDataToChat(model.nickName, model.account, EcInteraction.selfAccount);
                             console.log("聊天窗口已打开，双击添加聊天人");
-                            sig_chatWindowActive();
                             return;
                         }
                         chatLoader.setSource("chatWindow.qml", {"friendName": model.nickName});
-                        chat.loadDataToModel(model.nickName, model.account);
+                        EcInteraction.chat.loadDataToChat(model.nickName, model.account, EcInteraction.selfAccount);
                         console.log("双击打开聊天窗口")
-                        //此处的处理还需根据实际情况设计（这只是个示例）
                     }
                 }
             }
         }
     }
-
-    //            ListView {
-    //                height: 100
-    //                width: 40
-    //                id: groupMemberList
-    //                delegate: groupListDelegate
-    //                model: chs
-    //                Component {
-    //                    id: groupListDelegate
-    //                    Row {
-    //                        height: 20
-    //                        width: 40
-    //                        Item {
-    //                            height: 1
-    //                            width: 10
-    //                        }
-    //                        Text {
-    //                            text:model.clumn1
-    //                        }
-    //                    }
-    //                }
-    //            }
 }
 

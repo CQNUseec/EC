@@ -26,4 +26,20 @@ QString EcInteraction::getSystemFont() const
     return EC_SYSTEM_FONT;
 }
 
+QString EcInteraction::selfAccount() const
+{
+    return m_selfAccount;
+}
+
+void EcInteraction::setSelfAccount(QString account)
+{
+    m_selfAccount = account;
+    emit sig_selfAccountChanged(m_selfAccount);
+}
+
+void EcInteraction::closeClientThread()
+{
+    emit sig_closeClientThread();
+}
+
 

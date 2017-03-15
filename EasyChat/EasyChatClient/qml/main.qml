@@ -17,12 +17,12 @@ Window {
     color: "#F0F8FE"
     flags: Qt.Window | Qt.FramelessWindowHint
     property string fontFamily: EcInteraction.getSystemFont()
-    signal sig_chatWindowActive()
     Component.onCompleted: {
         chatLoader.setSource("logIn.qml");
     }
     onClosing: {
         chatLoader.source = "";
+        EcInteraction.closeClientThread();
     }
     TitleRec {
         id: topRec
@@ -89,7 +89,7 @@ Window {
                 anchors.right: slideBar.visible ? slideBar.left : parent.right
                 anchors.leftMargin: 5
                 clip: true
-                model:friendList
+                model:friendListModel
                 delegate: FriendListDelegate{itemWidth: slideBar.visible ? mainWindow.width-slideBar.width :mainWindow.width}
                 highlightFollowsCurrentItem: true;
                 highlightMoveVelocity: 14000;
@@ -156,7 +156,7 @@ Window {
             {
                 mainWindow.visible = true;
                 chatLoader.source = "";
-                console.log("登陆成功");
+                console.log(EcInteraction.selfAccount, "登陆成功");
             }
         }
     }

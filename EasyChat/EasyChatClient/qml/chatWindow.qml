@@ -17,8 +17,11 @@ Window {
     visible: true
     flags: Qt.Window | Qt.FramelessWindowHint
     property string friendName: ""
+    property string fontFamily: EcInteraction.getSystemFont()
+    property variant chat: EcInteraction.chat
+    property variant chatFriendList: chat.chatListModel
     onClosing: {
-        chat.clearModel();
+        chat.clearChatData();
         console.log("关闭聊天窗口， 清空聊天列表");
     }
     TitleRec {
@@ -36,6 +39,7 @@ Window {
         anchors.left: parent.left
         width: 120
         focus: true
+        clip: true
         Keys.enabled: true
         Keys.onEscapePressed: {
             chatWindows.close();
@@ -47,18 +51,20 @@ Window {
             anchors.topMargin: 5
             anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("聊天列表")
-            font.family: EcInteraction.getSystemFont()
+            font.family: fontFamily
         }
         ListView {
             id: chatingFriendList
             anchors.top: friendListTitle.bottom
             anchors.bottom: parent.bottom
-            width: parent.width
-            height: parent.height - friendListTitle.height
+            anchors.left: parent.left
+            anchors.right: friendListSlideBar.visible ? friendListSlideBar.left : parent.right
             model: chatFriendList
+            boundsBehavior: Flickable.StopAtBounds
             delegate: ChatListDelegate{}
         }
         ListViewSlideBar {
+            id: friendListSlideBar
             anchors.top: chatingFriendList.top
             anchors.right: parent.right
             anchors.bottom: chatingFriendList.bottom
@@ -74,9 +80,21 @@ Window {
         border.color: "red"
         border.width: 2
         radius: 3
-        Text {
-            anchors.centerIn: parent
-            text: qsTr("聊天内容显示框")
+        ListView {
+            id: messageListView
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.right: messageListViewSlideBar.visible ? messageListViewSlideBar.left : parent.right
+            model: chat.messageListModel
+//            delegate: ChatListDelegate{}
+        }
+        ListViewSlideBar {
+            id: messageListViewSlideBar
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            view: messageListView
         }
     }
     Rectangle {  // 聊天内容输入框
@@ -91,12 +109,6 @@ Window {
         Text {
             anchors.centerIn: parent
             text: qsTr("聊天内容输入框")
-        }
-    }
-    Connections {
-        target: mainWindow
-        onSig_chatWindowActive: {
-            chatWindows.requestActivate();
         }
     }
 }

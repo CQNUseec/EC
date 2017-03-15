@@ -9,6 +9,8 @@ class EcClientThread : public QThread                 //客户端线程对象，
 public:
     EcClientThread(EcInteraction *ec);
     void run();
+public slots:
+    void slot_closeClientThread();
 private:
     EcInteraction*                   m_ecInteraction;
 };

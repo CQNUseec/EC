@@ -224,6 +224,7 @@ Window {
             loginData.account = accountInput.text;
             loginData.password = passwordInput.text;
             console.log(JSON.stringify(loginData));
+            EcInteraction.setSelfAccount(accountInput.text);
             EcInteraction.sendMessage(JSON.stringify(loginData));
         }
     }

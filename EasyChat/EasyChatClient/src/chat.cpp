@@ -2,60 +2,76 @@
 
 Chat::Chat(QObject *parent): QObject(parent)
 {
-    m_qpChatFriendItemModel.reset(new ChatFriendItemModel(this));
+    m_qpChatListModel.reset(new ChatListModel());
 }
 
-ChatFriendItemModel* Chat::getChatFriendItemModel() const
+ChatListModel *Chat::chatListModel() const
 {
-    return m_qpChatFriendItemModel.data();
+    return m_qpChatListModel.data();
+}
+
+MessageListModel *Chat::messageListModel() const
+{
+    return m_qpCurrentMessageListModel;
+}
+
+void Chat::setMessageListModel(MessageListModel *currentMessageListModel)
+{
+    m_qpCurrentMessageListModel = currentMessageListModel;
+    emit sig_messageListModelChanged(currentMessageListModel);
+}
+
+MessageListModel *Chat::getOneMessageListModel(QString account)
+{
+    for(auto it =m_qhMessageModel.begin(); it != m_qhMessageModel.end(); ++it)
+    {
+        if(it.key() == account)
+            return it.value();
+    }
+    return nullptr;
 }
 
 bool Chat::isChatWindowOpen()
 {
-    return !m_qpChatFriendItemModel->isEmpty();
+    return !m_qpChatListModel->isEmpty();
 }
 
-void Chat::clearModel()
+void Chat::clearChatData()
 {
-    if(!m_qpChatFriendItemModel->isEmpty())
+    m_qpChatListModel->clearModelData();
+    m_qpCurrentMessageListModel = nullptr;
+    for(auto it =m_qhMessageModel.begin(); it != m_qhMessageModel.end(); ++it)
     {
-        QList<ChatFriendItem *> list = m_qpChatFriendItemModel->toList();
-        m_qpChatFriendItemModel->clear();
-        foreach (auto var, list)
-        {
-            delete var;
-        }
+        it.value()->clearModelData();
+        delete it.value();
+    }
+    m_qhMessageModel.clear();
+}
+
+void Chat::setCurrentChatPerson(QString friendAccount)
+{
+    m_qpChatListModel->setBSelected(friendAccount);
+    auto ptr = getOneMessageListModel(friendAccount);
+    setMessageListModel(ptr);
+}
+
+void Chat::loadDataToChat(QString friendName, QString friendAccount, QString selfAccount)
+{
+    m_qpChatListModel->loadDataToModel(friendAccount, friendName);
+    auto ptr = getOneMessageListModel(friendAccount);
+    if(ptr != nullptr)
+        setMessageListModel(ptr);
+    else
+    {
+        MessageListModel* messageListModel = new MessageListModel(selfAccount);
+        m_qhMessageModel.insert(friendAccount, messageListModel);
     }
 }
 
-void Chat::setbSelected(QString friendAccount)
+void Chat::loadDataToMessageListModel(QString sender, QString receiver, QString message, QString date)
 {
-    QList<ChatFriendItem *> list = m_qpChatFriendItemModel->toList();
-    foreach (auto var, list)
-    {
-        if(var->get_friendAccount() == friendAccount)
-            var->set_bSelected(true);
-        if(var->get_bSelected() && var->get_friendAccount() != friendAccount)
-            var->set_bSelected(false);
-    }
-}
-
-void Chat::loadDataToModel(QString friendName, QString friendAccount)
-{
-    QList<ChatFriendItem *> list = m_qpChatFriendItemModel->toList();
-    foreach (auto var, list)
-    {
-        if(var->get_friendAccount() == friendAccount)
-        {
-            setbSelected(friendAccount);
-            return;
-        }
-        if(var->get_bSelected())
-            var->set_bSelected(false);
-    }
-    ChatFriendItem* item = new ChatFriendItem(this);
-    item->set_friendName(friendName);
-    item->set_friendAccount(friendAccount);
-    item->set_bSelected(true);
-    m_qpChatFriendItemModel->append(item);
+    auto ptr = getOneMessageListModel(receiver);
+    if(ptr == nullptr)
+        return;
+    ptr->loadDataToModel(sender, receiver, message, date);
 }

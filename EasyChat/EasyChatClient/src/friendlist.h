@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QSharedPointer>
 
-class FriendList: public QObject             //好友列表
+class FriendList: public QObject             //好友列表的Model管理
 {
     Q_OBJECT
 public:
