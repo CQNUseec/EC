@@ -7,10 +7,11 @@ class EcInteraction;
 class EcClient: public QObject             //客户端对象， 与服务器进行通信
 {
     Q_OBJECT
-//signals:
-//    void sig_receivedMessage(QString jsonData);
+signals:
+    void sig_closeClientThread();
 public slots:
     void slot_sendMessage(QString jsonData);
+    void slot_signOut(QString account);
 public:
     explicit EcClient(EcInteraction* ecInteraction);
     void AnalyzeMessageFromServer(std::string data);

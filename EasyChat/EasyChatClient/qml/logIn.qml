@@ -15,7 +15,9 @@ Window {
     visible: true
     flags: Qt.Window | Qt.FramelessWindowHint
     property bool isCancelLogin: false
-//    property variant loginData: new Object()
+    onClosing: {
+        EcInteraction.closeClientThread();
+    }
     TitleRec {
         id: topRct
         width: parent.width
@@ -51,7 +53,7 @@ Window {
             anchors.right: accountInput.left
             anchors.rightMargin: 10
             font.pointSize: 11
-            font.family: EcInteraction.getSystemFont()
+            font.family: SystemFont
             text: qsTr("账号:")
         }
         Text {
@@ -62,7 +64,7 @@ Window {
             z: 3
             visible: false
             font.pointSize: 11
-            font.family: EcInteraction.getSystemFont()
+            font.family: SystemFont
             text: accountInput.length > 0 ? qsTr("无效账号") : qsTr("请先输入账号")
         }
         TextField {
@@ -112,7 +114,7 @@ Window {
             anchors.right: passwordInput.left
             anchors.rightMargin: 10
             font.pointSize: 11
-            font.family: EcInteraction.getSystemFont()
+            font.family: SystemFont
             text: qsTr("密码:")
         }
         Text {
@@ -123,7 +125,7 @@ Window {
             z: 3
             visible: false
             font.pointSize: 11
-            font.family: EcInteraction.getSystemFont()
+            font.family: SystemFont
             text: passwordInput.length > 0 ? (passwordInput.length > 5 ? qsTr("密码错误") : qsTr("无效密码")) : qsTr("请先输入密码")
         }
         TextField {

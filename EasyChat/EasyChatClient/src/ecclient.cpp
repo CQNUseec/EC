@@ -7,7 +7,8 @@ using std::string;
 
 EcClient::EcClient(EcInteraction* ecInteraction) : m_ecInteraction(ecInteraction)
 {
-    connect(m_ecInteraction, &EcInteraction::sig_sendMessage, this, &EcClient::slot_sendMessage);
+    connect(ecInteraction, &EcInteraction::sig_sendMessage, this, &EcClient::slot_sendMessage, Qt::QueuedConnection);
+    connect(ecInteraction, &EcInteraction::sig_signOut, this, &EcClient::slot_signOut, Qt::BlockingQueuedConnection);
 }
 
 string encryptionTheString(string data, char key)   //对字符串进行异或运算
@@ -25,6 +26,12 @@ void EcClient::slot_sendMessage(QString jsonData)
     string data = encryptionTheString(jsonData.toStdString(), 'w');
     qDebug() << "模拟发送给服务器的消息:" << QString::fromStdString(data) << data.length();
     AnalyzeMessageFromServer(data);
+}
+
+void EcClient::slot_signOut(QString account)
+{
+    qDebug() << account << "sign out";
+    emit sig_closeClientThread();
 }
 
 void EcClient::AnalyzeMessageFromServer(std::string data)

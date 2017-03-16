@@ -16,6 +16,7 @@ public:
     Q_INVOKABLE void setCurrentChatPerson(QString friendAccount);    //设置聊天窗口当前聊天的对象
     Q_INVOKABLE void loadDataToChat(QString friendName, QString friendAccount, QString selfAccount);
     Q_INVOKABLE void loadDataToMessageListModel(QString sender, QString receiver, QString message, QString date);
+//    Q_INVOKABLE void removeChataData(QString friendAccount);
     ChatListModel* chatListModel() const;
     MessageListModel* messageListModel() const;
 signals:

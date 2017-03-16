@@ -15,7 +15,6 @@ Window {
     height: 500
     visible: true
     flags: Qt.Window | Qt.FramelessWindowHint
-    property string fontFamily: EcInteraction.getSystemFont()
     TitleRec {
         id: topRct
         width: parent.width
@@ -47,7 +46,7 @@ Window {
             visible: true
             text: qsTr("账号: ")
             font.pixelSize: 15
-            font.family: fontFamily
+            font.family: SystemFont
         }
         TextField {
             id: accountInput
@@ -57,7 +56,7 @@ Window {
             height: 33
             focus: true
             font.pixelSize: 15
-            font.family: fontFamily
+            font.family: SystemFont
             maximumLength: 11
             selectByMouse: true
             validator: RegExpValidator{
@@ -77,7 +76,7 @@ Window {
             z: 3
             visible: false
             font.pointSize: 11
-            font.family: fontFamily
+            font.family: SystemFont
             text: accountInput.length > 0 ? qsTr("账号至少6位") : qsTr("请先输入账号")
         }
         Button {
@@ -109,7 +108,7 @@ Window {
             anchors.top: accountInput.bottom
             anchors.topMargin: 10
             font.pointSize: 11
-            font.family: fontFamily
+            font.family: SystemFont
             color: "red"
             text: qsTr("账号不存在!")
             visible: false
@@ -126,7 +125,7 @@ Window {
                 id: accountRes
                 anchors.centerIn: parent
                 font.pointSize: 11
-                font.family: fontFamily
+                font.family: SystemFont
                 text: qsTr("账号是")
             }
         }

@@ -15,7 +15,6 @@ Window {
     visible: true
     modality: Qt.ApplicationModal
     flags: Qt.Window | Qt.FramelessWindowHint
-    property string fontFamily: EcInteraction.getSystemFont()
     property bool bReadOnly: false
     onClosing: {
          loginWindow.visible = true;
@@ -57,7 +56,7 @@ Window {
             visible: true
             text: qsTr("昵称: ")
             font.pixelSize: 15
-            font.family: fontFamily
+            font.family: SystemFont
         }
         TextField {
             id: nameInput
@@ -68,7 +67,7 @@ Window {
             focus: true
             readOnly: bReadOnly
             font.pixelSize: 15
-            font.family: fontFamily
+            font.family: SystemFont
             maximumLength: 16
             selectByMouse: true
             placeholderText: qsTr("请输入昵称")
@@ -84,7 +83,7 @@ Window {
             visible: true
             text: qsTr("密码: ")
             font.pixelSize: 15
-            font.family: fontFamily
+            font.family: SystemFont
         }
         TextField {
             id: passwordInput
@@ -116,7 +115,7 @@ Window {
             visible: false
             font.pixelSize: 14
             color: "red"
-            font.family: fontFamily
+            font.family: SystemFont
             text: qsTr("密码至少6位最多16位")
         }
         //确认密码
@@ -129,7 +128,7 @@ Window {
             visible: true
             text: qsTr("确认密码: ")
             font.pixelSize: 15
-            font.family: fontFamily
+            font.family: SystemFont
         }
         TextField {
             id: passwordInputAgain
@@ -161,7 +160,7 @@ Window {
             visible: false
             font.pixelSize: 14
             color: "red"
-            font.family: fontFamily
+            font.family: SystemFont
             text: qsTr("两次输入密码不一致")
         }
         //年龄输入
@@ -174,7 +173,7 @@ Window {
             visible: true
             text: qsTr("年龄: ")
             font.pixelSize: 15
-            font.family: fontFamily
+            font.family: SystemFont
         }
         TextField {
             id: ageInput
@@ -184,7 +183,7 @@ Window {
             height: 33
             readOnly: bReadOnly
             font.pixelSize: 15
-            font.family: fontFamily
+            font.family: SystemFont
             maximumLength: 3
             selectByMouse: true
             validator: RegExpValidator{
@@ -203,7 +202,7 @@ Window {
             visible: true
             text: qsTr("年龄: ")
             font.pixelSize: 15
-            font.family: fontFamily
+            font.family: SystemFont
         }
         GroupBox {
             id: sexSelect
@@ -239,7 +238,7 @@ Window {
             anchors.rightMargin: 5
             text: qsTr("您的账号: ")
             font.pixelSize: 15
-            font.family: fontFamily
+            font.family: SystemFont
         }
         TextField {
             id: result
@@ -251,7 +250,7 @@ Window {
             activeFocusOnPress: false
             readOnly: true
             font.pixelSize: 14
-            font.family: fontFamily
+            font.family: SystemFont
             maximumLength: 16
             selectByMouse: true
             style: ECTextFieldStyle{textColor: "red"}

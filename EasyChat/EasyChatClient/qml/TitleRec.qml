@@ -47,7 +47,7 @@ Rectangle {
         anchors.leftMargin: 15
         visible: topRct.isDisplayTitleText
         text:topRct.titleText
-        font.family: EcInteraction.getSystemFont()
+        font.family: SystemFont
         font.pointSize: 9
         color:"#ffffff"
     }

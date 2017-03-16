@@ -14,7 +14,6 @@ public:
     explicit EcInteraction(QObject *parent);
     Q_INVOKABLE void      sendMessage(QString jsonData);
 //    Q_INVOKABLE void cancelLogin();
-    Q_INVOKABLE QString   getSystemFont() const;
     Q_INVOKABLE void      setSelfAccount(QString account);
     Q_INVOKABLE void      closeClientThread();
     QString               selfAccount() const;
@@ -25,7 +24,7 @@ signals:
     void sig_registerAccountResult(int error, QString account);
     void sig_sendMessage(QString jsonData);
     void sig_selfAccountChanged(QString account);
-    void sig_closeClientThread();
+    void sig_signOut(QString account);
 private:
     QSharedPointer<FriendList>                     m_qpFriendList;
     QSharedPointer<Chat>                           m_qpChat;

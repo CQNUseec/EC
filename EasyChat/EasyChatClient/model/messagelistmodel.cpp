@@ -1,13 +1,13 @@
 #include "messagelistmodel.h"
 
-MessageListModel::MessageListModel(QString selfAccount, QObject *parent)
-    : QAbstractListModel(parent), m_selfAccount(selfAccount)
+MessageListModel::MessageListModel(QString selfAccount)
+    : m_selfAccount(selfAccount)
 {
-    m_roleNames.insert(message, "message");
-    m_roleNames.insert(sender, "sender");
-    m_roleNames.insert(receiver, "receiver");
-    m_roleNames.insert(sendTime, "sendTime");
-    m_roleNames.insert(bDisplayLeft, "bDisplayLeft");
+    m_roleNames.insert(messageRole, "message");
+    m_roleNames.insert(senderRole, "sender");
+    m_roleNames.insert(receiverRole, "receiver");
+    m_roleNames.insert(sendTimeRole, "sendTime");
+    m_roleNames.insert(bDisplayLeftRole, "bDisplayLeft");
 }
 
 MessageListModel::~MessageListModel()
@@ -17,8 +17,8 @@ MessageListModel::~MessageListModel()
 
 int MessageListModel::rowCount(const QModelIndex &parent) const
 {
-    if (!parent.isValid())
-        return 0;
+//    if (!parent.isValid())
+//        return 0;
     return m_qlMessage.count();
 }
 
@@ -29,15 +29,15 @@ QVariant MessageListModel::data(const QModelIndex &index, int role) const
     if(m_qlMessage.isEmpty())
         return QVariant();
     switch (role) {
-    case message:
+    case messageRole:
         return m_qlMessage.at(index.row())->message;
-    case sender:
+    case senderRole:
         return m_qlMessage.at(index.row())->sender;
-    case receiver:
+    case receiverRole:
         return m_qlMessage.at(index.row())->receiver;
-    case sendTime:
+    case sendTimeRole:
         return m_qlMessage.at(index.row())->sendTime;
-    case bDisplayLeft:
+    case bDisplayLeftRole:
         return m_qlMessage.at(index.row())->bDisplayLeft;
     default:
         return QVariant();

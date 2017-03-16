@@ -36,7 +36,7 @@ ButtonStyle{
         Text {
             anchors.centerIn: parent
             text: qsTr(buttonText)
-            font.family: EcInteraction.getSystemFont()
+            font.family: SystemFont
             font.pointSize: buttonTextSize
             color: "white"
         }

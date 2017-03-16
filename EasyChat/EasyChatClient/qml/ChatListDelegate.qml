@@ -38,6 +38,7 @@ Rectangle {
         }
         onClicked: {
             chatWindows.friendName = model.friendName;
+            chatWindows.friendAccount = model.friendAccount;
             chat.setCurrentChatPerson(model.friendAccount);
         }
     }

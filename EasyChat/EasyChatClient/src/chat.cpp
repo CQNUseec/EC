@@ -42,7 +42,6 @@ void Chat::clearChatData()
     m_qpCurrentMessageListModel = nullptr;
     for(auto it =m_qhMessageModel.begin(); it != m_qhMessageModel.end(); ++it)
     {
-        it.value()->clearModelData();
         delete it.value();
     }
     m_qhMessageModel.clear();
@@ -65,13 +64,14 @@ void Chat::loadDataToChat(QString friendName, QString friendAccount, QString sel
     {
         MessageListModel* messageListModel = new MessageListModel(selfAccount);
         m_qhMessageModel.insert(friendAccount, messageListModel);
+//        messageListModel->loadDataToModel("123456", "0", "wqwqwqw", "today");
+        setMessageListModel(messageListModel);
     }
 }
 
 void Chat::loadDataToMessageListModel(QString sender, QString receiver, QString message, QString date)
 {
-    auto ptr = getOneMessageListModel(receiver);
-    if(ptr == nullptr)
+    if(m_qpCurrentMessageListModel == nullptr)
         return;
-    ptr->loadDataToModel(sender, receiver, message, date);
+    m_qpCurrentMessageListModel->loadDataToModel(sender, receiver, message, date);
 }

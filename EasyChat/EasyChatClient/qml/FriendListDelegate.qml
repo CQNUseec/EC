@@ -27,7 +27,7 @@ Column {
             anchors.leftMargin: 5
             anchors.verticalCenter: parent.verticalCenter
             text: model.groupName
-            font.family: EcInteraction.getSystemFont()
+            font.family: SystemFont
             font.pointSize: 10
         }
         MouseArea {
@@ -66,7 +66,7 @@ Column {
                     anchors.centerIn: parent
                     text:model.nickName
                     color: "black"
-                    font.family: EcInteraction.getSystemFont()
+                    font.family: SystemFont
                     font.pointSize: 10
                 }
                 MouseArea {
@@ -88,7 +88,7 @@ Column {
                             console.log("聊天窗口已打开，双击添加聊天人");
                             return;
                         }
-                        chatLoader.setSource("chatWindow.qml", {"friendName": model.nickName});
+                        chatLoader.setSource("chatWindow.qml", {"friendName": model.nickName, "friendAccount": model.account});
                         EcInteraction.chat.loadDataToChat(model.nickName, model.account, EcInteraction.selfAccount);
                         console.log("双击打开聊天窗口")
                     }

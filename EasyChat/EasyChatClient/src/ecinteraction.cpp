@@ -21,11 +21,6 @@ Chat *EcInteraction::getChat() const
     return m_qpChat.data();
 }
 
-QString EcInteraction::getSystemFont() const
-{
-    return EC_SYSTEM_FONT;
-}
-
 QString EcInteraction::selfAccount() const
 {
     return m_selfAccount;
@@ -39,7 +34,7 @@ void EcInteraction::setSelfAccount(QString account)
 
 void EcInteraction::closeClientThread()
 {
-    emit sig_closeClientThread();
+    emit sig_signOut(m_selfAccount);
 }
 
 

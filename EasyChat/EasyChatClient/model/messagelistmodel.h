@@ -14,21 +14,22 @@ class MessageListModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit MessageListModel(QString selfAccount, QObject *parent = 0);
+    explicit MessageListModel(QString selfAccount);
     ~MessageListModel();
     enum MeeageInfo_Role
     {
-        message = Qt::UserRole + 1,        //消息内容
-        sender,
-        receiver,
-        sendTime,
-        bDisplayLeft
+        messageRole = Qt::UserRole + 1,        //消息内容
+        senderRole,
+        receiverRole,
+        sendTimeRole,
+        bDisplayLeftRole
     };
     // Basic functionality:
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     QHash<int, QByteArray> roleNames() const;
     void loadDataToModel(QString sender, QString receiver, QString message, QString sendTime);
+private:
     void clearModelData();
 private:
     QHash<int, QByteArray>          m_roleNames;
