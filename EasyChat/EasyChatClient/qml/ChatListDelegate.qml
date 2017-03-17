@@ -21,9 +21,10 @@ Rectangle {
         chatWindows.requestActivate();
     }
     Text {
-        anchors.centerIn: parent
         id: name
-        text: qsTr(model.friendName)
+        anchors.centerIn: parent
+        property string remarksName: EcInteraction.getRemarksName(model.friendAccount)
+        text: remarksName === "" ? qsTr(model.friendName) : remarksName
     }
     MouseArea {
         anchors.fill: parent
@@ -31,15 +32,49 @@ Rectangle {
         onEntered: {
             rec.z = 4;
             rec.height = 40;
+            removeButton.visible = true;
         }
         onExited: {
             rec.z = 1;
             rec.height = 35;
+            removeButton.visible = false;
         }
         onClicked: {
             chatWindows.friendName = model.friendName;
             chatWindows.friendAccount = model.friendAccount;
             chat.setCurrentChatPerson(model.friendAccount);
+        }
+    }
+    Rectangle {
+        id: removeButton
+        width: 20
+        height: 20
+        visible: false
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: parent.right
+        anchors.rightMargin: 3
+        radius: 15
+        z: 5
+        clip: true
+        Image {          // 关闭按钮
+            id:closeButton
+            source: "/images/close0.png"
+            anchors.centerIn: parent
+            visible: removeButton.visible
+            MouseArea {
+                anchors.fill: parent
+//                hoverEnabled: true
+//                onEntered: {
+//                    closeButton.source = "/images/close1.png";
+//                }
+//                onExited: {
+//                    closeButton.source = "/images/close0.png";
+//                }
+                onClicked: {
+                    console.log("remove");
+                    EcInteraction.chat.removeDataFromChat(model.friendAccount);
+                }
+            }
         }
     }
 }

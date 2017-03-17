@@ -52,7 +52,7 @@ Rectangle {
         color:"#ffffff"
     }
     Row{
-        id:buttons
+        id:minniButton
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.right: parent.right

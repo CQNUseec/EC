@@ -35,6 +35,7 @@ void FriendList::loadDataToModel()
         item->set_groupName(rootItem->get_groupName());
         item->set_account(qsi);
         item->set_nickName(QString("Friend ") + qsi);
+        item->set_remarksName(QString("Friend备注") + qsi);
         item->set_bSelected(false);
         children->append(item);
     }
@@ -45,10 +46,11 @@ void FriendList::loadDataToModel()
     for(int i=0; i<40; i++)
     {
         FriendItem* item = new FriendItem(rootItem);
-        QString qsi = QString::number(i, 10);
+        QString qsi = QString::number(i+20, 10);
         item->set_groupName(rootItem->get_groupName());
         item->set_account(qsi);
         item->set_nickName(QString("classmate ") + qsi);
+        item->set_remarksName(QString("classmate备注") + qsi);
         item->set_bSelected(false);
         Children->append(item);
     }
@@ -97,4 +99,56 @@ void FriendList::setbSelected(QString groupName, QString friendAccount)
             }
         }
     }
+}
+
+void FriendList::setRemarksName(QString friendAccount, QString remarksName)
+{
+    QList<FriendItem *> list = m_qpFriendItemModel->toList();
+    foreach(auto var, list)
+    {
+        QList<FriendItem *> groupMemberList = var->get_chs()->toList();
+        foreach(auto mvar, groupMemberList)
+        {
+            if(mvar->get_account() == friendAccount)
+                mvar->set_remarksName(remarksName);
+        }
+    }
+}
+
+bool FriendList::setGroupName(QString oldName, QString newName)
+{
+    QList<FriendItem *> list = m_qpFriendItemModel->toList();
+    foreach (auto var, list)
+    {
+        if(var->get_groupName() == newName)
+            return false;
+    }
+    foreach(auto var, list)
+    {
+        if(var->get_groupName() == oldName)
+        {
+            var->set_groupName(newName);
+            QList<FriendItem *> groupMemberList = var->get_chs()->toList();
+            foreach(auto mvar, groupMemberList)
+            {
+                mvar->set_groupName(newName);
+            }
+            return true;
+        }
+    }
+}
+
+QString FriendList::getRemarksName(QString friendAccount)
+{
+    QList<FriendItem *> list = m_qpFriendItemModel->toList();
+    foreach(auto var, list)
+    {
+        QList<FriendItem *> groupMemberList = var->get_chs()->toList();
+        foreach(auto mvar, groupMemberList)
+        {
+            if(mvar->get_account() == friendAccount)
+                return mvar->get_remarksName();
+        }
+    }
+    return "";
 }

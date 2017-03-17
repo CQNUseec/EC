@@ -5,6 +5,11 @@ Chat::Chat(QObject *parent): QObject(parent)
     m_qpChatListModel.reset(new ChatListModel());
 }
 
+Chat::~Chat()
+{
+    clearChatData();
+}
+
 ChatListModel *Chat::chatListModel() const
 {
     return m_qpChatListModel.data();
@@ -64,9 +69,24 @@ void Chat::loadDataToChat(QString friendName, QString friendAccount, QString sel
     {
         MessageListModel* messageListModel = new MessageListModel(selfAccount);
         m_qhMessageModel.insert(friendAccount, messageListModel);
-//        messageListModel->loadDataToModel("123456", "0", "wqwqwqw", "today");
         setMessageListModel(messageListModel);
     }
+}
+
+void Chat::removeDataFromChat(QString friendAccount)
+{
+    QString temp = m_qpChatListModel->removeData(friendAccount);
+    delete getOneMessageListModel(friendAccount);
+    m_qhMessageModel.remove(friendAccount);
+    if(temp != "")
+    {
+        setMessageListModel(getOneMessageListModel(temp));
+    }
+    else
+    {
+        clearChatData();
+    }
+    emit sig_viewChanged(m_qhMessageModel.count());
 }
 
 void Chat::loadDataToMessageListModel(QString sender, QString receiver, QString message, QString date)
@@ -74,4 +94,5 @@ void Chat::loadDataToMessageListModel(QString sender, QString receiver, QString 
     if(m_qpCurrentMessageListModel == nullptr)
         return;
     m_qpCurrentMessageListModel->loadDataToModel(sender, receiver, message, date);
+    emit sig_viewChanged();
 }

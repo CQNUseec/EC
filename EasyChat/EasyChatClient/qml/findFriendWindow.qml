@@ -16,13 +16,37 @@ Window {
     visible: true
     flags: Qt.Window | Qt.FramelessWindowHint
     TitleRec {
-        id: topRct
+        id: topRec
         width: parent.width
         height: 27
         color:"#005791"
         titleText: qsTr("查找账号")
         window: findFriendWindow
         biggestButtonVisible: false
+    }
+    Rectangle {        //左边框
+        width: 1
+        anchors.top: topRec.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        color: "#C8C8C8"
+        z:5
+    }
+    Rectangle {        //右边框
+        width: 1
+        anchors.top: topRec.bottom
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        color: "#C8C8C8"
+        z:5
+    }
+    Rectangle {        //底部边框
+        height: 1
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        color: "#C8C8C8"
+        z:5
     }
     AnimatedImage {
         id: findFriendWindowBackground
@@ -33,7 +57,7 @@ Window {
     }
     Rectangle {
         id: content
-        anchors.top: topRct.bottom
+        anchors.top: topRec.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom

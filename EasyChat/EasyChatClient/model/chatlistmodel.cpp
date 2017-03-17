@@ -101,9 +101,36 @@ void ChatListModel::setBSelected(QString friendAccount)
     emit layoutChanged();
 }
 
-void ChatListModel::removeData(QModelIndex &index)
+QString ChatListModel::removeData(QString friendAccount)
 {
-    int row = index.row();
+    emit layoutAboutToBeChanged();
+    for(int i=0; i < m_qlChatItemInfo.count(); i++)
+    {
+        if(m_qlChatItemInfo.at(i)->friendAccount == friendAccount)
+        {
+            if(m_qlChatItemInfo.at(i)->friendAccount == m_currentSelected)
+            {
+                if(i == 0)
+                {
+                    if(m_qlChatItemInfo.count() > 1)
+                    {
+                        m_qlChatItemInfo.at(1)->bSelected = true;
+                        m_currentSelected = m_qlChatItemInfo.at(1)->friendAccount;
+                    }
+                    else
+                        m_currentSelected = "";
+                }
+                else
+                {
+                    m_qlChatItemInfo.at(i-1)->bSelected = true;
+                    m_currentSelected = m_qlChatItemInfo.at(i-1)->friendAccount;
+                }
+            }
+            m_qlChatItemInfo.removeAt(i);
+            emit layoutChanged();
+            return m_currentSelected;
+        }
+    }
 }
 
 bool ChatListModel::isEmpty()

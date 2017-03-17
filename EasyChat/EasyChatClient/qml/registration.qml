@@ -28,6 +28,30 @@ Window {
         color: "#005791"
         biggestButtonVisible: false
     }
+    Rectangle {        //左边框
+        width: 1
+        anchors.top: topRec.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        color: "#C8C8C8"
+        z:5
+    }
+    Rectangle {        //右边框
+        width: 1
+        anchors.top: topRec.bottom
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        color: "#C8C8C8"
+        z:5
+    }
+    Rectangle {        //底部边框
+        height: 1
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        color: "#C8C8C8"
+        z:5
+    }
     AnimatedImage {
         id: registerBackground
         z: 3

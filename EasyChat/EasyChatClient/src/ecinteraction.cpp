@@ -37,4 +37,9 @@ void EcInteraction::closeClientThread()
     emit sig_signOut(m_selfAccount);
 }
 
+QString EcInteraction::getRemarksName(QString friendAccount)
+{
+    return m_qpFriendList->getRemarksName(friendAccount);
+}
+
 

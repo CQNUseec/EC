@@ -11,16 +11,19 @@ class Chat: public QObject             //处理聊天界面的相关逻辑
     Q_PROPERTY(MessageListModel* messageListModel READ messageListModel WRITE setMessageListModel NOTIFY sig_messageListModelChanged)
 public:
     Chat(QObject *parent);
+    ~Chat();
     Q_INVOKABLE bool isChatWindowOpen();
     Q_INVOKABLE void clearChatData();     //清除所有数据
     Q_INVOKABLE void setCurrentChatPerson(QString friendAccount);    //设置聊天窗口当前聊天的对象
     Q_INVOKABLE void loadDataToChat(QString friendName, QString friendAccount, QString selfAccount);
+    Q_INVOKABLE void removeDataFromChat(QString friendAccount);
     Q_INVOKABLE void loadDataToMessageListModel(QString sender, QString receiver, QString message, QString date);
 //    Q_INVOKABLE void removeChataData(QString friendAccount);
     ChatListModel* chatListModel() const;
     MessageListModel* messageListModel() const;
 signals:
     void sig_messageListModelChanged(MessageListModel* currentMessageListModel);
+    void sig_viewChanged(int count=1);
 private:
     void setMessageListModel(MessageListModel* currentMessageListModel);
     MessageListModel* getOneMessageListModel(QString account);

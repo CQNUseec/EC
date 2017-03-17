@@ -16,6 +16,7 @@ public:
 //    Q_INVOKABLE void cancelLogin();
     Q_INVOKABLE void      setSelfAccount(QString account);
     Q_INVOKABLE void      closeClientThread();
+    Q_INVOKABLE QString   getRemarksName(QString friendAccount);
     QString               selfAccount() const;
     FriendList*           getFriendList() const;
     Chat*                 getChat() const;
@@ -29,7 +30,6 @@ private:
     QSharedPointer<FriendList>                     m_qpFriendList;
     QSharedPointer<Chat>                           m_qpChat;
     QString                                        m_selfAccount;
-    bool                                           m_bClientThreadRun{true};
 };
 
 #endif // ECINTERACTION_H

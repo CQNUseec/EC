@@ -10,6 +10,9 @@ class FriendList: public QObject             //好友列表的Model管理
 public:
     FriendList(QObject *parent);
     Q_INVOKABLE void setbSelected(QString groupName, QString friendAccount);
+    Q_INVOKABLE void setRemarksName(QString friendAccount, QString remarksName);
+    Q_INVOKABLE bool setGroupName(QString oldName, QString newName);
+    QString getRemarksName(QString friendAccount);
     FriendItemModel* getFriendItemModel() const;
     void clearModel();
     void loadDataToModel();

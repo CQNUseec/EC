@@ -27,16 +27,40 @@ Window {
         console.log("关闭聊天窗口， 清空聊天列表");
     }
     TitleRec {
-        id: topRct
+        id: topRec
         width: parent.width
         height: 27
         color:"#005791"
         window: chatWindows
         titleText: friendName
     }
-    Rectangle {    // 左边边框
+    Rectangle {        //左边框
+        width: 1
+        anchors.top: topRec.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        color: "#C8C8C8"
+        z:5
+    }
+    Rectangle {        //右边框
+        width: 1
+        anchors.top: topRec.bottom
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        color: "#C8C8C8"
+        z:5
+    }
+    Rectangle {        //底部边框
+        height: 1
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        color: "#C8C8C8"
+        z:5
+    }
+    Rectangle {    // 左边显示框
         id: leftTabRec
-        anchors.top: topRct.bottom
+        anchors.top: topRec.bottom
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         width: 120
@@ -75,7 +99,7 @@ Window {
     }
     Rectangle {   //聊天内容显示框
         id: chatContentRec
-        anchors.top: topRct.bottom
+        anchors.top: topRec.bottom
         anchors.left: leftTabRec.right
         anchors.right: parent.right
         height: parent.height * 0.7
@@ -115,7 +139,10 @@ Window {
         radius: 3
         TextArea {
             id: messageInput
-            anchors.fill: parent
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: sendButton.top
             focus: true
             font.pixelSize: 15
             wrapMode: TextEdit.Wrap
@@ -123,7 +150,9 @@ Window {
         Button {
             id: sendButton
             anchors.bottom: parent.bottom
+            anchors.bottomMargin: 5
             anchors.right: parent.right
+            anchors.rightMargin: 5
             style: ECButtonStyle { button: sendButton; buttonText: "发送"}
             onClicked: {
                 sendMessage();
@@ -133,6 +162,17 @@ Window {
                 ecLoader.setSource("registration.qml");
                 loginWindow.visible = false;
             }
+        }
+    }
+    Connections {
+        target: chat
+        onSig_viewChanged: {
+            console.log(chatingFriendList.count);
+            if(count === 0)
+                chatWindows.close();
+            chatingFriendList.forceLayout();
+            messageListView.forceLayout();
+            messageListView.positionViewAtEnd();
         }
     }
     function sendMessage() {

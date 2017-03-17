@@ -28,7 +28,7 @@ public:
     void loadDataToModel(QString friendAccount, QString friendName, bool bUnreadMessage=false);
     void clearModelData();
     void setBSelected(QString friendAccount);
-    void removeData(QModelIndex &index);
+    QString removeData(QString friendAccount);
     bool isEmpty();
 private:
     QHash<int, QByteArray>           m_roleNames;
