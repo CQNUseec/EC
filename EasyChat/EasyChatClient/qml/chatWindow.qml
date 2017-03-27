@@ -159,8 +159,7 @@ Window {
             }
             Keys.enabled: true
             Keys.onReturnPressed: {
-                ecLoader.setSource("registration.qml");
-                loginWindow.visible = false;
+                sendMessage();
             }
         }
     }
@@ -179,7 +178,13 @@ Window {
         if(messageInput.length < 1)
             return;
         var now = Qt.formatDateTime(new Date(), "yyyy-MM-dd hh:mm:ss");
-        console.log(now.toString());
+        var messageData = new Object();
+        messageData.sender = selfAccount;
+        messageData.receiver = friendAccount;
+        messageData.message = messageInput.text;
+        messageData.sendtime = now.toString();
+        console.log(JSON.stringify(messageData));
+        EcInteraction.sendMessage(JSON.stringify(messageData));
         chat.loadDataToMessageListModel(selfAccount, friendAccount, messageInput.text, now.toString());
         messageInput.text = "";
     }

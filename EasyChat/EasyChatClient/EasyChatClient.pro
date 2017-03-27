@@ -1,5 +1,5 @@
 TEMPLATE = app
-
+QT += widgets
 QT += qml quick
 CONFIG += c++11
 
@@ -11,7 +11,8 @@ SOURCES += \
     src/ecclient.cpp \
     src/ecclientthread.cpp \
     model/chatlistmodel.cpp \
-    model/messagelistmodel.cpp
+    model/messagelistmodel.cpp \
+    src/singleApplication.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,4 +35,5 @@ HEADERS += \
     src/ecclient.h \
     src/ecclientthread.h \
     model/chatlistmodel.h \
-    model/messagelistmodel.h
+    model/messagelistmodel.h \
+    src/singleApplication.h

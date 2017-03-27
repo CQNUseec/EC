@@ -4,11 +4,14 @@
 #include "ecinteraction.h"
 #include "ecclientthread.h"
 #include <QString>
+#include "singleApplication.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication app(argc, argv);
+    SingleApplication app(argc, argv);
+    if(app.isRunning())
+        return 0;
     EcInteraction  easyCaht(&app);
     easyCaht.getFriendList()->loadDataToModel();
 
