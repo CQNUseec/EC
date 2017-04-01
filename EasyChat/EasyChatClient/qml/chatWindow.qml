@@ -107,6 +107,10 @@ Window {
         border.width: 2
         radius: 3
         clip: true
+        Keys.enabled: true
+        Keys.onEscapePressed: {
+            chatWindows.close();
+        }
         ListView {
             id: messageListView
             anchors.top:parent.top
@@ -137,6 +141,10 @@ Window {
         border.color: "yellow"
         border.width: 2
         radius: 3
+        Keys.enabled: true
+        Keys.onEscapePressed: {
+            chatWindows.close();
+        }
         TextArea {
             id: messageInput
             anchors.top: parent.top
