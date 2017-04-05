@@ -65,6 +65,7 @@ Column {
     ColumnLayout{ //ColumnLayout和ListView的选择使用根据数据条数而定  上千条以下用ColumnLayout
         id:groupMemberList
         visible: false
+        spacing: 0
         Repeater {
             model: chs
             delegate: groupListDelegate

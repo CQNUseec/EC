@@ -9,7 +9,7 @@ struct ChatItemInfo
     bool      bSelected{true};
     bool      bUnreadMessage{false};
 };
-class ChatListModel : public QAbstractListModel
+class ChatListModel : public QAbstractListModel           //聊天界面正在聊天的列表的model
 {
     Q_OBJECT
 public:

@@ -51,7 +51,8 @@ SOURCES       = ..\src\chat.cpp \
 		..\src\ecclientthread.cpp \
 		..\model\chatlistmodel.cpp \
 		..\model\messagelistmodel.cpp \
-		..\src\singleApplication.cpp release\qrc_qml.cpp \
+		..\src\singleApplication.cpp \
+		..\model\groupmodel.cpp release\qrc_qml.cpp \
 		release\moc_frienditem.cpp \
 		release\moc_QQmlAutoPropertyHelpers.cpp \
 		release\moc_QQmlObjectListModel.cpp \
@@ -62,7 +63,8 @@ SOURCES       = ..\src\chat.cpp \
 		release\moc_ecclient.cpp \
 		release\moc_chatlistmodel.cpp \
 		release\moc_messagelistmodel.cpp \
-		release\moc_singleApplication.cpp
+		release\moc_singleApplication.cpp \
+		release\moc_groupmodel.cpp
 OBJECTS       = release\chat.obj \
 		release\ecinteraction.obj \
 		release\friendlist.obj \
@@ -72,6 +74,7 @@ OBJECTS       = release\chat.obj \
 		release\chatlistmodel.obj \
 		release\messagelistmodel.obj \
 		release\singleApplication.obj \
+		release\groupmodel.obj \
 		release\qrc_qml.obj \
 		release\moc_frienditem.obj \
 		release\moc_QQmlAutoPropertyHelpers.obj \
@@ -83,7 +86,8 @@ OBJECTS       = release\chat.obj \
 		release\moc_ecclient.obj \
 		release\moc_chatlistmodel.obj \
 		release\moc_messagelistmodel.obj \
-		release\moc_singleApplication.obj
+		release\moc_singleApplication.obj \
+		release\moc_groupmodel.obj
 
 DIST          =  ..\model\frienditem.h \
 		..\model\QQmlAutoPropertyHelpers.h \
@@ -98,7 +102,8 @@ DIST          =  ..\model\frienditem.h \
 		..\src\ecclientthread.h \
 		..\model\chatlistmodel.h \
 		..\model\messagelistmodel.h \
-		..\src\singleApplication.h ..\src\chat.cpp \
+		..\src\singleApplication.h \
+		..\model\groupmodel.h ..\src\chat.cpp \
 		..\src\ecinteraction.cpp \
 		..\src\friendlist.cpp \
 		..\src\main.cpp \
@@ -106,7 +111,8 @@ DIST          =  ..\model\frienditem.h \
 		..\src\ecclientthread.cpp \
 		..\model\chatlistmodel.cpp \
 		..\model\messagelistmodel.cpp \
-		..\src\singleApplication.cpp
+		..\src\singleApplication.cpp \
+		..\model\groupmodel.cpp
 QMAKE_TARGET  = EasyChatClient
 DESTDIR        = release\ #avoid trailing-slash linebreak
 TARGET         = EasyChatClient.exe
@@ -215,7 +221,7 @@ dist:
 	$(ZIP) EasyChatClient.zip $(SOURCES) $(DIST) ..\EasyChatClient.pro ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\spec_pre.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\common\angle.conf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\common\msvc-base.conf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\common\msvc-desktop.conf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\qconfig.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dcore.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dcore_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dextras.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dextras_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dinput.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dinput_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dlogic.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dlogic_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dquick.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dquick_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dquickextras.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dquickextras_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dquickinput.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dquickinput_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dquickrender.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3dquickrender_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3drender.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_3drender_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_axbase.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_axbase_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_axcontainer.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_axserver.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_axserver_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_clucene_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_core.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_core_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_dbus.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_designer.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_gamepad.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_gamepad_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_gui.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_help.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_help_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_location.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_location_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_network.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_network_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_nfc.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_opengl.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_openglextensions.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_platformsupport_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_positioning.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_purchasing.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_purchasing_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_qml.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_quick.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_script.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_script_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_scripttools.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_scripttools_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_scxml.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_scxml_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_sensors.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_serialbus.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_serialbus_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_serialport.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_sql.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_svg.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_testlib.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_uitools.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_webchannel.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_webchannel_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_webengine.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_webengine_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_webenginecore.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_webenginecore_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_webenginecoreheaders_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_webenginewidgets.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_webenginewidgets_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_websockets.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_websockets_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_webview.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_webview_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_widgets.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_winextras.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_winextras_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_xml.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\modules\qt_lib_zlib_private.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\qt_functions.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\qt_config.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\win32\qt_config.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\win32-msvc2015\qmake.conf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\spec_post.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\exclusive_builds.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\default_pre.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\win32\default_pre.prf ..\deployment.pri ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\resolve_config.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\exclusive_builds_post.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\default_post.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\build_pass.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\win32\rtti.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\precompile_header.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\warn_on.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\qt.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\resources.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\moc.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\win32\opengl.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\uic.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\file_copies.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\win32\windows.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\testcase_targets.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\exceptions.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\yacc.prf ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\features\lex.prf ..\EasyChatClient.pro ..\qml.qrc ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\qtmain.prl ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Widgets.prl ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Quick.prl ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Gui.prl ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Qml.prl ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Network.prl ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Core.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\chat.obj release\ecinteraction.obj release\friendlist.obj release\main.obj release\ecclient.obj release\ecclientthread.obj release\chatlistmodel.obj release\messagelistmodel.obj release\singleApplication.obj release\qrc_qml.obj release\moc_frienditem.obj release\moc_QQmlAutoPropertyHelpers.obj release\moc_QQmlObjectListModel.obj release\moc_QQmlPtrPropertyHelpers.obj release\moc_chat.obj release\moc_ecinteraction.obj release\moc_friendlist.obj release\moc_ecclient.obj release\moc_chatlistmodel.obj release\moc_messagelistmodel.obj release\moc_singleApplication.obj
+	-$(DEL_FILE) release\chat.obj release\ecinteraction.obj release\friendlist.obj release\main.obj release\ecclient.obj release\ecclientthread.obj release\chatlistmodel.obj release\messagelistmodel.obj release\singleApplication.obj release\groupmodel.obj release\qrc_qml.obj release\moc_frienditem.obj release\moc_QQmlAutoPropertyHelpers.obj release\moc_QQmlObjectListModel.obj release\moc_QQmlPtrPropertyHelpers.obj release\moc_chat.obj release\moc_ecinteraction.obj release\moc_friendlist.obj release\moc_ecclient.obj release\moc_chatlistmodel.obj release\moc_messagelistmodel.obj release\moc_singleApplication.obj release\moc_groupmodel.obj
 	-$(DEL_FILE) release\EasyChatClient.exp
 
 distclean: clean 
@@ -241,6 +247,7 @@ release\qrc_qml.cpp: ..\qml.qrc \
 		..\qml\TitleRec.qml \
 		..\qml\ListViewSlideBar.qml \
 		..\qml\ECTextFieldStyle.qml \
+		..\qml\GroupListDelegate.qml \
 		..\qml\findFriendWindow.qml \
 		..\qml\registration.qml \
 		..\qml\FriendListDelegate.qml \
@@ -268,9 +275,9 @@ release\qrc_qml.cpp: ..\qml.qrc \
 		..\images\scrollviewToBeginH.png
 	D:\Qt\Qt5.7.0\5.7\msvc2015\bin\rcc.exe -name qml ..\qml.qrc -o release\qrc_qml.cpp
 
-compiler_moc_header_make_all: release\moc_frienditem.cpp release\moc_QQmlAutoPropertyHelpers.cpp release\moc_QQmlObjectListModel.cpp release\moc_QQmlPtrPropertyHelpers.cpp release\moc_chat.cpp release\moc_ecinteraction.cpp release\moc_friendlist.cpp release\moc_ecclient.cpp release\moc_chatlistmodel.cpp release\moc_messagelistmodel.cpp release\moc_singleApplication.cpp
+compiler_moc_header_make_all: release\moc_frienditem.cpp release\moc_QQmlAutoPropertyHelpers.cpp release\moc_QQmlObjectListModel.cpp release\moc_QQmlPtrPropertyHelpers.cpp release\moc_chat.cpp release\moc_ecinteraction.cpp release\moc_friendlist.cpp release\moc_ecclient.cpp release\moc_chatlistmodel.cpp release\moc_messagelistmodel.cpp release\moc_singleApplication.cpp release\moc_groupmodel.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) release\moc_frienditem.cpp release\moc_QQmlAutoPropertyHelpers.cpp release\moc_QQmlObjectListModel.cpp release\moc_QQmlPtrPropertyHelpers.cpp release\moc_chat.cpp release\moc_ecinteraction.cpp release\moc_friendlist.cpp release\moc_ecclient.cpp release\moc_chatlistmodel.cpp release\moc_messagelistmodel.cpp release\moc_singleApplication.cpp
+	-$(DEL_FILE) release\moc_frienditem.cpp release\moc_QQmlAutoPropertyHelpers.cpp release\moc_QQmlObjectListModel.cpp release\moc_QQmlPtrPropertyHelpers.cpp release\moc_chat.cpp release\moc_ecinteraction.cpp release\moc_friendlist.cpp release\moc_ecclient.cpp release\moc_chatlistmodel.cpp release\moc_messagelistmodel.cpp release\moc_singleApplication.cpp release\moc_groupmodel.cpp
 release\moc_frienditem.cpp: ..\model\QQmlObjectListModel.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QAbstractListModel \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qabstractitemmodel.h \
@@ -705,6 +712,7 @@ release\moc_ecinteraction.cpp: ..\src\chat.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QtGlobal \
 		..\model\QQmlPtrPropertyHelpers.h \
 		..\src\ecglobal.h \
+		..\model\groupmodel.h \
 		..\src\ecinteraction.h \
 		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\bin\moc.exe
 	D:\Qt\Qt5.7.0\5.7\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -ID:/Qt/Qt5.7.0/5.7/msvc2015/mkspecs/win32-msvc2015 -ID:/gitWorkDir/EasyChat/EasyChatClient -ID:/Qt/Qt5.7.0/5.7/msvc2015/include -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtWidgets -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtQuick -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtGui -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtANGLE -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtQml -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtNetwork -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtCore -I. ..\src\ecinteraction.h -o release\moc_ecinteraction.cpp
@@ -1109,6 +1117,73 @@ release\moc_singleApplication.cpp: ..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\includ
 		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\bin\moc.exe
 	D:\Qt\Qt5.7.0\5.7\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -ID:/Qt/Qt5.7.0/5.7/msvc2015/mkspecs/win32-msvc2015 -ID:/gitWorkDir/EasyChat/EasyChatClient -ID:/Qt/Qt5.7.0/5.7/msvc2015/include -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtWidgets -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtQuick -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtGui -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtANGLE -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtQml -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtNetwork -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtCore -I. ..\src\singleApplication.h -o release\moc_singleApplication.cpp
 
+release\moc_groupmodel.cpp: ..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QAbstractListModel \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qabstractitemmodel.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qvariant.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qatomic.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qglobal.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qconfig.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qfeatures.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qsystemdetection.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qprocessordetection.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qcompilerdetection.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qtypeinfo.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qtypetraits.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qisenum.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qsysinfo.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qlogging.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qflags.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qglobalstatic.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qmutex.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qnumeric.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qversiontagging.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qbasicatomic.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qatomic_bootstrap.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qgenericatomic.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qatomic_cxx11.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qatomic_msvc.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qbytearray.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qrefcount.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qnamespace.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qarraydata.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qstring.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qchar.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qstringbuilder.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qlist.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qalgorithms.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qiterator.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qhashfunctions.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qpair.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qbytearraylist.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qstringlist.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qregexp.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qstringmatcher.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qmetatype.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qvarlengtharray.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qcontainerfwd.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qobjectdefs.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qobjectdefs_impl.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qmap.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qdebug.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qhash.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qtextstream.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qiodevice.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qobject.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qcoreevent.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qscopedpointer.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qobject_impl.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qlocale.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qshareddata.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qvector.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qpoint.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qset.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qcontiguouscache.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qsharedpointer.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qsharedpointer_impl.h \
+		..\model\groupmodel.h \
+		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\bin\moc.exe
+	D:\Qt\Qt5.7.0\5.7\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -ID:/Qt/Qt5.7.0/5.7/msvc2015/mkspecs/win32-msvc2015 -ID:/gitWorkDir/EasyChat/EasyChatClient -ID:/Qt/Qt5.7.0/5.7/msvc2015/include -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtWidgets -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtQuick -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtGui -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtANGLE -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtQml -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtNetwork -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtCore -I. ..\model\groupmodel.h -o release\moc_groupmodel.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all:
@@ -1282,7 +1357,8 @@ release\ecinteraction.obj: ..\src\ecinteraction.cpp ../src/ecinteraction.h \
 		../model/QQmlHelpersCommon.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QtGlobal \
 		../model/QQmlPtrPropertyHelpers.h \
-		../src/ecglobal.h
+		../src/ecglobal.h \
+		../model/groupmodel.h
 
 release\friendlist.obj: ..\src\friendlist.cpp ../src/friendlist.h \
 		../model/frienditem.h \
@@ -1485,6 +1561,7 @@ release\main.obj: ..\src\main.cpp ..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QtGlobal \
 		../model/QQmlPtrPropertyHelpers.h \
 		../src/ecglobal.h \
+		../model/groupmodel.h \
 		../src/ecclientthread.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QThread \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qthread.h \
@@ -1617,6 +1694,7 @@ release\ecclient.obj: ..\src\ecclient.cpp ../src/ecclient.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QtGlobal \
 		../model/QQmlPtrPropertyHelpers.h \
 		../src/ecglobal.h \
+		../model/groupmodel.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QJsonDocument \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qjsondocument.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qjsonvalue.h \
@@ -1716,7 +1794,8 @@ release\ecclientthread.obj: ..\src\ecclientthread.cpp ../src/ecclientthread.h \
 		../model/QQmlHelpersCommon.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QtGlobal \
 		../model/QQmlPtrPropertyHelpers.h \
-		../src/ecglobal.h
+		../src/ecglobal.h \
+		../model/groupmodel.h
 
 release\chatlistmodel.obj: ..\model\chatlistmodel.cpp ../model/chatlistmodel.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QAbstractListModel \
@@ -1961,6 +2040,71 @@ release\singleApplication.obj: ..\src\singleApplication.cpp ../src/singleApplica
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QFileInfo \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qfileinfo.h
 
+release\groupmodel.obj: ..\model\groupmodel.cpp ../model/groupmodel.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QAbstractListModel \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qabstractitemmodel.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qvariant.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qatomic.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qglobal.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qconfig.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qfeatures.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qsystemdetection.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qprocessordetection.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qcompilerdetection.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qtypeinfo.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qtypetraits.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qisenum.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qsysinfo.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qlogging.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qflags.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qglobalstatic.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qmutex.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qnumeric.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qversiontagging.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qbasicatomic.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qatomic_bootstrap.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qgenericatomic.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qatomic_cxx11.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qatomic_msvc.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qbytearray.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qrefcount.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qnamespace.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qarraydata.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qstring.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qchar.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qstringbuilder.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qlist.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qalgorithms.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qiterator.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qhashfunctions.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qpair.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qbytearraylist.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qstringlist.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qregexp.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qstringmatcher.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qmetatype.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qvarlengtharray.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qcontainerfwd.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qobjectdefs.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qobjectdefs_impl.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qmap.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qdebug.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qhash.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qtextstream.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qiodevice.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qobject.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qcoreevent.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qscopedpointer.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qobject_impl.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qlocale.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qshareddata.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qvector.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qpoint.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qset.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qcontiguouscache.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qsharedpointer.h \
+		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qsharedpointer_impl.h
+
 release\qrc_qml.obj: release\qrc_qml.cpp 
 
 release\moc_frienditem.obj: release\moc_frienditem.cpp 
@@ -1984,6 +2128,8 @@ release\moc_chatlistmodel.obj: release\moc_chatlistmodel.cpp
 release\moc_messagelistmodel.obj: release\moc_messagelistmodel.cpp 
 
 release\moc_singleApplication.obj: release\moc_singleApplication.cpp 
+
+release\moc_groupmodel.obj: release\moc_groupmodel.cpp 
 
 ####### Install
 

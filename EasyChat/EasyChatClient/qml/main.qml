@@ -109,18 +109,18 @@ Window {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
-                anchors.right: slideBar.visible ? slideBar.left : parent.right
+                anchors.right: friendListSlideBar.visible ? friendListSlideBar.left : parent.right
                 anchors.leftMargin: 5
                 clip: true
                 model:friendListModel
-                delegate: FriendListDelegate{itemWidth: slideBar.visible ? mainWindow.width-slideBar.width :mainWindow.width}
+                delegate: FriendListDelegate{itemWidth: friendListSlideBar.visible ? mainWindow.width-friendListSlideBar.width :mainWindow.width}
                 highlightFollowsCurrentItem: true;
                 highlightMoveVelocity: 14000;
                 cacheBuffer: 10
             }
 
             ListViewSlideBar {  //使用自定义的滑动条    因为在ScrollView中嵌套ListView有点问题
-                id: slideBar
+                id: friendListSlideBar
                 anchors.top: friendListView.top
                 anchors.right: parent.right
                 anchors.bottom: friendListView.bottom
@@ -128,9 +128,27 @@ Window {
             }
         }
         Controls2.Page {
-            Label {
-                text: qsTr("群聊")
-                anchors.centerIn: parent
+            ListView {
+                id: groupListView
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                anchors.right: groupListSlideBar.visible ? groupListSlideBar.left : parent.right
+                anchors.leftMargin: 5
+                clip: true
+                model:EcInteraction.chatGroupList
+                delegate: GroupListDelegate{itemWidth: groupListSlideBar.visible ? mainWindow.width-groupListSlideBar.width :mainWindow.width}
+                highlightFollowsCurrentItem: true;
+                highlightMoveVelocity: 14000;
+                cacheBuffer: 10
+            }
+
+            ListViewSlideBar {  //使用自定义的滑动条    因为在ScrollView中嵌套ListView有点问题
+                id: groupListSlideBar
+                anchors.top: groupListView.top
+                anchors.right: parent.right
+                anchors.bottom: groupListView.bottom
+                view: groupListView
             }
         }
     }

@@ -4,6 +4,7 @@ EcInteraction::EcInteraction(QObject *parent): QObject(parent)
 {
     m_qpFriendList.reset(new FriendList(this));
     m_qpChat.reset(new Chat(this));
+    m_qpGroupList.reset(new GroupModel(m_selfAccount));
 }
 
 void EcInteraction::sendMessage(QString jsonData)
@@ -14,6 +15,11 @@ void EcInteraction::sendMessage(QString jsonData)
 FriendList *EcInteraction::getFriendList() const
 {
     return m_qpFriendList.data();
+}
+
+GroupModel *EcInteraction::chatGroupList() const
+{
+    return m_qpGroupList.data();
 }
 
 Chat *EcInteraction::getChat() const
@@ -30,6 +36,10 @@ void EcInteraction::setSelfAccount(QString account)
 {
     m_selfAccount = account;
     emit sig_selfAccountChanged(m_selfAccount);
+//    if(m_qpGroupList.isNull())
+//        m_qpGroupList.reset(new GroupModel(m_selfAccount));
+//    else
+        m_qpGroupList->setSelfAccount(m_selfAccount);
 }
 
 void EcInteraction::closeClientThread()
@@ -40,6 +50,11 @@ void EcInteraction::closeClientThread()
 QString EcInteraction::getRemarksName(QString friendAccount)
 {
     return m_qpFriendList->getRemarksName(friendAccount);
+}
+
+void EcInteraction::setGroupSelected(QString GroupAccount)
+{
+    m_qpGroupList->setbSelected(GroupAccount);
 }
 
 

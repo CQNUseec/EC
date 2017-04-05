@@ -10,7 +10,7 @@ struct Message{
     QString sendTime;
     bool    bDisplayLeft{true};
 };
-class MessageListModel : public QAbstractListModel
+class MessageListModel : public QAbstractListModel      //聊天窗口正在聊天时的消息实时显示，切换聊天对象的时，切换到对应的model，关闭时清空对应model
 {
     Q_OBJECT
 public:

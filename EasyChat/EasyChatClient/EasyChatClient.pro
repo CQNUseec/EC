@@ -13,7 +13,7 @@ SOURCES += \
     model/chatlistmodel.cpp \
     model/messagelistmodel.cpp \
     src/singleApplication.cpp \
-    model/groupchatmodel.cpp
+    model/groupmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -38,4 +38,4 @@ HEADERS += \
     model/chatlistmodel.h \
     model/messagelistmodel.h \
     src/singleApplication.h \
-    model/groupchatmodel.h
+    model/groupmodel.h
