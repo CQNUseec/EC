@@ -25,9 +25,9 @@ public:
         bDisplayLeftRole
     };
     // Basic functionality:
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    QHash<int, QByteArray> roleNames() const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    QHash<int, QByteArray> roleNames() const override;
     void loadDataToModel(QString sender, QString receiver, QString message, QString sendTime);
 private:
     void clearModelData();
@@ -36,5 +36,4 @@ private:
     QList<Message*>                 m_qlMessage;
     QString                         m_selfAccount;
 };
-
 #endif // MESSAGELISTMODEL_H

@@ -6,9 +6,9 @@ GroupModel::GroupModel(QString selfAccount) : m_selfAccount(selfAccount)
     m_roleNames.insert(groupNameRole, "groupName");
     m_roleNames.insert(bSelectedRole, "bSelected");
     QStringList sq("1");
-    loadDataToModel("12154545", "group1", sq);
-    loadDataToModel("12154245", "group2", sq);
-    loadDataToModel("12124545", "group3", sq);
+    loadDataToModel("12154545", "group1", " ", sq);
+    loadDataToModel("12154245", "group2", " ", sq);
+    loadDataToModel("12124545", "group3", " ", sq);
 }
 
 GroupModel::~GroupModel()
@@ -43,14 +43,15 @@ QHash<int, QByteArray> GroupModel::roleNames() const
     return m_roleNames;
 }
 
-void GroupModel::loadDataToModel(QString groupAccount, QString groupName, QStringList groupMember)
+void GroupModel::loadDataToModel(QString groupAccount, QString groupName, QString groupOwner, QStringList groupMember)
 {
-    if(groupAccount.isEmpty() || groupName.isEmpty() || groupMember.isEmpty())
+    if(groupAccount.isEmpty() || groupName.isEmpty() || groupMember.isEmpty() || groupOwner.isEmpty())
         return;
     emit layoutAboutToBeChanged();
     GroupItemInfo* groupItemPtr = new GroupItemInfo;
     groupItemPtr->groupAccount = groupAccount;
     groupItemPtr->groupName = groupName;
+    groupItemPtr->groupOwner = groupOwner;
     m_qlGroupItemInfo.append(groupItemPtr);
     m_qhGroupMember.insert(groupAccount, groupMember);
     emit layoutChanged();

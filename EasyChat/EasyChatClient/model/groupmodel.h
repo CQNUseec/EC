@@ -5,6 +5,7 @@
 struct GroupItemInfo{
     QString             groupAccount;
     QString             groupName;
+    QString             groupOwner;
     bool                bSelected{false};
 };
 class GroupModel : public QAbstractListModel      //主界面，群组列表的model
@@ -17,12 +18,13 @@ public:
     {
         groupAccoutRole = Qt::UserRole + 1,        //消息内容
         groupNameRole,
+        groupOwnerRole,
         bSelectedRole,
     };
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    QHash<int, QByteArray> roleNames() const;
-    void loadDataToModel(QString groupAccout, QString groupName, QStringList groupMember);
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    QHash<int, QByteArray> roleNames() const override;
+    void loadDataToModel(QString groupAccout, QString groupName, QString groupOwner, QStringList groupMember);
     void setSelfAccount(QString selfAccount);
     void setbSelected(QString groupAccout);
 private:

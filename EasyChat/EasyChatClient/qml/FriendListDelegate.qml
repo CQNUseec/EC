@@ -81,7 +81,7 @@ Column {
                 property string friendAccount: model.account
                 property bool bEntered: false
                 property bool bEditState: false
-                color: model.bSelected ? "#FCEAA3" : (bEntered ? "#FCF0C1" : "#F0F8FD")
+                color: model.bSelected ? "#FCEAA3" : (bEntered ? "#FCF0C1" : "#FFFFFF")
                 radius: 3
                 TextField {
                     id: textField

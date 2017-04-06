@@ -8,7 +8,7 @@ import QtQuick.Controls.Styles 1.4
 
 TextFieldStyle {
     textColor: "#000000"
-    property string recColor: "white"
+    property string recColor: "#FFFFFF"
     property string borderColor: "#D1D1D1"
     property int borderWidth: 1
     background: Rectangle {

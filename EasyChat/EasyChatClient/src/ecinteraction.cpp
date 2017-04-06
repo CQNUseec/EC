@@ -36,10 +36,7 @@ void EcInteraction::setSelfAccount(QString account)
 {
     m_selfAccount = account;
     emit sig_selfAccountChanged(m_selfAccount);
-//    if(m_qpGroupList.isNull())
-//        m_qpGroupList.reset(new GroupModel(m_selfAccount));
-//    else
-        m_qpGroupList->setSelfAccount(m_selfAccount);
+    m_qpGroupList->setSelfAccount(m_selfAccount);
 }
 
 void EcInteraction::closeClientThread()
