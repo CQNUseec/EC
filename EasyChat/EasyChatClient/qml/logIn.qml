@@ -16,7 +16,7 @@ Window {
     flags: Qt.Window | Qt.FramelessWindowHint
     property bool isCancelLogin: false
     onClosing: {
-        EcInteraction.closeClientThread();
+        EcInteraction.closeClientThread(0);
     }
     TitleRec {
         id: topRct

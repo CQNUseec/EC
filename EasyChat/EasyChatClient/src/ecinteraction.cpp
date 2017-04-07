@@ -39,9 +39,12 @@ void EcInteraction::setSelfAccount(QString account)
     m_qpGroupList->setSelfAccount(m_selfAccount);
 }
 
-void EcInteraction::closeClientThread()
+void EcInteraction::closeClientThread(int i)
 {
-    emit sig_signOut(m_selfAccount);
+    if(i == 0)
+        emit sig_signOut("0");
+    else
+        emit sig_signOut(m_selfAccount);
 }
 
 QString EcInteraction::getRemarksName(QString friendAccount)

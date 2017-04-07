@@ -13,7 +13,11 @@ Rectangle {
     width: itemWidth
     height: 50
     radius: 3
-    color: model.bSelected ? "#FCEAA3" : (bEntered ? "#FCF0C1" : "#FFFFFF")
+    color: bSelected ? "#FCEAA3" : (bEntered ? "#FCF0C1" : "#FFFFFF")
+    onColorChanged: {
+        if(model.bSelected)
+            console.log("selected");
+    }
     property int itemWidth: 200
     property bool bEntered: false
         TextField {

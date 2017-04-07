@@ -2,13 +2,6 @@
 #define CHATLISTMODEL_H
 #include <QAbstractListModel>
 
-struct ChatItemInfo
-{
-    QString   friendAccount;
-    QString   friendName;
-    bool      bSelected{true};
-    bool      bUnreadMessage{false};
-};
 class ChatListModel : public QAbstractListModel           //聊天界面正在聊天的列表的model
 {
     Q_OBJECT
@@ -21,6 +14,13 @@ public:
         friendNameRole,
         bSelectedRole,
         bUnreadMessageRole,
+    };
+    struct ChatItemInfo
+    {
+        QString   friendAccount;
+        QString   friendName;
+        bool      bSelected{true};
+        bool      bUnreadMessage{false};
     };
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;

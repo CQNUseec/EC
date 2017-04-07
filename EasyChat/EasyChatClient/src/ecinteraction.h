@@ -4,6 +4,7 @@
 #include "friendlist.h"
 #include "ecglobal.h"
 #include "model/groupmodel.h"
+#include "model/mainmessagemodel.h"
 #include <QSharedPointer>
 class EcInteraction: public QObject      //UI接口类（提供所有的 UI和后台逻辑交互的 接口）
 {
@@ -17,11 +18,11 @@ public:
     explicit EcInteraction(QObject *parent);
     Q_INVOKABLE void      sendMessage(QString jsonData);
 //    Q_INVOKABLE void cancelLogin();    
-    Q_INVOKABLE void      closeClientThread();
+    Q_INVOKABLE void      closeClientThread(int i=1);   //默认参数为1   0代表不需要账号下线 直接关闭客户端
     Q_INVOKABLE QString   getRemarksName(QString friendAccount);
     Q_INVOKABLE void      setGroupSelected(QString GroupAccount);
+    Q_INVOKABLE void      setSelfAccount(QString account);
     QString               selfAccount() const;
-    void                  setSelfAccount(QString account);
     FriendList*           getFriendList() const;
     GroupModel*           chatGroupList() const;
     Chat*                 getChat() const;

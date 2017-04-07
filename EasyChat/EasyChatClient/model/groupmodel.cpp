@@ -6,9 +6,9 @@ GroupModel::GroupModel(QString selfAccount) : m_selfAccount(selfAccount)
     m_roleNames.insert(groupNameRole, "groupName");
     m_roleNames.insert(bSelectedRole, "bSelected");
     QStringList sq("1");
-    loadDataToModel("12154545", "group1", " ", sq);
-    loadDataToModel("12154245", "group2", " ", sq);
-    loadDataToModel("12124545", "group3", " ", sq);
+    loadDataToModel("123", "group1", " ", sq);
+    loadDataToModel("124", "group2", " ", sq);
+    loadDataToModel("125", "group3", " ", sq);
 }
 
 GroupModel::~GroupModel()

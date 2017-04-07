@@ -2,12 +2,6 @@
 #define GROUPCHATMODEL_H
 #include <QAbstractListModel>
 
-struct GroupItemInfo{
-    QString             groupAccount;
-    QString             groupName;
-    QString             groupOwner;
-    bool                bSelected{false};
-};
 class GroupModel : public QAbstractListModel      //主界面，群组列表的model
 {
     Q_OBJECT
@@ -20,6 +14,13 @@ public:
         groupNameRole,
         groupOwnerRole,
         bSelectedRole,
+    };
+    struct GroupItemInfo
+    {
+        QString             groupAccount;
+        QString             groupName;
+        QString             groupOwner;
+        bool                bSelected{false};
     };
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;

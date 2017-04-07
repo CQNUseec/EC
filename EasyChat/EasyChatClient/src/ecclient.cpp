@@ -30,7 +30,8 @@ void EcClient::slot_sendMessage(QString jsonData)
 
 void EcClient::slot_signOut(QString account)
 {
-    qDebug() << account << "sign out";
+    if(account != "0")
+        qDebug() << account << "sign out";
     emit sig_closeClientThread();
 }
 
