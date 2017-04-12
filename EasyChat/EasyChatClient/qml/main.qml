@@ -97,13 +97,31 @@ Window {
         anchors.right: parent.right
         anchors.bottom: footer.top
         currentIndex: 1
-        Controls2.Page {
-            Label {
-                text: qsTr("消息")
-                anchors.centerIn: parent
+        Controls2.Page {    //未读消息列表
+            ListView {
+                id: unReadMessageListView
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                anchors.right: unReadMessageListSlideBar.visible ? unReadMessageListSlideBar.left : parent.right
+                anchors.leftMargin: 5
+                clip: true
+//                model:EcInteraction.chatGroupList
+                delegate: GroupListDelegate{itemWidth: unReadMessageListSlideBar.visible ? mainWindow.width-unReadMessageListSlideBar.width :mainWindow.width}
+                highlightFollowsCurrentItem: true;
+                highlightMoveVelocity: 14000;
+                cacheBuffer: 10
+            }
+
+            ListViewSlideBar {  //使用自定义的滑动条    因为在ScrollView中嵌套ListView有点问题
+                id: unReadMessageListSlideBar
+                anchors.top: unReadMessageListView.top
+                anchors.right: parent.right
+                anchors.bottom: unReadMessageListView.bottom
+                view: unReadMessageListView
             }
         }
-        Controls2.Page {
+        Controls2.Page {  //好友列表
             ListView {
                 id: friendListView
                 anchors.top: parent.top
@@ -127,7 +145,7 @@ Window {
                 view: friendListView
             }
         }
-        Controls2.Page {
+        Controls2.Page {    //群组列表
             ListView {
                 id: groupListView
                 anchors.top: parent.top

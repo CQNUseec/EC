@@ -27,7 +27,9 @@ public:
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
-    loadDataToModel(int operation );
+    void loadDataToModel(int operation, QString sender, QString receiver, QString message);   //新的聊天消息
+    void loadDataToModel(int operation, QString message);  //添加好友请求
+//    void loadDataToModel(int operation, QString message);  //加入群请求
 private:
     QHash<int, QByteArray>               m_roleNames;
     QList<MainMessageInfo*>              m_qlMainMessage;

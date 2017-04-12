@@ -13,16 +13,12 @@ Rectangle {
     width: itemWidth
     height: 50
     radius: 3
-    color: bSelected ? "#FCEAA3" : (bEntered ? "#FCF0C1" : "#FFFFFF")
-    onColorChanged: {
-        if(model.bSelected)
-            console.log("selected");
-    }
+    color: model.bSelected ? "#FCEAA3" : (bEntered ? "#FCF0C1" : "#FFFFFF")
     property int itemWidth: 200
     property bool bEntered: false
         TextField {
             anchors.fill: parent
-            text: groupAccount + groupName
+            text: model.groupAccount + model.groupName
             font.family: SystemFont
             readOnly: true
             font.pointSize: 10
@@ -69,7 +65,7 @@ Rectangle {
         }
         chatLoader.setSource("chatWindow.qml", {"friendName": friendName, "friendAccount": friendAccount});
         EcInteraction.chat.loadDataToChat(friendName, friendAccount, selfAccount);
-        console.log("打开聊天窗口")
+        console.log("打开聊天窗口");
     }
 }
 

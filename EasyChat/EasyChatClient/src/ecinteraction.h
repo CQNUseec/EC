@@ -4,7 +4,6 @@
 #include "friendlist.h"
 #include "ecglobal.h"
 #include "model/groupmodel.h"
-#include "model/mainmessagemodel.h"
 #include <QSharedPointer>
 class EcInteraction: public QObject      //UI接口类（提供所有的 UI和后台逻辑交互的 接口）
 {

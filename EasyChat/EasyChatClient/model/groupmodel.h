@@ -35,6 +35,7 @@ private:
     QList<GroupItemInfo*>          m_qlGroupItemInfo;
     QHash<QString, QStringList>    m_qhGroupMember;
     QString                        m_selfAccount;
+    int                            m_unReadMessageCount{0};
 };
 
 #endif // GROUPCHATMODEL_H

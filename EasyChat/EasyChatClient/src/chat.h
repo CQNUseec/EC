@@ -3,6 +3,7 @@
 #include <QSharedPointer>
 #include "model/chatlistmodel.h"
 #include "model/messagelistmodel.h"
+#include "model/mainmessagemodel.h"
 
 class Chat: public QObject             //处理聊天界面的相关逻辑
 {
@@ -11,6 +12,8 @@ class Chat: public QObject             //处理聊天界面的相关逻辑
     Q_PROPERTY(ChatListModel* chatListModel READ chatListModel CONSTANT)
     //聊天窗口聊天信息显示的medel
     Q_PROPERTY(MessageListModel* messageListModel READ messageListModel WRITE setMessageListModel NOTIFY sig_messageListModelChanged)
+    //主页消息列表的model
+    Q_PROPERTY(MainMessageModel* name READ name WRITE setName NOTIFY nameChanged)
 public:
     Chat(QObject *parent);
     ~Chat();
@@ -32,6 +35,7 @@ private:
     void setMessageListModel(MessageListModel* currentMessageListModel);
     MessageListModel* getOneMessageListModel(QString account);
 private:
+    QSharedPointer<MainMessageModel>    m_mainMessageModel;                        //
     QSharedPointer<ChatListModel>       m_qpChatListModel;                         //正在聊天的好友列表model
     QHash<QString, MessageListModel*>   m_qhMessageModel;                          //聊天窗口聊天信息显示的medel表， 一个聊天对象账号对应一个model
     MessageListModel*                   m_qpCurrentMessageListModel{nullptr};      //当前的显示的聊天消息model

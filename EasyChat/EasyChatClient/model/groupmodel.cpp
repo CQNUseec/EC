@@ -33,6 +33,8 @@ QVariant GroupModel::data(const QModelIndex &index, int role) const
         return m_qlGroupItemInfo.at(index.row())->groupAccount;
     case groupNameRole:
         return m_qlGroupItemInfo.at(index.row())->groupName;
+    case bSelectedRole:
+        return m_qlGroupItemInfo.at(index.row())->bSelected;
     default:
         return QVariant();
     }
