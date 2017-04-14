@@ -254,6 +254,7 @@ release\qrc_qml.cpp: ..\qml.qrc \
 		..\qml\ListViewSlideBar.qml \
 		..\qml\ECTextFieldStyle.qml \
 		..\qml\GroupListDelegate.qml \
+		..\qml\ecZone.qml \
 		..\qml\findFriendWindow.qml \
 		..\qml\registration.qml \
 		..\qml\FriendListDelegate.qml \
@@ -261,6 +262,7 @@ release\qrc_qml.cpp: ..\qml.qrc \
 		..\qml\logIn.qml \
 		..\qml\ChatListDelegate.qml \
 		..\qml\MessageListDelegate.qml \
+		..\qml\addFriendWindow.qml \
 		..\qml\chatWindow.qml \
 		..\qml\main.qml \
 		..\images\mostLittle0.png \
@@ -625,6 +627,7 @@ release\moc_chat.cpp: ..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QSha
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qset.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qcontiguouscache.h \
 		..\model\messagelistmodel.h \
+		..\model\mainmessagemodel.h \
 		..\src\chat.h \
 		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\bin\moc.exe
 	D:\Qt\Qt5.7.0\5.7\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -ID:/Qt/Qt5.7.0/5.7/msvc2015/mkspecs/win32-msvc2015 -ID:/gitWorkDir/EasyChat/EasyChatClient -ID:/Qt/Qt5.7.0/5.7/msvc2015/include -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtWidgets -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtQuick -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtGui -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtANGLE -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtQml -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtNetwork -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtCore -I. ..\src\chat.h -o release\moc_chat.cpp
@@ -696,6 +699,7 @@ release\moc_ecinteraction.cpp: ..\src\chat.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qset.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qcontiguouscache.h \
 		..\model\messagelistmodel.h \
+		..\model\mainmessagemodel.h \
 		..\src\friendlist.h \
 		..\model\frienditem.h \
 		..\model\QQmlObjectListModel.h \
@@ -719,7 +723,6 @@ release\moc_ecinteraction.cpp: ..\src\chat.h \
 		..\model\QQmlPtrPropertyHelpers.h \
 		..\src\ecglobal.h \
 		..\model\groupmodel.h \
-		..\model\mainmessagemodel.h \
 		..\src\ecinteraction.h \
 		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\bin\moc.exe
 	D:\Qt\Qt5.7.0\5.7\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -ID:/Qt/Qt5.7.0/5.7/msvc2015/mkspecs/win32-msvc2015 -ID:/gitWorkDir/EasyChat/EasyChatClient -ID:/Qt/Qt5.7.0/5.7/msvc2015/include -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtWidgets -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtQuick -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtGui -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtANGLE -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtQml -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtNetwork -ID:/Qt/Qt5.7.0/5.7/msvc2015/include/QtCore -I. ..\src\ecinteraction.h -o release\moc_ecinteraction.cpp
@@ -1340,7 +1343,8 @@ release\chat.obj: ..\src\chat.cpp ../src/chat.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qpoint.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qset.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qcontiguouscache.h \
-		../model/messagelistmodel.h
+		../model/messagelistmodel.h \
+		../model/mainmessagemodel.h
 
 release\ecinteraction.obj: ..\src\ecinteraction.cpp ../src/ecinteraction.h \
 		../src/chat.h \
@@ -1410,6 +1414,7 @@ release\ecinteraction.obj: ..\src\ecinteraction.cpp ../src/ecinteraction.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qset.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qcontiguouscache.h \
 		../model/messagelistmodel.h \
+		../model/mainmessagemodel.h \
 		../src/friendlist.h \
 		../model/frienditem.h \
 		../model/QQmlObjectListModel.h \
@@ -1432,8 +1437,7 @@ release\ecinteraction.obj: ..\src\ecinteraction.cpp ../src/ecinteraction.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QtGlobal \
 		../model/QQmlPtrPropertyHelpers.h \
 		../src/ecglobal.h \
-		../model/groupmodel.h \
-		../model/mainmessagemodel.h
+		../model/groupmodel.h
 
 release\friendlist.obj: ..\src\friendlist.cpp ../src/friendlist.h \
 		../model/frienditem.h \
@@ -1615,6 +1619,7 @@ release\main.obj: ..\src\main.cpp ..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QAbstractListModel \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qabstractitemmodel.h \
 		../model/messagelistmodel.h \
+		../model/mainmessagemodel.h \
 		../src/friendlist.h \
 		../model/frienditem.h \
 		../model/QQmlObjectListModel.h \
@@ -1637,7 +1642,6 @@ release\main.obj: ..\src\main.cpp ..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include
 		../model/QQmlPtrPropertyHelpers.h \
 		../src/ecglobal.h \
 		../model/groupmodel.h \
-		../model/mainmessagemodel.h \
 		../src/ecclientthread.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QThread \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qthread.h \
@@ -1750,6 +1754,7 @@ release\ecclient.obj: ..\src\ecclient.cpp ../src/ecclient.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QAbstractListModel \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qabstractitemmodel.h \
 		../model/messagelistmodel.h \
+		../model/mainmessagemodel.h \
 		../src/friendlist.h \
 		../model/frienditem.h \
 		../model/QQmlObjectListModel.h \
@@ -1771,7 +1776,6 @@ release\ecclient.obj: ..\src\ecclient.cpp ../src/ecclient.h \
 		../model/QQmlPtrPropertyHelpers.h \
 		../src/ecglobal.h \
 		../model/groupmodel.h \
-		../model/mainmessagemodel.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QJsonDocument \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qjsondocument.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qjsonvalue.h \
@@ -1852,6 +1856,7 @@ release\ecclientthread.obj: ..\src\ecclientthread.cpp ../src/ecclientthread.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QAbstractListModel \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\qabstractitemmodel.h \
 		../model/messagelistmodel.h \
+		../model/mainmessagemodel.h \
 		../src/friendlist.h \
 		../model/frienditem.h \
 		../model/QQmlObjectListModel.h \
@@ -1872,8 +1877,7 @@ release\ecclientthread.obj: ..\src\ecclientthread.cpp ../src/ecclientthread.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QtGlobal \
 		../model/QQmlPtrPropertyHelpers.h \
 		../src/ecglobal.h \
-		../model/groupmodel.h \
-		../model/mainmessagemodel.h
+		../model/groupmodel.h
 
 release\chatlistmodel.obj: ..\model\chatlistmodel.cpp ../model/chatlistmodel.h \
 		..\..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\include\QtCore\QAbstractListModel \

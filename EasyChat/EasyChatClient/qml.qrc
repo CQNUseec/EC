@@ -29,5 +29,7 @@
         <file>qml/findFriendWindow.qml</file>
         <file>qml/MessageListDelegate.qml</file>
         <file>qml/GroupListDelegate.qml</file>
+        <file>qml/ecZone.qml</file>
+        <file>qml/addFriendWindow.qml</file>
     </qresource>
 </RCC>

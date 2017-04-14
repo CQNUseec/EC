@@ -10,7 +10,7 @@ import QtQuick.Layouts 1.3
 import QtQml.Models 2.2
 
 Window {
-    id: findFriendWindow;
+    id: findFriendWn
     width: 800
     height: 500
     visible: true
@@ -21,7 +21,7 @@ Window {
         height: 27
         color:"#005791"
         titleText: qsTr("查找账号")
-        window: findFriendWindow
+        window: findFriendWn
         biggestButtonVisible: false
     }
     Rectangle {        //左边框

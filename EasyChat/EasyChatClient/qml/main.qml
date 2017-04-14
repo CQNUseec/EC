@@ -183,6 +183,9 @@ Window {
             anchors.leftMargin: 20
             anchors.verticalCenter: parent.verticalCenter
             style: ECButtonStyle { button: zone; buttonText: "ECZone"; }
+            onClicked:  {
+             zoneLoader.setSource("ecZone.qml");
+            }
         }
         Button {
             id: findFriend

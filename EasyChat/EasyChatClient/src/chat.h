@@ -13,7 +13,7 @@ class Chat: public QObject             //处理聊天界面的相关逻辑
     //聊天窗口聊天信息显示的medel
     Q_PROPERTY(MessageListModel* messageListModel READ messageListModel WRITE setMessageListModel NOTIFY sig_messageListModelChanged)
     //主页消息列表的model
-    Q_PROPERTY(MainMessageModel* name READ name WRITE setName NOTIFY nameChanged)
+//    Q_PROPERTY(MainMessageModel* name READ name WRITE setName NOTIFY nameChanged)
 public:
     Chat(QObject *parent);
     ~Chat();
