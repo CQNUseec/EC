@@ -31,5 +31,6 @@
         <file>qml/GroupListDelegate.qml</file>
         <file>qml/ecZone.qml</file>
         <file>qml/addFriendWindow.qml</file>
+        <file>music/newMessage.wav</file>
     </qresource>
 </RCC>

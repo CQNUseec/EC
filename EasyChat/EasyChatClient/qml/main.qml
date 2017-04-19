@@ -8,17 +8,18 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.4
 import QtQuick.Controls 2.0 as Controls2
 import QtQuick.Window 2.2
+import QtMultimedia 5.5
 
 Window {
     id: mainWindow
-    visible: false
+    visible: true
     width: 240
     height: 550
     color: "#F0F8FE"
     flags: Qt.Window | Qt.FramelessWindowHint
-    Component.onCompleted: {
-        chatLoader.setSource("logIn.qml");
-    }
+//    Component.onCompleted: {
+//        chatLoader.setSource("logIn.qml");
+//    }
     onClosing: {
         chatLoader.source = "";
         EcInteraction.closeClientThread();
@@ -119,6 +120,15 @@ Window {
                 anchors.right: parent.right
                 anchors.bottom: unReadMessageListView.bottom
                 view: unReadMessageListView
+            }
+            MediaPlayer {
+                id: musicPlayer
+                autoPlay: false
+                source: "/music/newMessage.wav"
+                Connections {
+                    target: EcInteraction.chat
+                    on
+                }
             }
         }
         Controls2.Page {  //好友列表

@@ -9,6 +9,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtQml.Models 2.2
+import QtMultimedia 5.5
 
 Window {
     id: ecZone
@@ -62,5 +63,16 @@ Window {
         id: temp
         anchors.centerIn: parent
         text: qsTr("ECZone")
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                musicPlayer.play();
+            }
+        }
+    }
+    MediaPlayer {
+        id: musicPlayer
+        autoPlay: false
+        source: "/music/newMessage.wav"
     }
 }

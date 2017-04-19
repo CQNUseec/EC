@@ -30,7 +30,7 @@ public:
     MessageListModel* messageListModel() const;
 signals:
     void sig_messageListModelChanged(MessageListModel* currentMessageListModel);
-    void sig_viewChanged(int count=1);
+    void sig_viewChanged(int count=1);      //聊天窗口左侧聊天聊表变化时通知UI
 private:
     void setMessageListModel(MessageListModel* currentMessageListModel);
     MessageListModel* getOneMessageListModel(QString account);

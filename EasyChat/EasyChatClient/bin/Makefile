@@ -231,6 +231,7 @@ Makefile: ..\EasyChatClient.pro ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\win3
 		..\EasyChatClient.pro \
 		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\qtmaind.prl \
 		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Widgets.prl \
+		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Multimedia.prl \
 		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Quick.prl \
 		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Gui.prl \
 		..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Qml.prl \
@@ -395,6 +396,7 @@ Makefile: ..\EasyChatClient.pro ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\mkspecs\win3
 ..\EasyChatClient.pro:
 ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\qtmaind.prl:
 ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Widgets.prl:
+..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Multimedia.prl:
 ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Quick.prl:
 ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Gui.prl:
 ..\..\..\..\Qt\Qt5.7.0\5.7\msvc2015\lib\Qt5Qml.prl:

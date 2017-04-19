@@ -1,7 +1,6 @@
 TEMPLATE = app
-QT += widgets
-QT += qml quick
-CONFIG += c++11
+QT += widgets multimedia qml quick
+CONFIG += c++14
 
 SOURCES += \
     src/chat.cpp \
