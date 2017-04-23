@@ -125,10 +125,10 @@ Window {
                 id: musicPlayer
                 autoPlay: false
                 source: "/music/newMessage.wav"
-                Connections {
-                    target: EcInteraction.chat
-                    on
-                }
+//                Connections {
+//                    target: EcInteraction.chat
+//                    on
+//                }
             }
         }
         Controls2.Page {  //好友列表

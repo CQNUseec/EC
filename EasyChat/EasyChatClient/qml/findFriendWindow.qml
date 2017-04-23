@@ -116,7 +116,7 @@ Window {
                     content.opacity = 0.5;
                     search.enabled = false;
                     var findData = new Object();
-                    findData.purpose = "find_user";
+                    findData.purpose = "3";
                     findData.account = accountInput.text;
                     console.log(JSON.stringify(findData));
                     EcInteraction.sendMessage(JSON.stringify(findData));

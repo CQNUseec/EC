@@ -10,7 +10,7 @@ public:
     ~GroupModel();
     enum GroupItemInfo_Role
     {
-        groupAccoutRole = Qt::UserRole + 1,        //消息内容
+        groupAccoutRole = Qt::UserRole + 1,
         groupNameRole,
         groupOwnerRole,
         bSelectedRole,
