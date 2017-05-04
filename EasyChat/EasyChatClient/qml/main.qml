@@ -12,14 +12,14 @@ import QtMultimedia 5.5
 
 Window {
     id: mainWindow
-    visible: true
+    visible: false
     width: 240
     height: 550
     color: "#F0F8FE"
     flags: Qt.Window | Qt.FramelessWindowHint
-//    Component.onCompleted: {
-//        chatLoader.setSource("logIn.qml");
-//    }
+    Component.onCompleted: {
+        chatLoader.setSource("logIn.qml");
+    }
     onClosing: {
         chatLoader.source = "";
         EcInteraction.closeClientThread();

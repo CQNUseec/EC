@@ -225,6 +225,7 @@ Window {
                 }
             else if(res === -11)
                 accountInputTips.visible = true;
+            console.log("login");
         }
         onSig_registerAccountResult: {
             accountInput.text = account;
@@ -246,7 +247,7 @@ Window {
             loginBackground.visible = true;
             loginButtom.buttomText = "取  消";
             var loginData = new Object();
-            loginData.purpose = "login";
+            loginData.purpose = 1;
             loginData.account = accountInput.text;
             loginData.password = passwordInput.text;
             console.log(JSON.stringify(loginData));

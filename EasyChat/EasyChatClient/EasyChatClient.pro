@@ -13,7 +13,8 @@ SOURCES += \
     model/messagelistmodel.cpp \
     src/singleApplication.cpp \
     model/groupmodel.cpp \
-    model/mainmessagemodel.cpp
+    model/mainmessagemodel.cpp \
+    src/network.cpp
 
 RESOURCES += qml.qrc
 
@@ -39,4 +40,5 @@ HEADERS += \
     model/messagelistmodel.h \
     src/singleApplication.h \
     model/groupmodel.h \
-    model/mainmessagemodel.h
+    model/mainmessagemodel.h \
+    src/network.h
