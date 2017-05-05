@@ -8,8 +8,8 @@ linkmanGroup::linkmanGroup()
 QString linkmanGroup::createLinkmanGroup(QString account, QString linkmanGroupName)
 {
     QSqlQuery query;
-    query.prepare("INSERT INTO LinkmanGroup(account,linkmanGroupname)"
-                  "VALUES (:account,linkmanGroupName)");
+    query.prepare("INSERT INTO linkmangroup(account,linkmanGroupname)"
+                  "VALUES (:account,:linkmanGroupName)");
     query.bindValue(":account", account);
     query.bindValue(":linkmanGroupName", linkmanGroupName);
     query.exec();
@@ -19,7 +19,7 @@ QString linkmanGroup::createLinkmanGroup(QString account, QString linkmanGroupNa
 QString linkmanGroup::deleteLinkmanGroup(QString account, QString linkmanGroupname)
 {
     QSqlQuery query;
-    QString del = QString("DELETE FROM LinkmanGroup "
+    QString del = QString("DELETE FROM linkmangroup "
                           "WHERE account='%1' and linkmanGroup='%1'").arg(account,linkmanGroupname);
     query.exec(del);
 
