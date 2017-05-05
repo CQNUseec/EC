@@ -89,7 +89,11 @@ Window {
             style: ECTextFieldStyle{}
             onFocusChanged: {
                 if(accountInput.focus)
+                {
                     accountInput.visible = false;
+                    accountExit.visible = false;
+                    resDisplay.visible = fasle;
+                }
             }
         }
         Text {
@@ -160,6 +164,21 @@ Window {
             anchors.leftMargin: 5
             visible: false
             style: ECButtonStyle{ button: add; buttonText: qsTr("添加") }
+        }
+    }
+    //  (QString result, QString nickName, QString age, QString sex)
+    Connections {
+        target: EcInteraction
+        onSig_findAccountResult: {
+            if(result === "invalid")
+            {
+                accountExit.visible = true;
+            }
+            else
+            {
+                accountRes.text = "You can add friend!";
+                resDisplay.visible = true;
+            }
         }
     }
 }

@@ -28,6 +28,7 @@ public:
     void loadDataToModel(QString friendAccount, QString friendName, bool bUnreadMessage=false);
     void clearModelData();
     void setBSelected(QString friendAccount);
+    void setBUnreadMessage(QString friendAccount, bool bReaded);
     QString removeData(QString friendAccount);
     bool isEmpty();
 private:

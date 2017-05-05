@@ -187,6 +187,7 @@ Window {
             return;
         var now = Qt.formatDateTime(new Date(), "yyyy-MM-dd hh:mm:ss");
         var messageData = new Object();
+        messageData.purpose = 4;
         messageData.sender = selfAccount;
         messageData.receiver = friendAccount;
         messageData.message = messageInput.text;

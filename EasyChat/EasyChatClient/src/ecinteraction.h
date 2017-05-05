@@ -28,6 +28,7 @@ public:
 signals:
     void sig_loginResult(int res);
     void sig_registerAccountResult(QString account);
+    void sig_findAccountResult(QString result, QString nickName, QString age, QString sex);
     void sig_sendMessage(QString jsonData);
     void sig_selfAccountChanged(QString account);
     void sig_signOut(QString account);

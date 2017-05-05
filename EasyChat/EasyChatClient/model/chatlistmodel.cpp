@@ -101,6 +101,19 @@ void ChatListModel::setBSelected(QString friendAccount)
     emit layoutChanged();
 }
 
+void ChatListModel::setBUnreadMessage(QString friendAccount, bool bReaded)
+{
+    emit layoutAboutToBeChanged();
+    foreach (auto var, m_qlChatItemInfo)
+    {
+        if(var->friendAccount == friendAccount)
+        {
+            var->bUnreadMessage = bReaded;
+        }
+    }
+    emit layoutChanged();
+}
+
 QString ChatListModel::removeData(QString friendAccount)
 {
     emit layoutAboutToBeChanged();

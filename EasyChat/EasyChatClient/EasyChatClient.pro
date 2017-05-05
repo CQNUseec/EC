@@ -42,3 +42,10 @@ HEADERS += \
     model/groupmodel.h \
     model/mainmessagemodel.h \
     src/network.h
+
+unix:!macx: LIBS += -L$$PWD/../../../../../usr/local/lib/ -lboost_system
+
+INCLUDEPATH += $$PWD/../../../../../usr/local/include
+DEPENDPATH += $$PWD/../../../../../usr/local/include
+
+unix:!macx: PRE_TARGETDEPS += $$PWD/../../../../../usr/local/lib/libboost_system.a

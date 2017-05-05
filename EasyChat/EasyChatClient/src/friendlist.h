@@ -15,7 +15,9 @@ public:
     QString getRemarksName(QString friendAccount);
     FriendItemModel* getFriendItemModel() const;
     void clearModel();
-    void loadDataToModel();
+    void loadDataToModel(QString groupName, QString account, QString nickName, QString remarkName);
+public slots:
+    void slot_loadDataToFriendList(QStringList stringList);
 private:
     QSharedPointer<FriendItemModel>     m_qpFriendItemModel;
     QString     m_qsSelectedGroup{""};

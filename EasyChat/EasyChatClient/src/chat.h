@@ -28,12 +28,12 @@ public:
 //    Q_INVOKABLE void removeChataData(QString friendAccount);
     ChatListModel* chatListModel() const;
     MessageListModel* messageListModel() const;
+    MessageListModel* getOneMessageListModel(QString account);
 signals:
     void sig_messageListModelChanged(MessageListModel* currentMessageListModel);
     void sig_viewChanged(int count=1);      //聊天窗口左侧聊天聊表变化时通知UI
 private:
     void setMessageListModel(MessageListModel* currentMessageListModel);
-    MessageListModel* getOneMessageListModel(QString account);
 private:
     QSharedPointer<MainMessageModel>    m_mainMessageModel;                        //
     QSharedPointer<ChatListModel>       m_qpChatListModel;                         //正在聊天的好友列表model

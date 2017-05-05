@@ -18,6 +18,7 @@ class NetWork : public QObject
 {
     Q_OBJECT
     typedef   NetWork                             this_type;
+    typedef   ip::tcp::acceptor                   acceptor_type;
     typedef   ip::tcp::endpoint                   endpoint_type;
     typedef   ip::address                         address_type;
     typedef   ip::tcp::socket                     socket_type;
@@ -28,14 +29,18 @@ public:
     NetWork(string ip, int port);
     void run();
     void start();
-    void sendMessage(string data);
+    void accept();
+    void sendMessageAndReceiver(string data);
+    void sendMessageOnly(string data);
     void read_handler(const error_code& ec, sock_ptr sock);
 signals:
     void sig_messageFromServer(string data);
 private:
     io_service                           m_io;
     buffer_type                          m_buf;
+    buffer_type                          m_chatBuf;
     endpoint_type                        m_ep;
+    acceptor_type                        m_acceptor;
 };
 
 

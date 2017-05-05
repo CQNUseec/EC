@@ -22,6 +22,10 @@ Window {
     }
     onClosing: {
         chatLoader.source = "";
+        var jsonData = new Object();
+        jsonData.purpose = 9;
+        jsonData.account = EcInteraction.selfAccount;
+        EcInteraction.sendMessage(JSON.stringify(jsonData));
         EcInteraction.closeClientThread();
     }
     TitleRec {
@@ -229,6 +233,10 @@ Window {
                 mainWindow.visible = true;
                 chatLoader.source = "";
                 console.log(EcInteraction.selfAccount, "登陆成功");
+                var jsonData = new Object();
+                jsonData.purpose = 5;
+                jsonData.sender = EcInteraction.selfAccount;
+                EcInteraction.sendMessage(JSON.stringify(jsonData));
             }
         }
     }

@@ -23,38 +23,45 @@ void FriendList::clearModel()
     }
 }
 
-void FriendList::loadDataToModel()
+void FriendList::loadDataToModel(QString groupName, QString account, QString nickName,
+                                 QString remarkName)
 {
+    FriendItem* item;
+    if(m_qpFriendItemModel->count() > 0)
+    {
+        QList<FriendItem *> list = m_qpFriendItemModel->toList();
+        foreach(auto var, list)
+        {
+            if(var->get_groupName() == groupName)
+            {
+                item = new FriendItem(var);
+                item->set_groupName(groupName);
+                item->set_account(account);
+                item->set_nickName(nickName);
+                item->set_remarksName(remarkName);
+                item->set_bSelected(false);
+                var->get_chs()->append(item);
+                return;
+            }
+        }
+    }
     FriendItem* rootItem = new FriendItem(this);
-    rootItem->set_groupName("myFriends");
-    auto children = rootItem->get_chs();
-    for(int i=0;i<20;i++)
-    {
-        FriendItem* item = new FriendItem(rootItem);
-        QString qsi = QString::number(i, 10);   //int型转换为QString类型   （int，进制）
-        item->set_groupName(rootItem->get_groupName());
-        item->set_account(qsi);
-        item->set_nickName(QString("Friend ") + qsi);
-        item->set_remarksName(QString("Friend备注") + qsi);
-        item->set_bSelected(false);
-        children->append(item);
-    }
+    rootItem->set_groupName(groupName);
     m_qpFriendItemModel->append(rootItem);
-    rootItem = new FriendItem(this);
-    rootItem->set_groupName("classmates");
-    auto Children = rootItem->get_chs();
-    for(int i=0; i<40; i++)
-    {
-        FriendItem* item = new FriendItem(rootItem);
-        QString qsi = QString::number(i+20, 10);
-        item->set_groupName(rootItem->get_groupName());
-        item->set_account(qsi);
-        item->set_nickName(QString("classmate ") + qsi);
-        item->set_remarksName(QString("classmate备注") + qsi);
-        item->set_bSelected(false);
-        Children->append(item);
-    }
-    m_qpFriendItemModel->append(rootItem);
+    item = new FriendItem(rootItem);
+    item->set_groupName(groupName);
+    item->set_account(account);
+    item->set_nickName(nickName);
+    item->set_remarksName(remarkName);
+    rootItem->get_chs()->append(item);
+    item->set_bSelected(false);
+    return;
+}
+
+void FriendList::slot_loadDataToFriendList(QStringList stringList)
+{
+    loadDataToModel(stringList.at(0), stringList.at(1),
+                    stringList.at(2), stringList.at(3));
 }
 
 void FriendList::setbSelected(QString groupName, QString friendAccount)
