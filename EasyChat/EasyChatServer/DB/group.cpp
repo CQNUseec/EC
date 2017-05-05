@@ -1,27 +1,48 @@
 #include "group.h"
+#include <time.h>
 
 group::group()
 {
 
 }
 
-QString group::createGroup(QString groupAccount, QString groupName, QString groupOwner)
+string group::addGroup(string groupName, string groupOwner)
 {
+    QString groupaccount;
+    do{
+        srand(time(NULL));
+        int act=rand()%100000+200000;
+        groupaccount = QString::number(act);
+    }while(IsExsitInDB(groupaccount.toStdString()));
+
     QSqlQuery query;
-    query.prepare("INSERT INTO Group(groupAccount, groupName,groupOwner)"
-                  "VALUES (:groupAccount,groupName,groupOwner)");
-    query.bindValue(":groupAccount", groupAccount);
-    query.bindValue(":groupName", groupName);
-    query.bindValue(":groupOwner", groupOwner);
+    query.prepare("INSERT INTO _group(groupaccount, groupname,groupowner)"
+                  "VALUES (:groupaccount,:groupname,:groupowner)");
+    query.bindValue(":groupaccount", groupaccount);
+    query.bindValue(":groupname",QString::fromStdString(groupName));
+    query.bindValue(":groupowner", QString::fromStdString(groupOwner));
+
     query.exec();
-    return "create_group_success";
+    return groupaccount.toStdString();
 }
 
-//只有群主可以删除组
-QString group::deleteGroup(QString groupAccount, QString groupOwner)
+bool group::deleteGroup(string groupAccount)
 {
-    QString infoInDB=QString("SELECT groupOwner FROM Group "
-                     "WHERE groupAccount = '%1'").arg(groupAccount);
+    QSqlQuery query;
+    QString gpa = QString::fromStdString(groupAccount);
+    QString del = QString("DELETE FROM _group "
+                          "WHERE groupaccount='%1'").arg(gpa);
+    if(query.exec(del))
+        return true;
+    else
+        return false;
+}
+
+string group::getGroupOwner(string groupAccount)
+{
+    QString gpa = QString::fromStdString(groupAccount);
+    QString infoInDB=QString("SELECT groupowner FROM _group "
+                     "WHERE groupaccount = '%1'").arg(gpa);
     QSqlQuery query;
 
     query.exec(infoInDB);
@@ -29,15 +50,22 @@ QString group::deleteGroup(QString groupAccount, QString groupOwner)
     if(query.next())
     {
         QString gowner=query.value(0).toString();
-        if(groupOwner == gowner)
-        {
-            QString del = QString("DELETE FROM Group "
-                                  "WHERE groupAccount='%1'").arg(groupAccount);
-            query.exec(del);
-
-            return "delete_group_success";
-        }
-        else
-            return "permission_denied";
+        return gowner.toStdString();
     }
+    return "";
+}
+
+bool group::IsExsitInDB(string groupAccount)
+{
+
+    QString ac = QString::fromStdString(groupAccount);
+    QString infoInDB=QString("SELECT * FROM _group "
+                             "WHERE groupAccount = '%1'").arg(ac);
+    QSqlQuery query;
+    query.exec(infoInDB);
+
+    if(query.next())
+        return true;
+    else
+        return false;
 }

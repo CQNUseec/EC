@@ -1,67 +1,87 @@
 #include "account.h"
 
 extern int number;
-account::account()
+Account::Account()
 {
 }
 
-QString account::registerAcount(QString account, QString password, QString nickname, QString sex, QString age)
+//注册成功返回帐号
+string Account::addAcountInformation(string password, string nickname, string sex, string age)
 {
+    QString account;
+    do{
+        srand(time(NULL));
+        int act=rand()%100000+100000;
+        account = QString::number(act);
+    }while(IsAccountExist(account.toStdString()));
+
     QSqlQuery query;
-    query.prepare("INSERT INTO Account(account, password,nickname, sex, age)"
+    query.prepare("INSERT INTO account(account, password,nickname, sex, age)"
                   "VALUES (:account, :password,:nickname, :sex, :age)");
     query.bindValue(":account", account);
-    query.bindValue(":password", password);
-    query.bindValue(":nickname", nickname);
-    query.bindValue(":sex", sex);
-    query.bindValue(":age", age);
+    query.bindValue(":password", QString::fromStdString(password));
+    query.bindValue(":nickname", QString::fromStdString(nickname));
+    query.bindValue(":sex",QString::fromStdString(sex));
+    query.bindValue(":age", QString::fromStdString(age));
     query.exec();
-    return "regist_success";
+
+
+    return account.toStdString();
 }
 
-QString account::assignAccount()
+//获取密码
+string Account::getPassword(string account)
 {
-    int act=number+1;
-    QString ret=QString(act);
-    return ret;
-}
-
-QString account::login(QString account, QString password)
-{
-    QString infoInDB=QString("SELECT account,password FROM Account "
-                             "WHERE account = '%1'").arg(account);
+    QString ac = QString::fromStdString(account);
+    QString infoInDB=QString("SELECT account,password FROM account "
+                             "WHERE account = '%1'").arg(ac);
     QSqlQuery query;
     query.exec(infoInDB);
 
     if(query.next())
     {
         QString pwd = query.value(1).toString();
-        if(password == pwd)
-            return "ok";
-        else
-            return "wrong_password";
+        return pwd.toStdString();
     }
     else
-        return "invalid_user";
+        return "";
 }
 
 //按帐号，昵称，性别，年龄返回
-vector<QString> account::find(QString account)
+vector<string> Account::getAccountInformation(string account)
 {
-    QString infoInDB=QString("SELECT account,nickname,sex,age"
-                             "FROM Account WHERE account ='%1'").arg(account);
+    QString ac = QString::fromStdString(account);
+    QString infoInDB=QString("SELECT account,nickname,sex,age "
+                             "FROM account WHERE account ='%1'").arg(ac);
     QSqlQuery query;
     query.exec(infoInDB);
 
-    vector<QString> ret;
+    vector<string> ret;
     if(query.next())
     {
-           for(int i=0;i<query.size();i++)
-           {
-               QString tmpvalue = query.value(i).toString();
-               ret.push_back(tmpvalue);
-           }
+        for(int i=0;i<query.size();i++)
+        {
+            QString tmpvalue = query.value(i).toString();
+            ret.push_back(tmpvalue.toStdString());
+        }
     }
+
     return ret;
+
 }
+
+bool Account::IsAccountExist(string account)
+{
+    QString ac = QString::fromStdString(account);
+    QString infoInDB=QString("SELECT account,password FROM account "
+                             "WHERE account = '%1'").arg(ac);
+    QSqlQuery query;
+    query.exec(infoInDB);
+
+    if(query.next())
+        return true;
+    else
+        return false;
+}
+
 
