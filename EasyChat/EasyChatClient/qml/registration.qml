@@ -329,7 +329,7 @@ Window {
             sexSelect.enabled = false;
             registerButtom.enabled = false;
             var registerData = new Object();
-            registerData.purpose = "register";
+            registerData.purpose = 2;
             registerData.nickName = nameInput.text;
             registerData.password = passwordInput.text;
             registerData.age = ageInput.text;
