@@ -2,7 +2,8 @@
 ChatListModel::ChatListModel()
 {
     m_roleNames.insert(friendAccountRole, "friendAccount");
-    m_roleNames.insert(friendNameRole, "friendName");
+    m_roleNames.insert(nickNameRole, "nickName");
+    m_roleNames.insert(remarksNameRole, "remarkName");
     m_roleNames.insert(bSelectedRole, "bSelected");
     m_roleNames.insert(bUnreadMessageRole, "bUnreadMessage");
 }
@@ -27,12 +28,14 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
     switch (role) {
     case friendAccountRole:
         return temp->friendAccount;
-    case friendNameRole:
-        return temp->friendName;
+    case nickNameRole:
+        return temp->nickName;
     case bSelectedRole:
         return temp->bSelected;
     case bUnreadMessageRole:
         return temp->bUnreadMessage;
+    case remarksNameRole:
+        return temp->remarksName;
     default:
         return QVariant();
     }
@@ -43,7 +46,7 @@ QHash<int, QByteArray> ChatListModel::roleNames() const
     return m_roleNames;
 }
 
-void ChatListModel::loadDataToModel(QString friendAccount, QString friendName, bool bUnreadMessage)
+void ChatListModel::loadDataToModel(QString friendAccount, QString nickName, QString remarksName, bool bUnreadMessage)
 {
     emit layoutAboutToBeChanged();
     bool isBreak = false;
@@ -66,13 +69,13 @@ void ChatListModel::loadDataToModel(QString friendAccount, QString friendName, b
     }
     ChatItemInfo* item = new ChatItemInfo;
     item->friendAccount = friendAccount;
-    item->friendName = friendName;
+    item->nickName = nickName;
+    item->remarksName = remarksName;
     item->bUnreadMessage = bUnreadMessage;
     m_qlChatItemInfo.append(item);
     m_currentSelected = item->friendAccount;
     emit layoutChanged();
 }
-
 void ChatListModel::clearModelData()
 {
     if(m_qlChatItemInfo.isEmpty())
@@ -149,4 +152,14 @@ QString ChatListModel::removeData(QString friendAccount)
 bool ChatListModel::isEmpty()
 {
     return m_qlChatItemInfo.isEmpty();
+}
+
+bool ChatListModel::isAccountExist(QString friendAccount)
+{
+    foreach(auto var, m_qlChatItemInfo)
+    {
+        if(var->friendAccount == friendAccount)
+            return true;
+    }
+    return false;
 }

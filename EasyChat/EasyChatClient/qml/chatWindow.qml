@@ -191,7 +191,7 @@ Window {
         messageData.sender = selfAccount;
         messageData.receiver = friendAccount;
         messageData.message = messageInput.text;
-        messageData.sendtime = now.toString();
+        messageData.sendTime = now.toString();
         console.log(JSON.stringify(messageData));
         EcInteraction.sendMessage(JSON.stringify(messageData));
         chat.loadDataToMessageListModel(selfAccount, friendAccount, messageInput.text, now.toString());

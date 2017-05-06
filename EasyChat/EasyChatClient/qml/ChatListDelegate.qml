@@ -17,7 +17,7 @@ Rectangle {
     property bool bordeColor: model.bSelected
     onBordeColorChanged: {
         if(bordeColor)
-            chatWindows.friendName = model.friendName;
+//            chatWindows.friendName = model.friendName;
         chatWindows.requestActivate();
     }
     Text {
@@ -40,7 +40,6 @@ Rectangle {
             removeButton.visible = false;
         }
         onClicked: {
-            chatWindows.friendName = model.friendName;
             chatWindows.friendAccount = model.friendAccount;
             chat.setCurrentChatPerson(model.friendAccount);
         }

@@ -11,26 +11,29 @@ public:
     enum ChatItemInfo_Role
     {
         friendAccountRole = Qt::UserRole +1,
-        friendNameRole,
+        nickNameRole,
+        remarksNameRole,
         bSelectedRole,
         bUnreadMessageRole,
     };
     struct ChatItemInfo
     {
         QString   friendAccount;
-        QString   friendName;
+        QString   nickName;
+        QString   remarksName;
         bool      bSelected{true};
         bool      bUnreadMessage{false};
     };
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
-    void loadDataToModel(QString friendAccount, QString friendName, bool bUnreadMessage=false);
+    void loadDataToModel(QString friendAccount, QString nickName, QString remarksName, bool bUnreadMessage=false);
     void clearModelData();
     void setBSelected(QString friendAccount);
     void setBUnreadMessage(QString friendAccount, bool bReaded);
     QString removeData(QString friendAccount);
     bool isEmpty();
+    bool isAccountExist(QString friendAccount);
 private:
     QHash<int, QByteArray>           m_roleNames;
     QList<ChatItemInfo*>             m_qlChatItemInfo;

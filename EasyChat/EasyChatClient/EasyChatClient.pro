@@ -49,3 +49,10 @@ INCLUDEPATH += $$PWD/../../../../../usr/local/include
 DEPENDPATH += $$PWD/../../../../../usr/local/include
 
 unix:!macx: PRE_TARGETDEPS += $$PWD/../../../../../usr/local/lib/libboost_system.a
+
+unix:!macx: LIBS += -L$$PWD/../../../../../usr/local/lib/ -lboost_thread
+
+INCLUDEPATH += $$PWD/../../../../../usr/local/include
+DEPENDPATH += $$PWD/../../../../../usr/local/include
+
+unix:!macx: PRE_TARGETDEPS += $$PWD/../../../../../usr/local/lib/libboost_thread.a

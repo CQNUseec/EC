@@ -111,8 +111,8 @@ Window {
                 anchors.right: unReadMessageListSlideBar.visible ? unReadMessageListSlideBar.left : parent.right
                 anchors.leftMargin: 5
                 clip: true
-//                model:EcInteraction.chatGroupList
-                delegate: GroupListDelegate{itemWidth: unReadMessageListSlideBar.visible ? mainWindow.width-unReadMessageListSlideBar.width :mainWindow.width}
+                model:EcInteraction.mainMessageModel
+                delegate: MainMessageListDelegate{}
                 highlightFollowsCurrentItem: true;
                 highlightMoveVelocity: 14000;
                 cacheBuffer: 10

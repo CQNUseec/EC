@@ -1,6 +1,7 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 #include <QObject>
+#include <boost/asio.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/placeholders.hpp>
 #include <boost/asio/error.hpp>
@@ -8,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <QString>
 
 using namespace boost;                                    using namespace boost::asio;
 using namespace boost::asio::placeholders;                using namespace boost::system;
@@ -27,16 +29,17 @@ class NetWork : public QObject
     typedef boost::system::error_code             error_code;
 public:
     NetWork(string ip, int port);
-    void run();
-    void start();
+//    void run();
+//    void start();
     void accept();
     void sendMessageAndReceiver(string data);
     void sendMessageOnly(string data);
     void read_handler(const error_code& ec, sock_ptr sock);
 signals:
-    void sig_messageFromServer(string data);
+    void sig_messageFromServer(QString data);
 private:
     io_service                           m_io;
+    io_service                           m_anathorIo;
     buffer_type                          m_buf;
     buffer_type                          m_chatBuf;
     endpoint_type                        m_ep;

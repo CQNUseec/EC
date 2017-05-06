@@ -12,11 +12,13 @@ Rectangle {
     width: parent.width - 24
     anchors.horizontalCenter: parent.horizontalCenter
     height: 50
+    border.color: "blue"
+    border.width: 2
     Component.onCompleted: {
         if(model.bDisplayLeft)
-            time.anchors.left =  rec.left;
+            time.anchors.left = rec.left;
         else
-            time.anchors.right =  rec.right;
+            time.anchors.right = rec.right;
     }
     Text {
         id: time
@@ -26,11 +28,24 @@ Rectangle {
         font.family: SystemFont
     }
     Text {
-        id: messageText
+        id: leftMessageText
+        width: parent.width
+        anchors.top: time.bottom
+        anchors.left: parent.left
+        text: model.message
+        visible: model.bDisplayLeft
+        horizontalAlignment: Text.AlignLeft
+        font.pointSize: 13
+        font.family: SystemFont
+        wrapMode: Text.Wrap
+    }
+    Text {
+        id: rightMessageText
         width: parent.width
         anchors.top: time.bottom
         anchors.right: parent.right
         text: model.message
+        visible: !model.bDisplayLeft
         horizontalAlignment: Text.AlignRight
         font.pointSize: 13
         font.family: SystemFont

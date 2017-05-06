@@ -36,6 +36,11 @@ MessageListModel *Chat::getOneMessageListModel(QString account)
     return nullptr;
 }
 
+bool Chat::isChatToSender(QString senderAccount)
+{
+    return m_qpChatListModel->isAccountExist(senderAccount);
+}
+
 bool Chat::isChatWindowOpen()
 {
     return !m_qpChatListModel->isEmpty();
@@ -61,7 +66,10 @@ void Chat::setCurrentChatPerson(QString friendAccount)
 
 void Chat::loadDataToChat(QString friendName, QString friendAccount, QString selfAccount)
 {
-    m_qpChatListModel->loadDataToModel(friendAccount, friendName);
+    if(m_qpChatListModel->isAccountExist(friendAccount))
+        ;
+    else
+        m_qpChatListModel->loadDataToModel(friendAccount, friendName, friendName);
     auto ptr = getOneMessageListModel(friendAccount);
     if(ptr != nullptr)
         setMessageListModel(ptr);
@@ -69,6 +77,17 @@ void Chat::loadDataToChat(QString friendName, QString friendAccount, QString sel
     {
         MessageListModel* messageListModel = new MessageListModel(selfAccount);
         m_qhMessageModel.insert(friendAccount, messageListModel);
+        for(auto it=m_tempChatData.begin(); it != m_tempChatData.end(); )
+        {
+            if((*it)->sender == friendAccount)
+            {
+                messageListModel->loadDataToModel((*it)->sender, (*it)->receiver, (*it)->message, (*it)->sendTime);
+                delete *it;
+                it = m_tempChatData.erase(it);
+            }
+            else
+                ++it;
+        }
         setMessageListModel(messageListModel);
     }
 }
@@ -95,4 +114,14 @@ void Chat::loadDataToMessageListModel(QString sender, QString receiver, QString 
         return;
     m_qpCurrentMessageListModel->loadDataToModel(sender, receiver, message, date);
     emit sig_viewChanged();
+}
+
+void Chat::loadDataToTemp(QString sender, QString receiver, QString message, QString date)
+{
+    MessageListModel::Message* item = new MessageListModel::Message;
+    item->sender = sender;
+    item->receiver = receiver;
+    item->message = message;
+    item->sendTime = date;
+    m_tempChatData.append(item);
 }

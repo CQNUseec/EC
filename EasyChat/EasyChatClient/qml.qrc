@@ -32,5 +32,6 @@
         <file>qml/ecZone.qml</file>
         <file>qml/addFriendWindow.qml</file>
         <file>music/newMessage.wav</file>
+        <file>qml/MainMessageListDelegate.qml</file>
     </qresource>
 </RCC>

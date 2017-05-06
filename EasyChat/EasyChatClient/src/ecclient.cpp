@@ -3,6 +3,7 @@
 #include <string>
 #include <QJsonDocument>
 #include <QThread>
+#include <boost/thread.hpp>
 using std::string;
 
 EcClient::EcClient(EcInteraction* ecInteraction) : m_ecInteraction(ecInteraction)
@@ -14,6 +15,7 @@ EcClient::EcClient(EcInteraction* ecInteraction) : m_ecInteraction(ecInteraction
     connect(ecInteraction, &EcInteraction::sig_sendMessage, this, &EcClient::slot_sendMessage, Qt::QueuedConnection);
     connect(ecInteraction, &EcInteraction::sig_signOut, this, &EcClient::slot_signOut, Qt::BlockingQueuedConnection);
     connect(this, &EcClient::sig_loadDataToFriendList, m_ecInteraction->getFriendList(), &FriendList::slot_loadDataToFriendList);
+    connect(this, &EcClient::sig_loadDataToChat, ecInteraction, &EcInteraction::slot_loadDataToChat);
 }
 
 string encryptionTheString(string data, char key)   //对字符串进行异或运算
@@ -36,8 +38,9 @@ void EcClient::slot_sendMessage(QString jsonData)
         m_qpNetWork->sendMessageAndReceiver(jsonData.toStdString());
 }
 
-void EcClient::slot_messageFromServer(std::string data)
+void EcClient::slot_messageFromServer(QString data)
 {
+    std::cout << data.toStdString() << std::endl;
     analyzeMessageFromServer(data);
 }
 
@@ -50,10 +53,10 @@ void EcClient::slot_signOut(QString account)
     emit sig_closeClientThread();
 }
 
-void EcClient::analyzeMessageFromServer(std::string data)
+void EcClient::analyzeMessageFromServer(QString data)
 {
     //    QString jsonData = QString::fromStdString(encryptionTheString(data, 'w'));
-    QVariantMap result =  parsingJsonData(QString::fromStdString(data));
+    QVariantMap result =  parsingJsonData(data);
     if(result.isEmpty())
         return;
     qDebug() << "AnalyzeMessageFromServer: " << result;
@@ -93,7 +96,13 @@ QVariantMap EcClient::parsingJsonData(QString jsonData)
 
 void EcClient::loginRes(QVariantMap &result)
 {
-    emit m_ecInteraction->sig_loginResult(result["result"].toInt());
+    int tmp = result["result"].toInt();
+    emit m_ecInteraction->sig_loginResult(tmp);
+    if(tmp == EC_LOGIN_RESULT_SUCCESSFUL)  //登录成功，启动消息监听
+    {
+        boost::thread udpThread([&]{m_qpNetWork->accept();});
+        udpThread.detach();;
+    }
 }
 
 void EcClient::registerRes(QVariantMap &result)
@@ -120,14 +129,23 @@ void EcClient::loadChatMessageData(QVariantMap &result)
     QString sender = result["sender"].toString();
     QString message = result["message"].toString();
     QString sendTime = result["sendTime"].toString();
-    auto thisMessageListModel = m_ecInteraction->getChat()->getOneMessageListModel(receiver);
-   if(nullptr != thisMessageListModel)
-   {
-       thisMessageListModel->loadDataToModel(sender, receiver, message, sendTime);
-       m_ecInteraction->getChat()->chatListModel()->setBUnreadMessage(sender, true);
-   }
-   else
-   {
-       m_ecInteraction->getChat()->loadDataToChat("sender", sender, receiver);
-   }
+    QStringList strList;
+    strList.append(sender);
+    strList.append(receiver);
+    strList.append(message);
+    strList.append(sendTime);
+    emit sig_loadDataToChat(strList);
+//    auto thisMessageListModel = m_ecInteraction->getChat()->getOneMessageListModel(receiver);
+//    if(nullptr != thisMessageListModel) //聊天窗口已创建，model存在
+//    {
+//        thisMessageListModel->loadDataToModel(sender, receiver, message, sendTime);
+//        m_ecInteraction->getChat()->chatListModel()->setBUnreadMessage(sender, true);
+//    }
+//    else  //显示到主界面未读消息列表
+//    {
+//        QString senderName = m_ecInteraction->getFriendList()->getRemarksName(sender);
+//        m_ecInteraction->getChat()->loadDataToChat(senderName, sender, receiver);
+//        auto mainMessageMode = m_ecInteraction->mainMessageModel();
+//        mainMessageMode->loadDataToModel(EC_NETWORK_SEND_MESSAGE, sender, receiver, message);
+//    }
 }

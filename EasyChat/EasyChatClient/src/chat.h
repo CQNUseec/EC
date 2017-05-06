@@ -3,7 +3,6 @@
 #include <QSharedPointer>
 #include "model/chatlistmodel.h"
 #include "model/messagelistmodel.h"
-#include "model/mainmessagemodel.h"
 
 class Chat: public QObject             //处理聊天界面的相关逻辑
 {
@@ -12,8 +11,6 @@ class Chat: public QObject             //处理聊天界面的相关逻辑
     Q_PROPERTY(ChatListModel* chatListModel READ chatListModel CONSTANT)
     //聊天窗口聊天信息显示的medel
     Q_PROPERTY(MessageListModel* messageListModel READ messageListModel WRITE setMessageListModel NOTIFY sig_messageListModelChanged)
-    //主页消息列表的model
-//    Q_PROPERTY(MainMessageModel* name READ name WRITE setName NOTIFY nameChanged)
 public:
     Chat(QObject *parent);
     ~Chat();
@@ -26,19 +23,21 @@ public:
     Q_INVOKABLE void removeDataFromChat(QString friendAccount);
     Q_INVOKABLE void loadDataToMessageListModel(QString sender, QString receiver, QString message, QString date);
 //    Q_INVOKABLE void removeChataData(QString friendAccount);
+    void loadDataToTemp(QString sender, QString receiver, QString message, QString date);
     ChatListModel* chatListModel() const;
     MessageListModel* messageListModel() const;
     MessageListModel* getOneMessageListModel(QString account);
+    bool isChatToSender(QString sendeAccount);
 signals:
     void sig_messageListModelChanged(MessageListModel* currentMessageListModel);
     void sig_viewChanged(int count=1);      //聊天窗口左侧聊天聊表变化时通知UI
 private:
     void setMessageListModel(MessageListModel* currentMessageListModel);
 private:
-    QSharedPointer<MainMessageModel>    m_mainMessageModel;                        //
     QSharedPointer<ChatListModel>       m_qpChatListModel;                         //正在聊天的好友列表model
     QHash<QString, MessageListModel*>   m_qhMessageModel;                          //聊天窗口聊天信息显示的medel表， 一个聊天对象账号对应一个model
     MessageListModel*                   m_qpCurrentMessageListModel{nullptr};      //当前的显示的聊天消息model
+    QList<MessageListModel::Message*>    m_tempChatData;
 };
 
 #endif // CHAT_H

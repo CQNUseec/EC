@@ -1,10 +1,11 @@
 #include "ecinteraction.h"
-
+#include "ecglobal.h"
 EcInteraction::EcInteraction(QObject *parent): QObject(parent)
 {
     m_qpFriendList.reset(new FriendList(this));
     m_qpChat.reset(new Chat(this));
     m_qpGroupList.reset(new GroupModel(m_selfAccount));
+    m_mainMessageModel.reset(new MainMessageModel());
 }
 
 void EcInteraction::sendMessage(QString jsonData)
@@ -22,9 +23,36 @@ GroupModel *EcInteraction::chatGroupList() const
     return m_qpGroupList.data();
 }
 
+MainMessageModel *EcInteraction::mainMessageModel() const
+{
+    return m_mainMessageModel.data();
+}
+
 Chat *EcInteraction::getChat() const
 {
     return m_qpChat.data();
+}
+
+QString EcInteraction::getAccountName(QString account)
+{
+    return m_qpFriendList->getRemarksName(account);
+}
+
+void EcInteraction::slot_loadDataToChat(QStringList stringList)
+{
+    QString sender= stringList[0];
+    QString receiver = stringList[1];
+    QString message = stringList[2];
+    QString sendTime = stringList[3];
+    if(getChat()->isChatToSender(sender))  //聊天窗口已存在 直接显示
+    {
+        getChat()->getOneMessageListModel(sender)->loadDataToModel(sender, receiver, message, sendTime);
+    }
+    else    //缓存收到的消息
+    {
+        getChat()->loadDataToTemp(sender, receiver, message, sendTime);
+        m_mainMessageModel->loadDataToModel(EC_NETWORK_SEND_MESSAGE, sender, receiver, message);
+    }
 }
 
 QString EcInteraction::selfAccount() const

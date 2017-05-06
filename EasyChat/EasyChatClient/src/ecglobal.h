@@ -19,8 +19,11 @@
 #define  EC_NETWORK_AGREE_ADD_FRIEND       7
 #define  EC_NETWORK_GROUP_LIST             8
 #define  EC_NETWORK_LOGOUT                 9
+#define  EC_NETWORK_OFFLINE_MESSAGE        10
 
 #define EC_LOGIN_RESULT_WRONG_PASSWORD        -10        //登录密码错误
 #define EC_LOGIN_RESULT_INVALID_ACCOUNT       -11        //无效的账号
+#define EC_LOGIN_RESULT_ONLINE                -12
 #define EC_LOGIN_RESULT_SUCCESSFUL             10        //登录成功
+
 #endif // ECGLOBAL_H

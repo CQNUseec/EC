@@ -225,6 +225,8 @@ Window {
                 }
             else if(res === -11)
                 accountInputTips.visible = true;
+            else if(res === -12)
+                passwordInputTips.text = qsTr("该账号已登录");
             console.log("login");
         }
         onSig_registerAccountResult: {

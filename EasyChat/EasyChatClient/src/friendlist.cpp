@@ -154,6 +154,9 @@ QString FriendList::getRemarksName(QString friendAccount)
         foreach(auto mvar, groupMemberList)
         {
             if(mvar->get_account() == friendAccount)
+               if(mvar->get_remarksName().isEmpty())
+                   return mvar->get_nickName();
+               else
                 return mvar->get_remarksName();
         }
     }
