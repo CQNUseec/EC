@@ -8,10 +8,10 @@
 
 using namespace std;
 
-class dynamic
+class Dynamic
 {
 public:
-    dynamic();
+    Dynamic();
     bool addDynamic(QString dynamicId,QString account,QString content,QString time);
     bool deleteDynamic(QString dynamicId,QString account);
 };

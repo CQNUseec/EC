@@ -8,10 +8,10 @@
 extern int number;
 using namespace std;
 //群信息相关
-class group
+class Group
 {
 public:
-    group();
+    Group();
 
     //创建一个群组(groupAccount,GroupName,GroupOwner)
     string  addGroup(string groupName,
@@ -23,8 +23,8 @@ public:
     //获取一个群的所有者
     string getGroupOwner(string groupAccount);
 
-    //获取一个组的群组号，组名,群主，群备注名”
-    vector<string> getGroupInformation(string account);
+    //获取某个人建的所有群
+    vector<string> getAllGroup(string groupOwner);
 
     bool IsExsitInDB(string groupAccount);
 

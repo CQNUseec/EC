@@ -6,10 +6,10 @@
 #include <QtSql>
 #include <iostream>
 
-class commentary
+class Commentary
 {
 public:
-    commentary();
+    Commentary();
     bool addCommentary(QString account,QString DynamicId,QString content,QString time,QString commtentor);
 };
 

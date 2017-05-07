@@ -4,18 +4,21 @@
 #include <QString>
 #include <QtSql>
 #include <iostream>
-
+#include <string>
+using namespace std;
 class account_terminal
 {
 public:
     account_terminal();
 
     //上线
-    QString addflag(QString account,QString flag);
+    bool addflag(QString account,QString flag);
     //下线
-    QString deleteflag(QString account);
+    bool deleteflag(QString account);
     //获取标志(用于发消息时用)
-    QString getflag(QString account);
+    string getflag(QString account);
+
+    bool isOnline(QString account);
 
 };
 

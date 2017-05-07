@@ -27,7 +27,7 @@ public:
    vector<string> getAccountInformation(string account);
 
    //判断一个用户是否存在
-   bool IsAccountExist(string account);
+   bool isAccountExist(string account);
 };
 
 #endif // ACCOUNT_H

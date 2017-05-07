@@ -22,6 +22,9 @@ public:
     //获取一个群的所有人（关联）
     vector<QString> getAllLinkmanOfGroup(QString groupAccount);
 
+    //获取一个人所在的所有群
+    vector<string> getAccountAllGroup(QString linkmanAccount);
+
 };
 
 #endif // GROUP_LINKMAN_H

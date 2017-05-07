@@ -13,7 +13,7 @@ string Account::addAcountInformation(string password, string nickname, string se
         srand(time(NULL));
         int act=rand()%100000+100000;
         account = QString::number(act);
-    }while(IsAccountExist(account.toStdString()));
+    }while(isAccountExist(account.toStdString()));
 
     QSqlQuery query;
     query.prepare("INSERT INTO account(account, password,nickname, sex, age)"
@@ -70,7 +70,7 @@ vector<string> Account::getAccountInformation(string account)
 
 }
 
-bool Account::IsAccountExist(string account)
+bool Account::isAccountExist(string account)
 {
     QString ac = QString::fromStdString(account);
     QString infoInDB=QString("SELECT account,password FROM account "

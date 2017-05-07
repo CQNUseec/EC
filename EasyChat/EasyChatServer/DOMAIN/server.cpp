@@ -54,84 +54,58 @@ void Server::read_handler(const Server::error_code &ec, Server::sock_ptr sock)
     cout << temp <<endl;
 
     Json::Value root;
-    string ret;
     if(parseJsonString(temp,root))
     {
         int purpuse = root["purpose"].asInt();
 
         switch (purpuse) {
-        case EC_NETWORK_LOGIN: //验证登录
+        case EC_NETWORK_LOGIN: //登录
         {
-            cout << "login"<<endl;
-            string account=root["account"].asString();
-            string password = root["password"].asString();
-            ret = chat_ptr->login(account,password);
-            cout << ret <<endl;
-
-            sock->write_some(buffer(ret));
+            login_handler(ec,sock,root);
             break;
         }
         case EC_NETWORK_REGISTER://注册
         {
-            cout << "register"<<endl;
-            string password = root["password"].asString();
-            string nickname = root["nickname"].asString();
-            string age = root["age"].asString();
-            string sex = root["sex"].asString();
-            ret = chat_ptr->registerAccount(password,nickname,sex,age);
-            cout << ret <<endl;
-            sock->write_some(buffer(ret));
+            register_handler(ec,sock,root);
             break;
         }
         case EC_NETWORK_FIND_ACCOUNT://查找好友
         {
-            string account = root["account"].asString();
-            ret = chat_ptr->findAccountInfo(account);
-            cout << ret <<endl;
-            sock->write_some(buffer(ret));
+            findAccount_handler(ec,sock,root);
             break;
         }
         case EC_NETWORK_FRIEND_LIST://获取好友列表
         {
-            vector<string> ret;
-
-            vector<char> buf(10,0);
-
-            cout << "获取好友列表"<<endl;
-
-            string account = root["sender"].asString();
-
-            ret = chat_ptr->getLinkmanList(account);
-
-            for(auto &s:ret)
-                cout << s<<endl;
-
-            if(ret.size())
-            {
-                sock->write_some(buffer("friendList"));
-                for(auto it = ret.begin();it != ret.end();++it)
-                {
-                    cout << *it <<endl;
-                    sock->write_some(buffer(*it));
-                    sock->read_some(buffer(buf));
-
-                    for (auto &s:m_buf)  //清空缓冲区
-                        s = '\0';
-                }
-
-                sock->write_some(buffer("end"));
-            }
-            else //ondo
-            {
-
-            }
+            getFriendList_handler(ec,sock,root);
+            break;
+        }
+        case EC_NETWORK_SEND_MESSAGE://发消息
+        {
+            string receiver = root["receiver"].asString();
+            sendMessage_handler(ec,receiver,temp);
+            break;
+        }
+        case EC_NETWORK_AGREE_ADD_FRIEND://同意添加好友
+        {
+            agreeAddFriend_handler(ec,sock,root);
+            break;
+        }
+        case EC_NETWORK_ADD_FRIEND://请求加好友
+        {
+            string receiver = root["aims"].asString();
+            requestAddFriend(ec,receiver,temp);
+            break;
+        }
+        case EC_NETWORK_GROUP_LIST://列出群聊组
+        {
+            string sender = root["sender"].asString();
 
             break;
         }
-
-        case 6:
+        case EC_NETWORK_LOGOUT: //注销
         {
-
+            logout_handler(ec,root);
+            break;
         }
         default:
             break;
@@ -141,18 +115,243 @@ void Server::read_handler(const Server::error_code &ec, Server::sock_ptr sock)
     {
         cout << "parse error"<<endl;
     }
-
-
-
 }
 
-void Server::sendRequestAddfriend(const Server::error_code &ec, Server::sock_ptr sock)
+void Server::login_handler(const Server::error_code &ec, Server::sock_ptr sock, Json::Value root)
 {
+    string ret;
+    if (ec)
+        return;
+    string client_ip = sock->remote_endpoint().address().to_string();
+    cout << "login"<<endl;
+    string account=root["account"].asString();
+    string password = root["password"].asString();
+    ret = chat_ptr->login(account,password);
+    sock->write_some(buffer(ret));
 
+    Json::Value rt;
+    if(parseJsonString(ret,rt))
+    {
+
+        int rsl = rt["result"].asInt();
+        if(rsl == EC_LOGIN_RESULT_SUCCESSFUL) //验证登录成功
+        {
+
+            cout << "log success "<< account<<endl;
+            chat_ptr->addOnlineFlag(account,client_ip); //添加在线标志
+//            if(chat_ptr->IsExistOfflineMessage(account))//如果存在离线消息，发送离线消息
+//            {
+
+//                vector<string> msgs = chat_ptr->getOfflineMessage(account);
+//                sendOfflineMessage(ec,account,msgs);
+//                chat_ptr->deleteOfflineMessage(account);
+//            }
+
+        }
+    }
+
+    cout << ret <<endl;
+}
+
+void Server::register_handler(const Server::error_code &ec, Server::sock_ptr sock, Json::Value root)
+{
+    string ret;
+    if (ec)
+        return;
+    cout << "register"<<endl;
+    string password = root["password"].asString();
+    string nickname = root["nickName"].asString();
+    string age = root["age"].asString();
+    string sex = root["sex"].asString();
+    ret = chat_ptr->registerAccount(password,nickname,sex,age);
+    cout << ret <<endl;
+    sock->write_some(buffer(ret));
+}
+
+void Server::getFriendList_handler(const Server::error_code &ec, Server::sock_ptr sock, Json::Value root)
+{
+    vector<string> ret;
+    if (ec)
+        return;
+    vector<char> buf(10,0);
+    cout << "获取好友列表"<<endl;
+
+    string account = root["sender"].asString();
+    ret = chat_ptr->getLinkmanList(account);
+
+    if(ret.size())
+    {
+        sock->write_some(buffer("friendList"));
+        for(auto it = ret.begin();it != ret.end();++it)
+        {
+            cout << "getallfriends"<<*it <<endl;
+            sock->write_some(buffer(*it));
+            sock->read_some(buffer(buf));
+
+            for (auto &s:m_buf)  //清空缓冲区
+                s = '\0';
+        }
+        sock->write_some(buffer("end"));
+        if(chat_ptr->IsExistOfflineMessage(account))//如果存在离线消息，发送离线消息
+        {
+
+            vector<string> msgs = chat_ptr->getOfflineMessage(account);
+            sendOfflineMessage(ec,account,msgs);
+            chat_ptr->deleteOfflineMessage(account);
+        }
+    }
+    else
+    {
+        sock->write_some(buffer("end"));
+    }
+    return;
+}
+
+void Server::findAccount_handler(const error_code &ec, Server::sock_ptr sock, Json::Value root)
+{
+    string ret;
+    if (ec)
+        return;
+    cout <<"查找一个账户信息"<<endl;
+
+    string account = root["account"].asString();
+    ret = chat_ptr->findAccountInfo(account);
+    cout << ret <<endl;
+    sock->write_some(buffer(ret));
+}
+
+void Server::sendMessage(const Server::error_code &ec, string receiver, string msg)
+{
+    if (ec)
+        return;
+    io_service tmp_io;
+    string ip =chat_ptr->getAccountTerminalFlag(receiver);
+
+//    Json::FastWriter fastwriter;
+//    string receiverAccount = receiverIp["receiver"].asString();
+//    string msg = fastwriter.write(receiverIp);
+//    endpoint_type ep(address_type::from_string(ip),6677);
+//    sock_ptr sock(new socket_type(tmp_io));
+//    sock->connect(ep);
+//    cout << "send online message"<<endl;
+//    sock->send(buffer(msg));
+//    io_service io;
+
+
+    ip::udp::endpoint send_ep(
+                ip::address::from_string(ip),6677);
+    ip::udp::socket sock(tmp_io);
+    sock.open(ip::udp::v4());
+    sock.send_to(buffer(msg), send_ep);
 
 }
 
-void Server::setPtr(std::shared_ptr<chatControl> ptr)
+void Server::sendOfflineMessage(const Server::error_code &ec, string receiver,vector<string> msgs)
+{
+    cout <<"send offlineMessage"<<endl;
+    if (ec)
+        return;
+    io_service tmp_io;
+
+    string ip =chat_ptr->getAccountTerminalFlag(receiver);
+
+    ip::udp::endpoint send_ep(
+                ip::address::from_string(ip),6677);
+    ip::udp::socket sock(tmp_io);
+    sock.open(ip::udp::v4());
+    for(auto &s:msgs)
+    {
+        cout << "send 1 msg"<<endl;
+        sock.send_to(buffer(s), send_ep);
+    }
+}
+
+void Server::requestAddFriend(const Server::error_code &ec, string receiver, string message)
+{
+    if (ec)
+        return;
+    if(chat_ptr->IsOnline(receiver))
+        sendMessage(ec,receiver,message);
+    else
+        chat_ptr->addOfflineMessage(receiver,message);
+    return;
+}
+
+void Server::agreeAddFriend_handler(const Server::error_code &ec, Server::sock_ptr sock, Json::Value root)
+{
+    if (ec)
+        return;
+    string initiated = root["initiated"].asString();
+    string aims = root["aims"].asString();
+    int ret = chat_ptr->agreeAddFriend(initiated,aims);
+
+    Json::FastWriter fastWriter;
+    Json::Value result;
+
+    result["purpose"]=EC_NETWORK_AGREE_ADD_FRIEND;
+    result["result"]=ret;
+    string jsonStr = fastWriter.write(result);
+    sock->write_some(buffer(jsonStr));
+    return;
+}
+
+void Server::sendMessage_handler(const Server::error_code &ec,string receiver, string message)
+{
+    if(ec)
+        return;
+
+    if(chat_ptr->IsOnline(receiver))
+    {
+        sendMessage(ec,receiver,message);
+    }
+    else
+    {
+        chat_ptr->addOfflineMessage(receiver,message);
+        cout <<"add offline success"<<endl;
+    }
+}
+
+void Server::logout_handler(const Server::error_code &ec, Json::Value root)
+{
+    if (ec)
+        return;
+    string account = root["account"].asString();
+    chat_ptr->logout(account);
+    return;
+}
+
+void Server::listGroup_handler(const Server::error_code &ec, Server::sock_ptr sock, Json::Value root)
+{
+    if (ec)
+        return;
+    string sender = root["sender"].asString();
+    vector<string> ret;
+    vector<char> buf(50,0);
+    ret = chat_ptr->getGroupList(sender);
+
+
+    if(ret.size())
+    {
+        sock->write_some(buffer("groupList"));
+        for(auto it = ret.begin();it != ret.end();++it)
+        {
+            cout << "A group"<<*it <<endl;
+            sock->write_some(buffer(*it));
+            sock->read_some(buffer(buf));
+
+            for (auto &s:m_buf)  //清空缓冲区
+                s = '\0';
+        }
+        sock->write_some(buffer("end"));
+    }
+    else
+    {
+        sock->write_some(buffer("end"));
+    }
+    return;
+}
+
+void Server::setPtr(std::shared_ptr<ChatControl> ptr)
 {
     chat_ptr = ptr;
 }

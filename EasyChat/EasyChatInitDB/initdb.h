@@ -32,9 +32,6 @@ void createTableLinkmanGroup();
 //离线消息(OfflineMessage)
 void createTableOfflineMessage();
 
-<<<<<<< HEAD
 //动态（Dynamic）
 void createTableDynamic();
-=======
-//
->>>>>>> 008efbef92568ad556fbc6589e9ee854a844217a
+

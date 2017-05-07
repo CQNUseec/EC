@@ -1,12 +1,12 @@
 #include "group.h"
 #include <time.h>
 
-group::group()
+Group::Group()
 {
 
 }
 
-string group::addGroup(string groupName, string groupOwner)
+string Group::addGroup(string groupName, string groupOwner)
 {
     QString groupaccount;
     do{
@@ -26,7 +26,7 @@ string group::addGroup(string groupName, string groupOwner)
     return groupaccount.toStdString();
 }
 
-bool group::deleteGroup(string groupAccount)
+bool Group::deleteGroup(string groupAccount)
 {
     QSqlQuery query;
     QString gpa = QString::fromStdString(groupAccount);
@@ -38,7 +38,7 @@ bool group::deleteGroup(string groupAccount)
         return false;
 }
 
-string group::getGroupOwner(string groupAccount)
+string Group::getGroupOwner(string groupAccount)
 {
     QString gpa = QString::fromStdString(groupAccount);
     QString infoInDB=QString("SELECT groupowner FROM _group "
@@ -55,7 +55,23 @@ string group::getGroupOwner(string groupAccount)
     return "";
 }
 
-bool group::IsExsitInDB(string groupAccount)
+vector<string> Group::getAllGroup(string groupOwner)
+{
+    vector<string> ret;
+    QString ac = QString::fromStdString(groupOwner);
+    QString infoInDB=QString("SELECT * FROM _group "
+                     "WHERE account = '%1'").arg(ac);
+    QSqlQuery query;
+    query.exec(infoInDB);
+
+    while(query.next())
+    {
+
+    }
+    return ret;
+}
+
+bool Group::IsExsitInDB(string groupAccount)
 {
 
     QString ac = QString::fromStdString(groupAccount);
