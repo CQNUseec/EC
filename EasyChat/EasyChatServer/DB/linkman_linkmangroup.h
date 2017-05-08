@@ -22,6 +22,11 @@ public:
 
     //改变联系人所属组
     bool changeLinkmanGroup(QString account,QString linkmanAccount,QString linkmanGroupname);
+
+    bool isLinkExist(QString account,QString aim);
+
+    //列出一个人的所有群
+    vector<string> listAccountAllGroup(QString account);
 };
 
 #endif // LINKMAN_LINKMANGROUP_H

@@ -51,4 +51,4 @@ HEADERS += \
     DB/dynamic.h \
     DB/commentary.h \
     DOMAIN/ecglobal.h
-LIBS += -L/usr/local/lib -lboost_system
+LIBS +=  -lboost_system

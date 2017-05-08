@@ -1,11 +1,11 @@
 #include "dynamic.h"
 
-dynamic::dynamic()
+Dynamic::Dynamic()
 {
 
 }
 
-bool dynamic::addDynamic(QString dynamicId,QString account, QString content, QString time)
+bool Dynamic::addDynamic(QString dynamicId,QString account, QString content, QString time)
 {
     QSqlQuery query;
     query.prepare("INSERT INTO dynamic(dynamicId,account, content,time)"
@@ -22,7 +22,7 @@ bool dynamic::addDynamic(QString dynamicId,QString account, QString content, QSt
 
 }
 
-bool dynamic::deleteDynamic(QString dynamicId, QString account)
+bool Dynamic::deleteDynamic(QString dynamicId, QString account)
 {
     QSqlQuery query;
     QString del = QString("DELETE FROM dynamic "

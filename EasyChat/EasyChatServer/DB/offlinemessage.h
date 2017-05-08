@@ -7,16 +7,19 @@
 #include <vector>
 using namespace std;
 
-class offlineMessage
+class OfflineMessage
 {
 public:
-    offlineMessage();
+    OfflineMessage();
     //添加离线消息
-    QString addOfflineMessage(QString account,QString message);
+    bool addOfflineMessage(QString account,QString message);
     //获取某人的离线消息
-    vector<QString> getOfflineMessage(QString account);
+    vector<string> getOfflineMessage(QString account);
     //删除某人的离线消息
-    QString deleteOfflineMessage(QString account);
+    bool deleteOfflineMessage(QString account);
+
+    //判断是否有离线消息
+    bool IsExistOfflineMessage(QString account);
 };
 
 #endif // OFFLINEMESSAGE_H

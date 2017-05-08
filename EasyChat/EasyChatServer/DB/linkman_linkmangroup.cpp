@@ -39,7 +39,7 @@ vector<string> linkman_linkmanGroup::getAllLinkmanInformation(string account)
 
     QString ac = QString::fromStdString(account);
     QString infoInDB=QString("SELECT linkmangroupname,linkmanaccount,nickname,remarkname FROM account,linkman_linkmangroup "
-                             "WHERE linkman_linkmangroup.account='%1'").arg(ac);
+                             "WHERE linkman_linkmangroup.account='%1' AND linkman_linkmangroup.linkmanaccount = account.account").arg(ac);
     QSqlQuery query;
 
     query.exec(infoInDB);
@@ -56,11 +56,12 @@ vector<string> linkman_linkmanGroup::getAllLinkmanInformation(string account)
         result_temp["purpose"] = EC_NETWORK_FRIEND_LIST;
         result_temp["groupName"] = groupname;
         result_temp["account"] = linkmanAccount;
-        result_temp["nickname"]=nickname;
+        result_temp["nickName"]=nickname;
         result_temp["remarksName"] = remarkname;
 
         std::string jsonStr = fastWriter.write(result_temp);
 
+        cout << "数据库获取好友列表"<<endl;
         ret.push_back(jsonStr);
     }
 
@@ -70,7 +71,7 @@ vector<string> linkman_linkmanGroup::getAllLinkmanInformation(string account)
 
 bool linkman_linkmanGroup::changeLinkmanGroup(QString account, QString linkmanAccount, QString linkmanGroupname)
 {
-    QString update = QString("UPDATE linkman_linkmangroup set remarkname='%1'"
+    QString update = QString("UPDATE linkman_linkmangroup SET remarkname='%1'"
                              "WHERE account = %2 AND groupAccount= '%3'").arg(linkmanGroupname).arg(account).arg(linkmanAccount);
     QSqlQuery query;
 
@@ -78,4 +79,23 @@ bool linkman_linkmanGroup::changeLinkmanGroup(QString account, QString linkmanAc
         return true;
     else
         return false;
+}
+
+bool linkman_linkmanGroup::isLinkExist(QString account, QString aim)
+{
+    QString infoInDB=QString("SELECT * FROM linkman_linkmangroup "
+                             "WHERE account='%1' AND linkmanaccout='%2'").arg(account).arg(aim);
+    QSqlQuery query;
+
+    query.exec(infoInDB);
+
+    if(query.next())
+        return true;
+    else
+        return false;
+}
+
+vector<string> linkman_linkmanGroup::listAccountAllGroup(QString account)
+{
+
 }

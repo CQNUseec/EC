@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
         cout<<"Server start..."<<endl;
         Server srv;
 
-        std::shared_ptr<chatControl> ptr = std::make_shared<chatControl>();
+        std::shared_ptr<ChatControl> ptr = std::make_shared<ChatControl>();
         srv.setPtr(ptr);
 
         srv.run();

@@ -1,11 +1,11 @@
 #include "linkmangroup.h"
 
-linkmanGroup::linkmanGroup()
+LinkmanGroup::LinkmanGroup()
 {
 
 }
 
-QString linkmanGroup::createLinkmanGroup(QString account, QString linkmanGroupName)
+QString LinkmanGroup::createLinkmanGroup(QString account, QString linkmanGroupName)
 {
     QSqlQuery query;
     query.prepare("INSERT INTO linkmangroup(account,linkmanGroupname)"
@@ -16,7 +16,7 @@ QString linkmanGroup::createLinkmanGroup(QString account, QString linkmanGroupNa
     return "create_linkmanGroup_success";
 }
 
-QString linkmanGroup::deleteLinkmanGroup(QString account, QString linkmanGroupname)
+QString LinkmanGroup::deleteLinkmanGroup(QString account, QString linkmanGroupname)
 {
     QSqlQuery query;
     QString del = QString("DELETE FROM linkmangroup "
