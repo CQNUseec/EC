@@ -29,6 +29,7 @@ private:
     void addFriendRes(QVariantMap &result);
     void loadDataToFriendList(QVariantMap &result);
     void loadChatMessageData(QVariantMap &result);
+    void loadDataToGruoupList(QVariantMap &result);
 private:
     EcInteraction*                       m_ecInteraction;
     QString                              m_serverIp;

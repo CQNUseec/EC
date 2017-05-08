@@ -13,8 +13,13 @@ Rectangle {
     width: itemWidth
     height: 50
     radius: 3
+    property string messageSender: model.sender
+    property string messageReceiver: model.receiver
+    property string messageSendTime: model.sendTime
+    property int messageType: model.operation
+    property int messageId: model.idNum
 
-    color: model.bSelected ? "#FCEAA3" : (bEntered ? "#FCF0C1" : "#FFFFFF")
+    color: bEntered ? "#FCF0C1" : "#FFFFFF"
     property int itemWidth: 200
     property bool bEntered: false
     Text {
@@ -28,17 +33,34 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         onEntered: {
-            groupMemberRec.bEntered = true;
+            unreadMessageRec.bEntered = true;
         }
         onExited: {
-            groupMemberRec.bEntered = false;
-        }
-        onClicked: {
-            EcInteraction.setGroupSelected(groupAccount);
+            unreadMessageRec.bEntered = false;
         }
         onDoubleClicked: {
-            chatWithFriend(groupName, groupAccount, EcInteraction.selfAccount);
+            readAndDealMessage();
+            EcInteraction.removeMainMessageModelData(messageId);
         }
     }
+       function readAndDealMessage()
+       {
+           if(messageType === 4)
+           {
+               if(EcInteraction.chat.isChatWindowOpen())
+               {
+                   EcInteraction.chat.loadDataToChat(friendName, messageSender, messageReceiver);
+                   console.log("窗口已打开，添加聊天人");
+                   return;
+               }
+               chatLoader.setSource("chatWindow.qml", {"test": messageSender, "friendAccount": messageSender});
+               EcInteraction.chat.loadDataToChat("test", messageSender, messageReceiver);
+               console.log("打开聊天窗口")
+           }
+           else if(messageType === 6)
+           {
+               addLoader.setSource("addFriendWindow.qml", {"initiatedAccount": messageSender, "aimsAccount": messageReceiver});
+           }
+       }
 }
 

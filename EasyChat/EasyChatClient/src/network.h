@@ -29,12 +29,9 @@ class NetWork : public QObject
     typedef boost::system::error_code             error_code;
 public:
     NetWork(string ip, int port);
-//    void run();
-//    void start();
     void accept();
     void sendMessageAndReceiver(string data);
     void sendMessageOnly(string data);
-    void read_handler(const error_code& ec, sock_ptr sock);
 signals:
     void sig_messageFromServer(QString data);
 private:

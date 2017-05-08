@@ -15,6 +15,7 @@ Window {
     height: 500
     visible: true
     flags: Qt.Window | Qt.FramelessWindowHint
+    property string aimsAccount: ""
     TitleRec {
         id: topRec
         width: parent.width
@@ -119,6 +120,8 @@ Window {
                     findFriendWindowBackground.visible = true;
                     content.opacity = 0.5;
                     search.enabled = false;
+                    accountExit.visible = false;
+                    findFriendWn.aimsAccount = accountInput.text;
                     var findData = new Object();
                     findData.purpose = 3;
                     findData.account = accountInput.text;
@@ -162,14 +165,29 @@ Window {
             anchors.verticalCenter: resDisplay.verticalCenter
             anchors.left: resDisplay.right
             anchors.leftMargin: 5
-            visible: false
+            //            visible: false
             style: ECButtonStyle{ button: add; buttonText: qsTr("添加") }
+            onClicked: {
+                content.opacity = 0.5;
+                search.enabled = false;
+                //                    resDisplay.opacity = 0.5;
+                add.enabled = false;
+                var addFriendData = new Object();
+                addFriendData.purpose = 6;
+                addFriendData.initiated = EcInteraction.selfAccount;
+                addFriendData.aims = findFriendWn.aimsAccount;
+                console.log(JSON.stringify(addFriendData));
+                EcInteraction.sendMessage(JSON.stringify(addFriendData));
+            }
         }
     }
     //  (QString result, QString nickName, QString age, QString sex)
     Connections {
         target: EcInteraction
         onSig_findAccountResult: {
+            findFriendWindowBackground.visible = false;
+            content.opacity = 1;
+            search.enabled = true;
             if(result === "invalid")
             {
                 accountExit.visible = true;

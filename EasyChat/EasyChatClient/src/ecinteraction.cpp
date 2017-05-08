@@ -38,6 +38,11 @@ QString EcInteraction::getAccountName(QString account)
     return m_qpFriendList->getRemarksName(account);
 }
 
+void EcInteraction::removeMainMessageModelData(int idNum)
+{
+    m_mainMessageModel->removeData(idNum);
+}
+
 void EcInteraction::slot_loadDataToChat(QStringList stringList)
 {
     QString sender= stringList[0];

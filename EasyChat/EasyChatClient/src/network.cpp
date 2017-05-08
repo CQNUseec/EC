@@ -7,31 +7,8 @@ NetWork::NetWork(string ip, int port):m_buf(100, 0), m_chatBuf(100,0),
     m_ep(address_type::from_string(ip), port),
     m_acceptor(m_io, endpoint_type(ip::tcp::v4(), 6677))
 {
-//    accept();
+
 }
-
-//void NetWork::run()
-//{
-//    m_anathorIo.run();
-//}
-
-//void NetWork::start()
-//{
-//    sock_ptr sock(new socket_type (m_io));
-//    sock->async_connect(m_ep,
-//                        [this, sock] (const error_code& ec)
-//    {
-//        if(ec)
-//            return;
-//        sock->async_read_some(buffer(m_buf),
-//                              [this, sock] (const error_code& ec, std::size_t)
-//        {
-//            read_handler(ec, sock);
-//        }
-//        );
-//    }
-//    );
-//}
 
 void NetWork::accept()
 {
@@ -70,7 +47,7 @@ void NetWork::sendMessageAndReceiver(std::string data)
     for(auto &var : m_buf)
         var = '\0';
     std::cout << res << std::endl;
-    if(res == "friendList")
+    if(res == "friendList" || res == "groupList")
     {
         vector<char> tempBuf(100, 0);
         sock->receive(buffer(tempBuf));
@@ -94,19 +71,4 @@ void NetWork::sendMessageAndReceiver(std::string data)
         emit sig_messageFromServer(QString::fromStdString(res));
 }
 
-void NetWork::read_handler(const NetWork::error_code &ec, NetWork::sock_ptr sock)
-{
-    if(ec)
-        return;
-    std::string res = &m_chatBuf[0];
-    cout << &m_chatBuf[0] << endl;
-//    emit sig_messageFromServer(res);
-
-    //    sock->async_read_some(buffer(m_chatBuf),
-    //                          [this, sock] (const error_code& ec, std::size_t)
-    //    {
-    //        read_handler(ec, sock);
-    //    }
-    //    );
-}
 

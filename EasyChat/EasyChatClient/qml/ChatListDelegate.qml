@@ -17,7 +17,7 @@ Rectangle {
     property bool bordeColor: model.bSelected
     onBordeColorChanged: {
         if(bordeColor)
-//            chatWindows.friendName = model.friendName;
+            chatWindows.friendName = model.nickName;
         chatWindows.requestActivate();
     }
     Text {

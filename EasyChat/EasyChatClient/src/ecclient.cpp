@@ -32,7 +32,8 @@ void EcClient::slot_sendMessage(QString jsonData)
     qDebug() << "EcClient Thead print: " << jsonData;
     QVariantMap result =  parsingJsonData(jsonData);
     int purpose = result["purpose"].toInt();
-    if(purpose == 4 || purpose == 6 || purpose == 9)
+    if(purpose == EC_NETWORK_SEND_MESSAGE || purpose == EC_NETWORK_ADD_FRIEND
+            || purpose == EC_NETWORK_LOGOUT)
         m_qpNetWork->sendMessageOnly(jsonData.toStdString());
     else
         m_qpNetWork->sendMessageAndReceiver(jsonData.toStdString());
@@ -48,7 +49,8 @@ void EcClient::slot_signOut(QString account)
 {
     if(account != "0")
     {
-
+        QString jsonData = QString("{\"purpose\":9,\"account\":\"%1\"}").arg(account);
+        m_qpNetWork->sendMessageOnly(jsonData.toStdString());
     }
     emit sig_closeClientThread();
 }
@@ -74,6 +76,15 @@ void EcClient::analyzeMessageFromServer(QString data)
         break;
     case EC_NETWORK_SEND_MESSAGE:
         loadChatMessageData(result);
+        break;
+    case EC_NETWORK_GROUP_LIST:
+        loadDataToGruoupList(result);
+        break;
+    case EC_NETWORK_FIND_ACCOUNT:
+        findUserRes(result);
+        break;
+    case EC_NETWORK_ADD_FRIEND:
+        addFriendRes(result);
         break;
     default:
         break;
@@ -110,6 +121,29 @@ void EcClient::registerRes(QVariantMap &result)
     emit m_ecInteraction->sig_registerAccountResult(result["account"].toString());
 }
 
+void EcClient::findUserRes(QVariantMap &result)
+{
+    QString res = result["result"].toString();
+    if(res == "OK")
+    {
+        QString nickName = result["nickName"].toString();
+        QString age = result["age"].toString();
+        QString sex = result["sex"].toString();
+        emit m_ecInteraction->sig_findAccountResult(res, nickName, age, sex);
+    }
+    else
+        emit m_ecInteraction->sig_findAccountResult(res);
+
+}
+
+void EcClient::addFriendRes(QVariantMap &result)
+{
+    QString initiated = result["initiated"].toString();
+    QString aims = result["aims"].toString();
+    int type = result["purpose"].toInt();
+    m_ecInteraction->mainMessageModel()->loadDataToModel(type, initiated, aims, "添加好友请求");
+}
+
 void EcClient::loadDataToFriendList(QVariantMap &result)
 {
     QStringList stringList;
@@ -135,17 +169,14 @@ void EcClient::loadChatMessageData(QVariantMap &result)
     strList.append(message);
     strList.append(sendTime);
     emit sig_loadDataToChat(strList);
-//    auto thisMessageListModel = m_ecInteraction->getChat()->getOneMessageListModel(receiver);
-//    if(nullptr != thisMessageListModel) //聊天窗口已创建，model存在
-//    {
-//        thisMessageListModel->loadDataToModel(sender, receiver, message, sendTime);
-//        m_ecInteraction->getChat()->chatListModel()->setBUnreadMessage(sender, true);
-//    }
-//    else  //显示到主界面未读消息列表
-//    {
-//        QString senderName = m_ecInteraction->getFriendList()->getRemarksName(sender);
-//        m_ecInteraction->getChat()->loadDataToChat(senderName, sender, receiver);
-//        auto mainMessageMode = m_ecInteraction->mainMessageModel();
-//        mainMessageMode->loadDataToModel(EC_NETWORK_SEND_MESSAGE, sender, receiver, message);
-//    }
+}
+
+void EcClient::loadDataToGruoupList(QVariantMap &result)
+{
+    QString groupAccount = result["groupAccount"].toString();
+    QString groupName = result["groupName"].toString();
+    QString groupOwner = result["groupOwner"].toString();
+    QString remarksName = result["remarksName"].toString();
+    QStringList temp;
+    m_ecInteraction->chatGroupList()->loadDataToModel(groupAccount, groupName, groupOwner);
 }

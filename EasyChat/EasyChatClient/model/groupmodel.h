@@ -25,7 +25,7 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
-    void loadDataToModel(QString groupAccout, QString groupName, QString groupOwner, QStringList groupMember);
+    void loadDataToModel(QString groupAccout, QString groupName, QString groupOwner);
     void setSelfAccount(QString selfAccount);
     void setbSelected(QString groupAccout);
 private:

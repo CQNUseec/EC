@@ -14,10 +14,12 @@ public:
         senderRole,
         receiverRole,
         sendTimeRole,
-        operationRole
+        operationRole,
+        idNumRole
     };
     struct MainMessageInfo
     {
+        int idNum;
         QString message;
         QString sender;
         QString receiver;
@@ -28,11 +30,13 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
     void loadDataToModel(int operation, QString sender, QString receiver, QString message);   //新的聊天消息
-//    void loadDataToModel(int operation, QString message);  //添加好友请求
+    void removeData(int idNum);
+    //    void loadDataToModel(int operation, QString message);  //添加好友请求
 //    void loadDataToModel(int operation, QString message);  //加入群请求
 private:
     QHash<int, QByteArray>               m_roleNames;
     QList<MainMessageInfo*>              m_qlMainMessage;
+    int                                  m_idNum{0};
 };
 
 #endif // MAINMESSAGEMODEL_H

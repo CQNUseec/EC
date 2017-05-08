@@ -2,6 +2,7 @@
 
 MainMessageModel::MainMessageModel()
 {
+    m_roleNames.insert(idNumRole, "idNum");
     m_roleNames.insert(messageRole, "message");
     m_roleNames.insert(senderRole, "sender");
     m_roleNames.insert(receiverRole, "receiver");
@@ -41,6 +42,8 @@ QVariant MainMessageModel::data(const QModelIndex &index, int role) const
         return m_qlMainMessage.at(index.row())->sendTime;
     case operationRole:
         return m_qlMainMessage.at(index.row())->operation;
+    case idNumRole:
+        return m_qlMainMessage.at(index.row())->idNum;
     default:
         return QVariant();
     }
@@ -59,6 +62,22 @@ void MainMessageModel::loadDataToModel(int operation, QString sender, QString re
     mes->sender = sender;
     mes->receiver = receiver;
     mes->message = message;
+    mes->idNum = m_idNum;
     m_qlMainMessage.append(mes);
     emit layoutChanged();
+    ++m_idNum;
+}
+
+void MainMessageModel::removeData(int idNum)
+{
+    emit layoutAboutToBeChanged();
+    for(auto it = m_qlMainMessage.begin(); it != m_qlMainMessage.end(); ++it)
+    {
+        if((*it)->idNum == idNum)
+        {
+            delete *it;
+            m_qlMainMessage.erase(it);
+            emit layoutChanged();
+        }
+    }
 }

@@ -22,10 +22,14 @@ Window {
     }
     onClosing: {
         chatLoader.source = "";
-        var jsonData = new Object();
-        jsonData.purpose = 9;
-        jsonData.account = EcInteraction.selfAccount;
-        EcInteraction.sendMessage(JSON.stringify(jsonData));
+        findFriendLoader.source = "";
+        zoneLoader.source = "";
+        addLoader.source = "";
+//        var jsonData = new Object();
+//        jsonData.purpose = 9;
+//        jsonData.account = EcInteraction.selfAccount;
+//        console.log(JSON.stringify(jsonData));
+//        EcInteraction.sendMessage(JSON.stringify(jsonData));
         EcInteraction.closeClientThread();
     }
     TitleRec {
@@ -225,6 +229,10 @@ Window {
         id: zoneLoader
         smooth:true
     }
+    Loader {
+        id: addLoader
+        smooth: true
+    }
     Connections {
         target: EcInteraction
         onSig_loginResult: {
@@ -237,6 +245,10 @@ Window {
                 jsonData.purpose = 5;
                 jsonData.sender = EcInteraction.selfAccount;
                 EcInteraction.sendMessage(JSON.stringify(jsonData));
+                var jsonData2 = new Object();
+                jsonData2.purpose = 8;
+                jsonData2.sender = EcInteraction.selfAccount;
+                EcInteraction.sendMessage(JSON.stringify(jsonData2));
             }
         }
     }

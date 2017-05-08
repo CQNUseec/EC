@@ -26,6 +26,7 @@ public:
     Q_INVOKABLE void      setGroupSelected(QString GroupAccount);
     Q_INVOKABLE void      setSelfAccount(QString account);
     Q_INVOKABLE QString   getAccountName(QString account);
+    Q_INVOKABLE void      removeMainMessageModelData(int idNum);
     QString               selfAccount() const;
     FriendList*           getFriendList() const;
     GroupModel*           chatGroupList() const;
@@ -34,7 +35,7 @@ public:
 signals:
     void sig_loginResult(int res);
     void sig_registerAccountResult(QString account);
-    void sig_findAccountResult(QString result, QString nickName, QString age, QString sex);
+    void sig_findAccountResult(QString result, QString nickName="", QString age="", QString sex="");
     void sig_sendMessage(QString jsonData);
     void sig_selfAccountChanged(QString account);
     void sig_signOut(QString account);

@@ -9,7 +9,6 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtQml.Models 2.2
-
 Window {
     id: addFriendWindow
     width: 800
@@ -18,6 +17,8 @@ Window {
     flags: Qt.Window | Qt.FramelessWindowHint
     property bool bAddFriend: true
     property bool bAddGroupMember: false
+    property string initiatedAccount: ""
+    property string aimsAccount: ""
     TitleRec {
         id: topRec
         width: parent.width
@@ -51,16 +52,37 @@ Window {
         color: "#C8C8C8"
         z:5
     }
-    AnimatedImage {
-        id: findFriendWindowBackground
-        z: 3
-        anchors.centerIn: parent
-        source: "/images/loginBackground.gif"
-        visible: false
-    }
-    Rectangle {
+    Text {
         id: addFriendRec
-        width: 80
-        height: 50
+        anchors.centerIn: parent
+        font.pointSize: 11
+        font.family: SystemFont
+        text: initiatedAccount + " 请求添加您为好友"
+    }
+    Button {
+        id: agree
+        anchors.horizontalCenter: addFriendRec.horizontalCenter
+        anchors.top: addFriendRec.bottom
+        anchors.topMargin: 5
+        style: ECButtonStyle{ button: add; buttonText: qsTr("同意") }
+        onClicked: {
+            agree.enabled = false;
+            ignore.enabled =false;
+            var jsonData = new Object();
+            jsonData.purpose = 7;
+            jsonData.initiated = initiatedAccount;
+            jsonData.aims = aimsAccount;
+        }
+    }
+    Button {
+        id: ignore
+        anchors.horizontalCenter: addFriendRec.horizontalCenter
+        anchors.top: agree.bottom
+        anchors.topMargin: 5
+        style: ECButtonStyle{ button: add; buttonText: qsTr("忽略") }
+        onClicked: {
+            agree.enabled = false;
+            ignore.enabled =false;
+        }
     }
 }
