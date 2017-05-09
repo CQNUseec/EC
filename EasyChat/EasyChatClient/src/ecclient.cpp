@@ -62,7 +62,6 @@ void EcClient::analyzeMessageFromServer(QString data)
     if(result.isEmpty())
         return;
     qDebug() << "AnalyzeMessageFromServer: " << result;
-    //    QThread::sleep(1);
     switch (result["purpose"].toInt())
     {
     case EC_NETWORK_LOGIN:
@@ -76,6 +75,7 @@ void EcClient::analyzeMessageFromServer(QString data)
         break;
     case EC_NETWORK_SEND_MESSAGE:
         loadChatMessageData(result);
+        emit m_ecInteraction->sig_newMessage();
         break;
     case EC_NETWORK_GROUP_LIST:
         loadDataToGruoupList(result);

@@ -155,11 +155,11 @@ Window {
             font.pixelSize: 15
             wrapMode: TextEdit.Wrap
             style: Rectangle{
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: sendButton.top
-                border.width: 0
+//                anchors.top: parent.top
+//                anchors.left: parent.left
+//                anchors.right: parent.right
+//                anchors.bottom: sendButton.top
+//                border.width: 0
             }
         }
         Button {

@@ -261,7 +261,7 @@ Window {
         onSig_flushUI: {
             unReadMessageListView.model = null;
             unReadMessageListView.model = EcInteraction.mainMessageModel;
-            ++UnreadMessageCount;
+//            ++UnreadMessageCount;
             messagePageButon.textColor = "red";
         }
     }

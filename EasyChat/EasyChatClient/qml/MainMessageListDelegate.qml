@@ -58,12 +58,12 @@ Rectangle {
            {
                if(EcInteraction.chat.isChatWindowOpen())
                {
-                   EcInteraction.chat.loadDataToChat(friendName, messageSender, messageReceiver);
+                   EcInteraction.chat.loadDataToChat(snederDisplay.text, messageSender, messageReceiver);
                    console.log("窗口已打开，添加聊天人");
                    return;
                }
                chatLoader.setSource("chatWindow.qml", {"test": messageSender, "friendAccount": messageSender});
-               EcInteraction.chat.loadDataToChat("test", messageSender, messageReceiver);
+               EcInteraction.chat.loadDataToChat(messageDisplay.text, messageSender, messageReceiver);
                console.log("打开聊天窗口")
            }
            else if(messageType === 6)  //处理添加好友请求

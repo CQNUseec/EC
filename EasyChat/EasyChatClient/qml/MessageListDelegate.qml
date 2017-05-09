@@ -11,7 +11,7 @@ Rectangle {
     id: rec
     width: parent.width - 24
     anchors.horizontalCenter: parent.horizontalCenter
-    height: 55
+    height: 70
     Component.onCompleted: {
         if(model.bDisplayLeft)
         {
