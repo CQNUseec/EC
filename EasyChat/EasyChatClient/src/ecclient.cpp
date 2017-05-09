@@ -86,6 +86,9 @@ void EcClient::analyzeMessageFromServer(QString data)
     case EC_NETWORK_ADD_FRIEND:
         addFriendRes(result);
         break;
+    case EC_NETWORK_GROUP_CHAT_MENMBER:
+        loadGroupMemberData(result);
+        break;
     default:
         break;
     }
@@ -177,6 +180,19 @@ void EcClient::loadDataToGruoupList(QVariantMap &result)
     QString groupName = result["groupName"].toString();
     QString groupOwner = result["groupOwner"].toString();
     QString remarksName = result["remarksName"].toString();
-    QStringList temp;
     m_ecInteraction->chatGroupList()->loadDataToModel(groupAccount, groupName, groupOwner);
+    //获取群聊成员列表
+//    QString jsonData = QString("{\"purpose\":11,\"groupAccount\":\"%1\"}").arg(groupAccount);
+//    m_qpNetWork->sendMessageAndReceiver(jsonData.toStdString());
+}
+
+void EcClient::loadGroupMemberData(QVariantMap &result)
+{
+    QString gAccount = result["groupAccount"].toString();
+    QString mAccount = result["mAccount"].toString();
+    QString mNickName = result["mNickName"].toString();
+    QString mAge = result["mAge"].toString();
+    QString mSex = result["mSex"].toString();
+    m_ecInteraction->chatGroupList()->loadGroupMemberInfo(gAccount, mAccount,
+                                                          mNickName, mAge, mSex);
 }

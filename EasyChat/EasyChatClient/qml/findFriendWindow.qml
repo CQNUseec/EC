@@ -165,7 +165,7 @@ Window {
             anchors.verticalCenter: resDisplay.verticalCenter
             anchors.left: resDisplay.right
             anchors.leftMargin: 5
-            //            visible: false
+            visible: false
             style: ECButtonStyle{ button: add; buttonText: qsTr("添加") }
             onClicked: {
                 content.opacity = 0.5;
@@ -196,6 +196,7 @@ Window {
             {
                 accountRes.text = "You can add friend!";
                 resDisplay.visible = true;
+                add.visible = true;
             }
         }
     }

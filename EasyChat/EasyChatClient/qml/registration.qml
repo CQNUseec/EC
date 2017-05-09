@@ -231,7 +231,7 @@ Window {
         GroupBox {
             id: sexSelect
             width: 200
-            height: 33
+            height: 50
             anchors.verticalCenter: sexSelectLeft.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             RowLayout {

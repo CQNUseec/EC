@@ -47,9 +47,9 @@ void NetWork::sendMessageAndReceiver(std::string data)
     for(auto &var : m_buf)
         var = '\0';
     std::cout << res << std::endl;
-    if(res == "friendList" || res == "groupList")
+    if(res == "friendList" || res == "groupList" || res == "groupMembers")
     {
-        vector<char> tempBuf(100, 0);
+        vector<char> tempBuf(200, 0);
         sock->receive(buffer(tempBuf));
         std::string data = &tempBuf[0];
         while( data != "end")
@@ -62,10 +62,6 @@ void NetWork::sendMessageAndReceiver(std::string data)
             sock->receive(buffer(tempBuf));
             data = &tempBuf[0];
         }
-//        if(data == "end")
-//        {
-//            sendMessageOnly();
-//        }
     }
     else
         emit sig_messageFromServer(QString::fromStdString(res));

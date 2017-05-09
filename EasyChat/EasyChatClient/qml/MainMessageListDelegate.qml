@@ -23,8 +23,17 @@ Rectangle {
     property int itemWidth: 200
     property bool bEntered: false
     Text {
-        anchors.centerIn: parent
+        id: snederDisplay
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        text: EcInteraction.getAccountName(model.sender)
+        font.family: SystemFont
+        font.pointSize: 10
+    }
+    Text {
         id: messageDisplay
+        anchors.horizontalCenter: snederDisplay.horizontalCenter
+        anchors.top: snederDisplay.bottom
         text: model.message
         font.family: SystemFont
         font.pointSize: 10
@@ -45,7 +54,7 @@ Rectangle {
     }
        function readAndDealMessage()
        {
-           if(messageType === 4)
+           if(messageType === 4)  //处理未读的聊天消息
            {
                if(EcInteraction.chat.isChatWindowOpen())
                {
@@ -57,7 +66,7 @@ Rectangle {
                EcInteraction.chat.loadDataToChat("test", messageSender, messageReceiver);
                console.log("打开聊天窗口")
            }
-           else if(messageType === 6)
+           else if(messageType === 6)  //处理添加好友请求
            {
                addLoader.setSource("addFriendWindow.qml", {"initiatedAccount": messageSender, "aimsAccount": messageReceiver});
            }

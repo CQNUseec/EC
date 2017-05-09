@@ -56,3 +56,8 @@ INCLUDEPATH += $$PWD/../../../../../usr/local/include
 DEPENDPATH += $$PWD/../../../../../usr/local/include
 
 unix:!macx: PRE_TARGETDEPS += $$PWD/../../../../../usr/local/lib/libboost_thread.a
+
+unix:!macx: LIBS += -L$$PWD/lib/ -lfcitxplatforminputcontextplugin
+
+INCLUDEPATH += $$PWD/.
+DEPENDPATH += $$PWD/.

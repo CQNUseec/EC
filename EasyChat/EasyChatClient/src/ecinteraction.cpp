@@ -35,12 +35,20 @@ Chat *EcInteraction::getChat() const
 
 QString EcInteraction::getAccountName(QString account)
 {
+    if(isGroupAccount(account))
+        m_qpGroupList->getMemberName(account);
+    else
     return m_qpFriendList->getRemarksName(account);
 }
 
 void EcInteraction::removeMainMessageModelData(int idNum)
 {
     m_mainMessageModel->removeData(idNum);
+}
+
+bool EcInteraction::isGroupAccount(QString account)
+{
+    m_qpGroupList->isGroupAccount(account);
 }
 
 void EcInteraction::slot_loadDataToChat(QStringList stringList)
@@ -52,6 +60,7 @@ void EcInteraction::slot_loadDataToChat(QStringList stringList)
     if(getChat()->isChatToSender(sender))  //聊天窗口已存在 直接显示
     {
         getChat()->getOneMessageListModel(sender)->loadDataToModel(sender, receiver, message, sendTime);
+        emit getChat()->sig_viewChanged();
     }
     else    //缓存收到的消息
     {

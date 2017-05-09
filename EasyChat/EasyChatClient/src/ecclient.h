@@ -30,6 +30,7 @@ private:
     void loadDataToFriendList(QVariantMap &result);
     void loadChatMessageData(QVariantMap &result);
     void loadDataToGruoupList(QVariantMap &result);
+    void loadGroupMemberData(QVariantMap &result);
 private:
     EcInteraction*                       m_ecInteraction;
     QString                              m_serverIp;

@@ -12,6 +12,7 @@ ButtonStyle{
     property int buttonImplicitWidth: 55
     property int buttonImplicitHeight: 25
     property string buttonText: ""
+    property string buttonTextColor: "white"
     property int buttonTextSize: 9
     property string enteredColor: "#3CC3F5"
     property string exitedColor: "#09A3DC"
@@ -38,7 +39,7 @@ ButtonStyle{
             text: qsTr(buttonText)
             font.family: SystemFont
             font.pointSize: buttonTextSize
-            color: "white"
+            color: buttonTextColor
         }
     }
 }

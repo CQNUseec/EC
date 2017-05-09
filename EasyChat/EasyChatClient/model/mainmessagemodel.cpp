@@ -1,5 +1,5 @@
 #include "mainmessagemodel.h"
-
+#include "src/ecglobal.h"
 MainMessageModel::MainMessageModel()
 {
     m_roleNames.insert(idNumRole, "idNum");
@@ -57,6 +57,18 @@ QHash<int, QByteArray> MainMessageModel::roleNames() const
 void MainMessageModel::loadDataToModel(int operation, QString sender, QString receiver, QString message)
 {
     emit layoutAboutToBeChanged();
+    if(operation == EC_NETWORK_SEND_MESSAGE)
+    {
+        foreach (auto &var, m_qlMainMessage)
+        {
+           if(var->sender == sender && var->receiver == receiver)
+           {
+               var->message = message;
+               emit layoutChanged();
+               return;
+           }
+        }
+    }
     MainMessageInfo* mes = new MainMessageInfo;
     mes->operation = operation;
     mes->sender = sender;
@@ -66,6 +78,7 @@ void MainMessageModel::loadDataToModel(int operation, QString sender, QString re
     m_qlMainMessage.append(mes);
     emit layoutChanged();
     ++m_idNum;
+    emit sig_flushUI();
 }
 
 void MainMessageModel::removeData(int idNum)

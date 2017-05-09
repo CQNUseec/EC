@@ -33,6 +33,8 @@ public:
     void removeData(int idNum);
     //    void loadDataToModel(int operation, QString message);  //添加好友请求
 //    void loadDataToModel(int operation, QString message);  //加入群请求
+signals:
+    void sig_flushUI();
 private:
     QHash<int, QByteArray>               m_roleNames;
     QList<MainMessageInfo*>              m_qlMainMessage;

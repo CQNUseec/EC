@@ -11,14 +11,16 @@ Rectangle {
     id: rec
     width: parent.width - 24
     anchors.horizontalCenter: parent.horizontalCenter
-    height: 50
-    border.color: "blue"
-    border.width: 2
+    height: 55
     Component.onCompleted: {
         if(model.bDisplayLeft)
+        {
             time.anchors.left = rec.left;
+        }
         else
+        {
             time.anchors.right = rec.right;
+        }
     }
     Text {
         id: time
@@ -28,9 +30,17 @@ Rectangle {
         font.family: SystemFont
     }
     Text {
+        id: messageSender
+        anchors.top: time.bottom
+        anchors.horizontalCenter: time.horizontalCenter
+        text: EcInteraction.getAccountName(model.sender)
+        font.pointSize: 13
+        font.family: SystemFont
+    }
+    Text {
         id: leftMessageText
         width: parent.width
-        anchors.top: time.bottom
+        anchors.top: messageSender.bottom
         anchors.left: parent.left
         text: model.message
         visible: model.bDisplayLeft
@@ -42,7 +52,7 @@ Rectangle {
     Text {
         id: rightMessageText
         width: parent.width
-        anchors.top: time.bottom
+        anchors.top: messageSender.bottom
         anchors.right: parent.right
         text: model.message
         visible: !model.bDisplayLeft

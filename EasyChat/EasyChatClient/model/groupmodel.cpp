@@ -56,6 +56,33 @@ void GroupModel::loadDataToModel(QString groupAccount, QString groupName, QStrin
     groupItemPtr->groupOwner = groupOwner;
     m_qlGroupItemInfo.append(groupItemPtr);
     emit layoutChanged();
+    emit sig_flushUI();
+}
+
+void GroupModel::loadGroupMemberInfo(QString gAccount, QString mAccount, QString mNickName, QString mAge, QString mSex)
+{
+    for(auto it=m_qhGroupMember.begin(); it != m_qhGroupMember.end(); ++it)
+    {
+        if(it.key() == gAccount)
+        {
+            GroupMemberInfo *mInfo = new GroupMemberInfo;
+            mInfo->mAccount = mAccount;
+            mInfo->mNickName = mNickName;
+            mInfo->mAge = mAge;
+            mInfo->mSex = mSex;
+            it.value()->append(mInfo);
+            return;
+        }
+    }
+    GroupMemberInfo *mInfo = new GroupMemberInfo;
+    mInfo->mAccount = mAccount;
+    mInfo->mNickName = mNickName;
+    mInfo->mAge = mAge;
+    mInfo->mSex = mSex;
+    QList<GroupMemberInfo*>* qmlist = new QList<GroupMemberInfo *>;
+    qmlist->append(mInfo);
+    m_qhGroupMember.insert(gAccount, qmlist);
+    return;
 }
 
 void GroupModel::setSelfAccount(QString selfAccount)
@@ -81,12 +108,43 @@ void GroupModel::setbSelected(QString groupAccout)
     emit layoutChanged();
 }
 
+bool GroupModel::isGroupAccount(QString account)
+{
+    foreach (auto var, m_qlGroupItemInfo)
+    {
+        if(var->groupAccount == account)
+            return true;
+    }
+    return false;
+}
+
+QString GroupModel::getMemberName(QString account)
+{
+    for(auto it=m_qhGroupMember.begin(); it != m_qhGroupMember.end(); ++it)
+    {
+        foreach(auto &var, *(it.value()))
+        {
+            if(var->mAccount == account)
+                return var->mNickName;
+        }
+    }
+}
+
 void GroupModel::clearModelData()
 {
+    for(auto it=m_qhGroupMember.begin(); it != m_qhGroupMember.end(); ++it)
+    {
+        foreach(auto &var, *(it.value()))
+        {
+            delete var;
+        }
+        it.value()->clear();
+        delete it.value();
+    }
     m_qhGroupMember.clear();
     if(m_qlGroupItemInfo.isEmpty())
         return;
-    foreach (auto var, m_qlGroupItemInfo)
+    foreach (auto &var, m_qlGroupItemInfo)
     {
         delete var;
     }

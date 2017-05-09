@@ -151,13 +151,13 @@ QString FriendList::getRemarksName(QString friendAccount)
     foreach(auto var, list)
     {
         QList<FriendItem *> groupMemberList = var->get_chs()->toList();
-        foreach(auto mvar, groupMemberList)
+        foreach(auto &mvar, groupMemberList)
         {
             if(mvar->get_account() == friendAccount)
                if(mvar->get_remarksName().isEmpty())
                    return mvar->get_nickName();
-               else
-                return mvar->get_remarksName();
+               else  //get_remarksName 此版本暂时不使用备注名
+                return mvar->get_nickName();
         }
     }
     return "";

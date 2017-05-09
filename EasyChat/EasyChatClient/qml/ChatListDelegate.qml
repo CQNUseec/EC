@@ -17,14 +17,14 @@ Rectangle {
     property bool bordeColor: model.bSelected
     onBordeColorChanged: {
         if(bordeColor)
-            chatWindows.friendName = model.nickName;
+            chatWindows.friendName = nickName;
         chatWindows.requestActivate();
     }
     Text {
         id: name
         anchors.centerIn: parent
-        property string remarksName: EcInteraction.getRemarksName(model.friendAccount)
-        text: remarksName === "" ? qsTr(model.friendName) : remarksName
+//        property string remarksName: EcInteraction.getRemarksName(model.friendAccount)
+        text: nickName //=== "" ? qsTr(model.friendName) : remarksName
     }
     MouseArea {
         anchors.fill: parent

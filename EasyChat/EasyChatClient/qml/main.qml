@@ -17,6 +17,7 @@ Window {
     height: 550
     color: "#F0F8FE"
     flags: Qt.Window | Qt.FramelessWindowHint
+    property int unreadMessageCount: 0
     Component.onCompleted: {
         chatLoader.setSource("logIn.qml");
     }
@@ -25,11 +26,6 @@ Window {
         findFriendLoader.source = "";
         zoneLoader.source = "";
         addLoader.source = "";
-//        var jsonData = new Object();
-//        jsonData.purpose = 9;
-//        jsonData.account = EcInteraction.selfAccount;
-//        console.log(JSON.stringify(jsonData));
-//        EcInteraction.sendMessage(JSON.stringify(jsonData));
         EcInteraction.closeClientThread();
     }
     TitleRec {
@@ -75,9 +71,11 @@ Window {
             id: messagePageButon
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
-            style: ECButtonStyle{ button: messagePageButon; buttonText: qsTr("消息") }
+            property string textColor: "white"
+            style: ECButtonStyle{ button: messagePageButon; buttonText: qsTr("消息");buttonTextColor: messagePageButon.textColor }
             onClicked: {
                 swipeView.currentIndex = 0;
+                textColor = "white";
             }
         }
         Button {
@@ -133,10 +131,6 @@ Window {
                 id: musicPlayer
                 autoPlay: false
                 source: "/music/newMessage.wav"
-//                Connections {
-//                    target: EcInteraction.chat
-//                    on
-//                }
             }
         }
         Controls2.Page {  //好友列表
@@ -202,7 +196,7 @@ Window {
             anchors.verticalCenter: parent.verticalCenter
             style: ECButtonStyle { button: zone; buttonText: "ECZone"; }
             onClicked:  {
-             zoneLoader.setSource("ecZone.qml");
+                zoneLoader.setSource("ecZone.qml");
             }
         }
         Button {
@@ -250,6 +244,25 @@ Window {
                 jsonData2.sender = EcInteraction.selfAccount;
                 EcInteraction.sendMessage(JSON.stringify(jsonData2));
             }
+        }
+        onSig_newMessage: {
+            musicPlayer.play();
+        }
+    }
+    Connections {
+        target: EcInteraction.chatGroupList
+        onSig_flushUI: {
+            groupListView.model = null;
+            groupListView.model = EcInteraction.chatGroupList;
+        }
+    }
+    Connections {
+        target: EcInteraction.mainMessageModel
+        onSig_flushUI: {
+            unReadMessageListView.model = null;
+            unReadMessageListView.model = EcInteraction.mainMessageModel;
+            ++UnreadMessageCount;
+            messagePageButon.textColor = "red";
         }
     }
 }

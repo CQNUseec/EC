@@ -132,23 +132,6 @@ Column {
             }
         }
     }
-    //    Component {
-    //        id: friendItemMenu
-    //        Menu {
-    //            MenuItem {
-    //                text: qsTr("发送消息")
-    //                onTriggered: {
-    //                    chatWithFriend(memberRec.friendName, memberRec.friendAccount, EcInteraction.selfAccount);
-    //                }
-    //            }
-    //            MenuItem {
-    //                text: qsTr("修改备注")
-    //                onTriggered: {
-    //                    console.log("修改备注");
-    //                }
-    //            }
-    //        }
-    //    }
     function chatWithFriend(friendName, friendAccount, selfAccount)
     {
         if(EcInteraction.chat.isChatWindowOpen())

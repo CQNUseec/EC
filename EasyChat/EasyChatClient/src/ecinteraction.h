@@ -27,6 +27,7 @@ public:
     Q_INVOKABLE void      setSelfAccount(QString account);
     Q_INVOKABLE QString   getAccountName(QString account);
     Q_INVOKABLE void      removeMainMessageModelData(int idNum);
+    Q_INVOKABLE bool      isGroupAccount(QString account);
     QString               selfAccount() const;
     FriendList*           getFriendList() const;
     GroupModel*           chatGroupList() const;
@@ -39,6 +40,7 @@ signals:
     void sig_sendMessage(QString jsonData);
     void sig_selfAccountChanged(QString account);
     void sig_signOut(QString account);
+    void sig_newMessage();
 public slots:
     void slot_loadDataToChat(QStringList stringList);
 private:

@@ -18,7 +18,7 @@ Rectangle {
     property bool bEntered: false
         TextField {
             anchors.fill: parent
-            text: model.groupAccount + model.groupName
+            text: model.groupName
             font.family: SystemFont
             readOnly: true
             font.pointSize: 10

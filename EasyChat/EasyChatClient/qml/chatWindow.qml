@@ -103,9 +103,8 @@ Window {
         anchors.left: leftTabRec.right
         anchors.right: parent.right
         height: parent.height * 0.7
-        border.color: "red"
-        border.width: 2
-        radius: 3
+        border.color: "blue"
+        border.width: 1
         clip: true
         Keys.enabled: true
         Keys.onEscapePressed: {
@@ -138,8 +137,8 @@ Window {
         anchors.bottom: parent.bottom
         anchors.left: leftTabRec.right
         anchors.right: parent.right
-        border.color: "yellow"
-        border.width: 2
+        border.color: "blue"
+        border.width: 1
         radius: 3
         Keys.enabled: true
         Keys.onEscapePressed: {
@@ -149,11 +148,19 @@ Window {
             id: messageInput
             anchors.top: parent.top
             anchors.left: parent.left
+            anchors.leftMargin: 1
             anchors.right: parent.right
             anchors.bottom: sendButton.top
             focus: true
             font.pixelSize: 15
             wrapMode: TextEdit.Wrap
+            style: Rectangle{
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: sendButton.top
+                border.width: 0
+            }
         }
         Button {
             id: sendButton

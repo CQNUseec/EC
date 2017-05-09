@@ -64,7 +64,7 @@ Window {
         anchors.horizontalCenter: addFriendRec.horizontalCenter
         anchors.top: addFriendRec.bottom
         anchors.topMargin: 5
-        style: ECButtonStyle{ button: add; buttonText: qsTr("同意") }
+        style: ECButtonStyle{ button: agree; buttonText: qsTr("同意") }
         onClicked: {
             agree.enabled = false;
             ignore.enabled =false;
@@ -72,6 +72,7 @@ Window {
             jsonData.purpose = 7;
             jsonData.initiated = initiatedAccount;
             jsonData.aims = aimsAccount;
+            EcInteraction.sendMessage(JSON.stringify(jsonData));
         }
     }
     Button {
@@ -79,7 +80,7 @@ Window {
         anchors.horizontalCenter: addFriendRec.horizontalCenter
         anchors.top: agree.bottom
         anchors.topMargin: 5
-        style: ECButtonStyle{ button: add; buttonText: qsTr("忽略") }
+        style: ECButtonStyle{ button: ignore; buttonText: qsTr("忽略") }
         onClicked: {
             agree.enabled = false;
             ignore.enabled =false;
