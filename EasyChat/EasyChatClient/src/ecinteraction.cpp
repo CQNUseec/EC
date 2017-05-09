@@ -48,7 +48,7 @@ void EcInteraction::removeMainMessageModelData(int idNum)
 
 bool EcInteraction::isGroupAccount(QString account)
 {
-    m_qpGroupList->isGroupAccount(account);
+    return m_qpGroupList->isGroupAccount(account);
 }
 
 void EcInteraction::slot_loadDataToChat(QStringList stringList)
