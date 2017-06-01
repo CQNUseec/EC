@@ -61,7 +61,7 @@ private:
     void agreeAddFriend_handler(const error_code &ec,sock_ptr sock,Json::Value root);
 
     //发送消息
-    void sendMessage_handler(const error_code &ec,string receiver, string message);
+    void sendMessage_handler(const error_code &ec,string sender,string receiver, string message);
 
     //注销
     void logout_handler(const error_code &ec,Json::Value root);
@@ -70,6 +70,7 @@ private:
     void listGroup_handler(const error_code &ec,sock_ptr sock,Json::Value root);
 
     //
+    void listGroupMembers_handler(const error_code &ec,string account);
 
 
 private:

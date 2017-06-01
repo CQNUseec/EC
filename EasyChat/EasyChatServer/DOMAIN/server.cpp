@@ -81,8 +81,9 @@ void Server::read_handler(const Server::error_code &ec, Server::sock_ptr sock)
         }
         case EC_NETWORK_SEND_MESSAGE://发消息
         {
+            string sender = root["sender"].asString();
             string receiver = root["receiver"].asString();
-            sendMessage_handler(ec,receiver,temp);
+            sendMessage_handler(ec,sender,receiver,temp);
             break;
         }
         case EC_NETWORK_AGREE_ADD_FRIEND://同意添加好友
@@ -98,8 +99,8 @@ void Server::read_handler(const Server::error_code &ec, Server::sock_ptr sock)
         }
         case EC_NETWORK_GROUP_LIST://列出群聊组
         {
-            string sender = root["sender"].asString();
-
+            cout<<"list all group"<<endl;
+            listGroup_handler(ec,sock,root);
             break;
         }
         case EC_NETWORK_LOGOUT: //注销
@@ -107,6 +108,11 @@ void Server::read_handler(const Server::error_code &ec, Server::sock_ptr sock)
             logout_handler(ec,root);
             break;
         }
+            //        case EC_NETWORK_GROUP_CHAT_MEMBER://获取一个组的所有成员具体信息
+            //        {
+            //            listGroupMembers_handler(ec,sock,root);
+            //            break;
+            //        }
         default:
             break;
         }
@@ -139,13 +145,13 @@ void Server::login_handler(const Server::error_code &ec, Server::sock_ptr sock, 
 
             cout << "log success "<< account<<endl;
             chat_ptr->addOnlineFlag(account,client_ip); //添加在线标志
-//            if(chat_ptr->IsExistOfflineMessage(account))//如果存在离线消息，发送离线消息
-//            {
+            //            if(chat_ptr->IsExistOfflineMessage(account))//如果存在离线消息，发送离线消息
+            //            {
 
-//                vector<string> msgs = chat_ptr->getOfflineMessage(account);
-//                sendOfflineMessage(ec,account,msgs);
-//                chat_ptr->deleteOfflineMessage(account);
-//            }
+            //                vector<string> msgs = chat_ptr->getOfflineMessage(account);
+            //                sendOfflineMessage(ec,account,msgs);
+            //                chat_ptr->deleteOfflineMessage(account);
+            //            }
 
         }
     }
@@ -192,17 +198,18 @@ void Server::getFriendList_handler(const Server::error_code &ec, Server::sock_pt
                 s = '\0';
         }
         sock->write_some(buffer("end"));
-        if(chat_ptr->IsExistOfflineMessage(account))//如果存在离线消息，发送离线消息
-        {
-
-            vector<string> msgs = chat_ptr->getOfflineMessage(account);
-            sendOfflineMessage(ec,account,msgs);
-            chat_ptr->deleteOfflineMessage(account);
-        }
     }
     else
     {
         sock->write_some(buffer("end"));
+    }
+
+    if(chat_ptr->IsExistOfflineMessage(account))//如果存在离线消息，发送离线消息
+    {
+
+        vector<string> msgs = chat_ptr->getOfflineMessage(account);
+        sendOfflineMessage(ec,account,msgs);
+        chat_ptr->deleteOfflineMessage(account);
     }
     return;
 }
@@ -227,15 +234,15 @@ void Server::sendMessage(const Server::error_code &ec, string receiver, string m
     io_service tmp_io;
     string ip =chat_ptr->getAccountTerminalFlag(receiver);
 
-//    Json::FastWriter fastwriter;
-//    string receiverAccount = receiverIp["receiver"].asString();
-//    string msg = fastwriter.write(receiverIp);
-//    endpoint_type ep(address_type::from_string(ip),6677);
-//    sock_ptr sock(new socket_type(tmp_io));
-//    sock->connect(ep);
-//    cout << "send online message"<<endl;
-//    sock->send(buffer(msg));
-//    io_service io;
+    //    Json::FastWriter fastwriter;
+    //    string receiverAccount = receiverIp["receiver"].asString();
+    //    string msg = fastwriter.write(receiverIp);
+    //    endpoint_type ep(address_type::from_string(ip),6677);
+    //    sock_ptr sock(new socket_type(tmp_io));
+    //    sock->connect(ep);
+    //    cout << "send online message"<<endl;
+    //    sock->send(buffer(msg));
+    //    io_service io;
 
 
     ip::udp::endpoint send_ep(
@@ -274,6 +281,7 @@ void Server::requestAddFriend(const Server::error_code &ec, string receiver, str
         sendMessage(ec,receiver,message);
     else
         chat_ptr->addOfflineMessage(receiver,message);
+
     return;
 }
 
@@ -283,6 +291,7 @@ void Server::agreeAddFriend_handler(const Server::error_code &ec, Server::sock_p
         return;
     string initiated = root["initiated"].asString();
     string aims = root["aims"].asString();
+
     int ret = chat_ptr->agreeAddFriend(initiated,aims);
 
     Json::FastWriter fastWriter;
@@ -292,22 +301,66 @@ void Server::agreeAddFriend_handler(const Server::error_code &ec, Server::sock_p
     result["result"]=ret;
     string jsonStr = fastWriter.write(result);
     sock->write_some(buffer(jsonStr));
+
+    cout << "agree add friend "<<ret <<endl;
+
+    //同意添加好友后更新两者的好友列表
+    string friend1 = chat_ptr->getALinkmanInfo(initiated,aims);
+    string friend2 = chat_ptr->getALinkmanInfo(aims,initiated);
+
+    cout<< "更新" <<friend1<<endl;
+    cout<<" ——更新"<<friend2<<endl;
+
+    sendMessage(ec,initiated,friend1);
+    sendMessage(ec,aims,friend2);
+
     return;
 }
 
-void Server::sendMessage_handler(const Server::error_code &ec,string receiver, string message)
+void Server::sendMessage_handler(const Server::error_code &ec,string sender,string receiver, string message)
 {
     if(ec)
         return;
 
-    if(chat_ptr->IsOnline(receiver))
+    if(chat_ptr->isGroup(receiver)) //群聊
     {
-        sendMessage(ec,receiver,message);
+        cout << "send group message"<<endl;
+
+        vector<string> result;
+
+        result = chat_ptr->getGroupAccounts(receiver);
+
+        for(auto &s:result)
+        {
+            if (s == sender) //
+                break;
+            else
+            {
+                if(chat_ptr->IsOnline(s))
+                {
+                    cout<<"send online message"<<endl;
+                    sendMessage(ec,s,message);
+                }
+                else
+                {
+                    chat_ptr->addOfflineMessage(s,message);
+                    cout <<"add offline success"<<endl;
+                }
+            }
+        }
     }
-    else
+    else //单聊
     {
-        chat_ptr->addOfflineMessage(receiver,message);
-        cout <<"add offline success"<<endl;
+        if(chat_ptr->IsOnline(receiver))
+        {
+            cout <<"send online message"<<endl;
+            sendMessage(ec,receiver,message);
+        }
+        else
+        {
+            chat_ptr->addOfflineMessage(receiver,message);
+            cout <<"add offline success"<<endl;
+        }
     }
 }
 
@@ -322,13 +375,13 @@ void Server::logout_handler(const Server::error_code &ec, Json::Value root)
 
 void Server::listGroup_handler(const Server::error_code &ec, Server::sock_ptr sock, Json::Value root)
 {
+    cout<<"list group handler"<<endl;
     if (ec)
         return;
     string sender = root["sender"].asString();
     vector<string> ret;
     vector<char> buf(50,0);
     ret = chat_ptr->getGroupList(sender);
-
 
     if(ret.size())
     {
@@ -348,6 +401,37 @@ void Server::listGroup_handler(const Server::error_code &ec, Server::sock_ptr so
     {
         sock->write_some(buffer("end"));
     }
+
+    listGroupMembers_handler(ec,sender);
+    return;
+}
+
+void Server::listGroupMembers_handler(const Server::error_code&ec, string account)
+{
+    cout<<"list group members"<<endl;
+    if (ec)
+        return;
+
+    vector<string> groups;
+    groups = chat_ptr->getGroupList(account);
+
+    for(auto &group:groups)
+    {
+        Json::Value root;
+        parseJsonString(group,root);
+
+        string g = root["groupAccount"].asString();
+
+        cout << group<<endl;
+        vector<string> members = chat_ptr->getGroupInfo(g);
+
+        for(auto &member:members)
+        {
+            cout<<"a member of"<<member<<endl;
+            sendMessage(ec,account,member);
+        }
+    }
+
     return;
 }
 
@@ -355,3 +439,4 @@ void Server::setPtr(std::shared_ptr<ChatControl> ptr)
 {
     chat_ptr = ptr;
 }
+

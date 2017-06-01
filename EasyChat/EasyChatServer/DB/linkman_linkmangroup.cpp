@@ -69,6 +69,40 @@ vector<string> linkman_linkmanGroup::getAllLinkmanInformation(string account)
 
 }
 
+string linkman_linkmanGroup::getALinkmanInfo(QString account, QString linkmanAccount)
+{
+    string ret;
+    Json::FastWriter fastWriter;
+
+    QString infoInDB=QString("SELECT linkmangroupname,linkmanaccount,nickname,remarkname FROM account,linkman_linkmangroup "
+                             "WHERE linkman_linkmangroup.account='%1' AND linkman_linkmangroup.linkmanaccount='%2' AND linkman_linkmangroup.linkmanaccount = account.account").arg(account).arg(linkmanAccount);
+    QSqlQuery query;
+
+    query.exec(infoInDB);
+
+    if(query.next())
+    {
+        Json::Value result_temp;
+        string groupname = query.value(0).toString().toStdString();
+        string linkmanAccount = query.value(1).toString().toStdString();
+        string nickname = query.value(2).toString().toStdString();
+        string remarkname = query.value(3).toString().toStdString();
+
+        result_temp["purpose"] = EC_NETWORK_FRIEND_LIST;
+        result_temp["groupName"] = groupname;
+        result_temp["account"] = linkmanAccount;
+        result_temp["nickName"]=nickname;
+        result_temp["remarksName"] = remarkname;
+
+        std::string jsonStr = fastWriter.write(result_temp);
+
+        cout << "数据库获取好友列表"<<endl;
+
+        ret = jsonStr;
+    }
+    return ret;
+}
+
 bool linkman_linkmanGroup::changeLinkmanGroup(QString account, QString linkmanAccount, QString linkmanGroupname)
 {
     QString update = QString("UPDATE linkman_linkmangroup SET remarkname='%1'"
@@ -95,7 +129,7 @@ bool linkman_linkmanGroup::isLinkExist(QString account, QString aim)
         return false;
 }
 
-vector<string> linkman_linkmanGroup::listAccountAllGroup(QString account)
-{
+//vector<string> linkman_linkmanGroup::listAccountAllGroup(QString account)
+//{
 
-}
+//}

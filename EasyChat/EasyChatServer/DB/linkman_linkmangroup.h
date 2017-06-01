@@ -20,6 +20,8 @@ public:
     //获取好友列表()
     vector<string> getAllLinkmanInformation(string account);
 
+    string getALinkmanInfo(QString account,QString linkmanAccount);//获取一个联系人的信息
+
     //改变联系人所属组
     bool changeLinkmanGroup(QString account,QString linkmanAccount,QString linkmanGroupname);
 

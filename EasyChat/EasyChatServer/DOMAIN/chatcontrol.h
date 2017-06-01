@@ -33,6 +33,8 @@ public:
     //获取联系人列表
     vector<string> getLinkmanList(string account);
 
+    string getALinkmanInfo(string account,string linkmanAccount);
+
     //建群
     string createGroup(string groupName, string groupOwner);
 
@@ -68,6 +70,14 @@ public:
 
     //同意添加好友
     int agreeAddFriend(string initiated,string aims);
+
+    bool isGroup(string account);
+
+    //获取一个组的所有成员帐号
+    vector<string> getGroupAccounts(string account);
+
+    //获取一个组所有成员的详细信息
+    vector<string> getGroupInfo(string account);
 public:
     static string encryptionTheString(string data, char key);
 };
