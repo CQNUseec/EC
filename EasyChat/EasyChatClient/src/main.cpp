@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
         if(app.isRunning())
             return 0;
         EcInteraction  easyCaht(&app);
-
         QQmlApplicationEngine engine;
         engine.rootContext()->setContextProperty("EcInteraction", &easyCaht);
         engine.rootContext()->setContextProperty("friendListModel", easyCaht.getFriendList()->getFriendItemModel());

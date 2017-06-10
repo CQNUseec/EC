@@ -4,13 +4,29 @@
 #include <QJsonDocument>
 #include <QThread>
 #include <boost/thread.hpp>
+#include <QFile>
+#include <QDir>
+#include <QApplication>
 using std::string;
 
 EcClient::EcClient(EcInteraction* ecInteraction) : m_ecInteraction(ecInteraction)
 {
-    //192.168.43.17
-    m_qpNetWork.reset(new NetWork("192.168.43.17", 6688));
-    //   m_qpNetWork->run();
+    QString ServerIP;
+    QString appPath = QCoreApplication::applicationDirPath();
+    QString configFilePath = appPath + QString("/") + QString("config.txt");
+    QFile file(configFilePath);
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QTextStream in(&file);
+        in >> ServerIP;
+    }
+    else
+    {
+        cout << "Open config.txt failed." << endl;
+        qDebug() << file.error() <<endl;
+        qDebug() << file.errorString() << endl;
+    }
+    m_qpNetWork.reset(new NetWork(ServerIP.toStdString(), 6688));
     connect(m_qpNetWork.data(), &NetWork::sig_messageFromServer, this, &EcClient::slot_messageFromServer);
     connect(ecInteraction, &EcInteraction::sig_sendMessage, this, &EcClient::slot_sendMessage, Qt::QueuedConnection);
     connect(ecInteraction, &EcInteraction::sig_signOut, this, &EcClient::slot_signOut, Qt::BlockingQueuedConnection);
