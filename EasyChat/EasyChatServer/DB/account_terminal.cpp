@@ -41,6 +41,10 @@ string account_terminal::getflag(QString account)
     {
         flag= query.value(1).toString().toStdString();
     }
+    else
+    {
+        flag="off_line";
+    }
     return flag;
 }
 

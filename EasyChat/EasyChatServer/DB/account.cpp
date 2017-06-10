@@ -59,15 +59,17 @@ vector<string> Account::getAccountInformation(string account)
     vector<string> ret;
     if(query.next())
     {
-        for(int i=0;i<query.size();i++)
-        {
-            QString tmpvalue = query.value(i).toString();
-            ret.push_back(tmpvalue.toStdString());
-        }
+        string account = query.value(0).toString().toStdString();
+        string nickname= query.value(1).toString().toStdString();
+        string sex =query.value(2).toString().toStdString();
+        string age = query.value(3).toString().toStdString();
+        string a = string{age};
+        ret.push_back(account);
+        ret.push_back(nickname);
+        ret.push_back(sex);
+        ret.push_back(age);
     }
-
     return ret;
-
 }
 
 bool Account::isAccountExist(string account)

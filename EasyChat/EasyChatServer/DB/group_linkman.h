@@ -19,8 +19,11 @@ public:
     QString deleteLinkmanFromGroup(QString groupAccount);
     //改群备注
     QString remarkGroupname(QString groupAccount,QString remarkname);
-    //获取一个群的所有人（关联）
-    vector<QString> getAllLinkmanOfGroup(QString groupAccount);
+
+    //获取某个聊天组的所有联系人帐号
+    vector<string> getAllLinkmanAccount(QString groupAccount);
+
+    vector<string> getAllLinkmanInfo(QString groupAccount);
 
     //获取一个人所在的所有群
     vector<string> getAccountAllGroup(QString linkmanAccount);

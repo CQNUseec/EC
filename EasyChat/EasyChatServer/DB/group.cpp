@@ -1,4 +1,5 @@
 #include "group.h"
+#include "group_linkman.h"
 #include <time.h>
 
 Group::Group()
@@ -23,6 +24,11 @@ string Group::addGroup(string groupName, string groupOwner)
     query.bindValue(":groupowner", QString::fromStdString(groupOwner));
 
     query.exec();
+
+    //创建一个组成功后，创建自身与这个组的关联
+    group_linkman gl;
+    gl.addLinkmanToGroup(groupaccount,QString::fromStdString(groupOwner),QString::fromStdString(groupName));
+
     return groupaccount.toStdString();
 }
 
@@ -76,7 +82,7 @@ bool Group::IsExsitInDB(string groupAccount)
 
     QString ac = QString::fromStdString(groupAccount);
     QString infoInDB=QString("SELECT * FROM _group "
-                             "WHERE groupAccount = '%1'").arg(ac);
+                             "WHERE groupaccount = '%1'").arg(ac);
     QSqlQuery query;
     query.exec(infoInDB);
 

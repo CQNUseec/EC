@@ -92,11 +92,18 @@ string ChatControl::findAccountInfo(string account)
 
 vector<string> ChatControl::getLinkmanList(string account)
 {
-
     linkman_linkmanGroup ll;
     vector<string> ret;
 
     ret = ll.getAllLinkmanInformation(account);
+    return ret;
+}
+
+string ChatControl::getALinkmanInfo(string account, string linkmanAccount)
+{
+    linkman_linkmanGroup ll;
+    string ret;
+    ret = ll.getALinkmanInfo(QString::fromStdString(account),QString::fromStdString(linkmanAccount));
     return ret;
 }
 
@@ -208,6 +215,34 @@ int ChatControl::agreeAddFriend(string initiated, string aims)
         ll.addLinkmanToLinkmanGroup(QString::fromStdString(aims),QString::fromStdString(initiated),QString::fromStdString("friend"),QString::fromStdString(""));
         return EC_ADDFRIEND_SUCCESS;
     }
+}
+
+bool ChatControl::isGroup(string account)
+{
+    Group g;
+    if(g.IsExsitInDB(account))
+        return true;
+    else
+        return false;
+}
+
+vector<string> ChatControl::getGroupAccounts(string account)
+{
+   group_linkman gl;
+   vector<string> ret;
+   ret = gl.getAllLinkmanAccount(QString::fromStdString(account));
+   return ret;
+}
+
+vector<string> ChatControl::getGroupInfo(string account)
+{
+    cout << "get A group member "<<endl;
+    group_linkman gl;
+    vector<string> ret;
+
+    ret =gl.getAllLinkmanInfo(QString::fromStdString(account));
+
+    return ret;
 }
 
 string ChatControl::encryptionTheString(string data, char key)
